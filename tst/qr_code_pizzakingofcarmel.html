@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>HTML5 Canvas example</title>
+<script type="text/javascript">
+window.addEventListener('load', function () {
+    var element = document.getElementById('myCanvas');
+    if (!element || !element.getContext) {
+      return;
+    }
+
+    var context = element.getContext('2d');
+    if (!context || !context.drawImage) {
+       return;
+    }
+
+    context.fillStyle   = '#FFFFFF'; // set canvas background color
+    context.fillRect  (0,   0, 350, 350);  // now fill the canvas 
+
+    context.fillStyle    = '#000000';  // set text color
+    context.font         = 'bold 15px sans-serif';  // set text font
+    context.textBaseline = 'top';  // set text position 
+    context.fillText  ('http://pizzakingofcarmel.com', 10, 335);  // set the text with my blogs URL
+/*
+    context.shadowOffsetX = 10; // set x offset for my shadow
+    context.shadowOffsetY = 10; // set y offset for my shadow 
+    context.shadowBlur = 10;  // set blur intensity
+    context.shadowColor = "black";  // set blur color
+*/
+//    context.rotate(0.05)  // get artsy and rotate context slightly
+
+
+    // create and draw the google generated qr-code image  
+    var google_img = new Image();
+    google_img.addEventListener('load', function () {
+       context.drawImage(this, 35, 25, 275, 275);
+    },false);
+    google_img.src = "https://chart.googleapis.com/chart?chs=275x275&cht=qr&chl=http://pizzakingofcarmel.com?lang=en&choe=UTF-8";
+/*
+    // create amd draw the branding image for the qr-code
+    var branding_img = new Image();
+    branding_img.addEventListener('load', function () {
+       context.drawImage(this, 312, -8, 30, 30);
+    },false);
+    branding_img.src = "https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/resource/dw-small.png";
+*/
+  },false);
+</script>
+</head>
+
+<body>
+<div>
+<canvas id="myCanvas" width="350" height="350">
+    Your browser does not support HTML5 Canvas element.
+</canvas>
+</div>
+</body>
+</html>

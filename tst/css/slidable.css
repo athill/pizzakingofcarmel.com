@@ -1,0 +1,75 @@
+.slideable {
+	position: relative;
+	zoom: 1;
+	color: #FFF;
+	
+}
+
+.slideable .wrapper {
+	overflow: hidden;
+	position: relative;
+	zoom: 1;
+}
+
+.slideable ul.slides {
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	zoom: 1;
+}
+
+.slideable li.slide {
+	float: left;
+	zoom: 1;
+}
+
+.slideable .navigation {
+	position: absolute;
+	top: 10px;
+	right: 0;
+}
+
+.slideable .navigation .more {
+	float: left;
+	display: block;
+	font: normal 10px arial, sans-serif !important;
+	text-transform: lowercase;
+	padding-top: 9px;
+}
+
+.slideable .navigation p {
+	float: left;
+	background: url(../../page/elements/images/home_spritemap.png) no-repeat -35px
+		-320px;
+	text-indent: -999px;
+	margin-left: 5px;
+}
+
+.slideable .navigation p a {
+	display: block;
+	cursor: auto;
+	width: 19px;
+	height: 19px;
+}
+
+.slideable .navigation p.previous {
+	background-position: -35px -320px;
+}
+
+.slideable .navigation p.previous_on {
+	background-position: 0 -320px;
+}
+
+.slideable .navigation p.previous_on a,.slideable .navigation p.next_on a {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.slideable .navigation p.next {
+	background-position: -35px -360px;
+}
+
+.slideable .navigation p.next_on {
+	background-position: 0 -360px;
+}

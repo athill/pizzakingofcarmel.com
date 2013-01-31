@@ -1,0 +1,91 @@
+/****************************
+ *********menu page***********
+ *****************************/
+#menu-container {
+	margin: 0 auto; width: 40em;
+}
+
+
+#menu-download {
+	text-align: right;
+}
+
+
+.menu-section {
+	width: 30em;
+} 
+ 
+.menu-section-title {
+	font-weight: bold;
+	font-size: 1.8em;
+	text-align: center;
+	margin-bottom: 1em; 
+}
+
+.menu-item {
+	padding: 1em;
+}
+
+
+.menu-item-name-price-row {
+	position: clear: both;
+/*	width: 100%;*/
+}
+
+.menu-item-name {
+	width: 15em;
+	float: left;
+	font-weight: bold;
+}
+.menu-item-price {
+	float: right;
+	text-align: right;
+}
+
+.menu-item-descr {
+	clear: both;
+}
+
+.menu-table {
+	width: 98%;
+}
+
+.menu-table, .menu-table td, .menu-table th {
+	border-right: thin solid black;
+	border-bottom: thin solid black;
+	margin: 0;
+	padding: 0.5em;
+	border-collapse: collapse;
+}
+
+.menu-table th, .menu-table {
+	border-width: medium;
+}
+
+#print-container * {
+	font-size: 10pt; 
+}
+
+#print-container .menu-section {
+	width: 99%;
+}
+
+#print-container .menu-row {
+	clear: both;
+/*	width: 100%; */
+}
+
+#print-container .menu-cell {
+	width: 48%;
+	margin: 0.5%;
+	border: thin solid black;
+	
+}
+
+#print-container .left {
+	float: left;
+}
+
+#print-container .right {
+	float: right;
+}
