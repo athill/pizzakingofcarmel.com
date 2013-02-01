@@ -50,8 +50,6 @@ $settings = array(
 ////Defaults based on other defaults
 $settings['pageTitle']  = $settings['siteName'];
 
-
-// $settings['dir'] = preg_replace('/(.*)\/[^\/]+$/', '$1', $_SERVER['SCRIPT_FILENAME']);
 $settings['filename'] = basename($self).'.php';	////remove '.php'
 $settings['isPRD'] = !$settings['isTST'];
 $settings['incroot'] = $settings['fileroot'] . "/inc";
@@ -69,18 +67,20 @@ $settings['path'] = $tmp;
 if (strpos($settings['path'], "/") !== 0) {
 	$settings['path'] = "/".$settings['path'];
 }*/
-//if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $settings['path'].'<br />';	
-$settings["script"] = explode("/", $tmp);
+
+
+////TODO: script ??? doesn't appear to be used.
+/*$settings["script"] = explode("/", $tmp);
 if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
 	array_shift($settings["script"]);
-}
-$GLOBALS['menuStyle'] = "popup";
+}*/
 
 
 
 ////Global objects
 include_once($settings['incroot'] . "/html.class.php");
 $settings['h'] = html::singleton();
+$h = $settings['h'];
 include_once($settings['incroot'] . "/Logger.class.php");
 
 // $settings['logger'] = new Logger();
