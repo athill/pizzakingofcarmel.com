@@ -2,18 +2,25 @@
 date_default_timezone_set('America/New_York');
 ////useless here if any vars are set. first thing on each page (for sessions)
 //session_start();
+///////////////////
+//// server vars
+//////////////////
+$host = $_SERVER['HTTP_HOST'];
+$self = $_SERVER['PHP_SELF'];
 
 //////////////////////
 ////Set up web and file root
 /////////////////////////
 $webroot = "";
 $basefileroot = "/home/content/p/k/c/pkcar/html";
+
+
 ////Local
-if ($_SERVER['HTTP_HOST'] == 'localhost' || !array_key_exists($_SERVER, 'HTTP_HOST')) {
+if ($host == 'localhost' || !array_key_exists($_SERVER, $host)) {
 	$webroot = '/pkcar';
 	$basefileroot = '/var/www/html';
 }
-$webdir = dirname($_SERVER['SCRIPT_NAME']);
+$webdir = dirname($self);
 $subdir = '';
 if (stripos($webdir, $webroot."/new") === 0) {
 	$subdir .= "/new";
@@ -30,7 +37,7 @@ $settings = array(
 	"fileroot" => $basefileroot,
 	"isTST" => $webroot != "",
 
-	"view" => $_SERVER['PHP_SELF'],
+	"view" => $self,
 	"siteName" 	=> "Pizza King of Carmel",
 	"leftSideBar" => array('type'=>"none", 'args'=>array()),
 	"rightSideBar" => "none",
@@ -45,38 +52,28 @@ $settings['pageTitle']  = $settings['siteName'];
 
 
 // $settings['dir'] = preg_replace('/(.*)\/[^\/]+$/', '$1', $_SERVER['SCRIPT_FILENAME']);
-$settings['filename'] = preg_replace('/.*\/([^\/]+)$/', '$1', $_SERVER['PHP_SELF']);
+$settings['filename'] = basename($self).'.php';	////remove '.php'
 $settings['isPRD'] = !$settings['isTST'];
 $settings['incroot'] = $settings['fileroot'] . "/inc";
 
-
-////Build script array from path
-$script = preg_replace("/(.*)\/$/", "$1", $GLOBALS['view']);
-$script = preg_replace("/^\/(.*)/", "$1", $script);
-$GLOBALS['script'] = explode("/", $script);
-$setting['script'] = $GLOBALS['script'];
-////TODO: Doing what? Better way: native functions
-//if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $_SERVER['PHP_SELF'].'<br />';	//echo $tmp;
-//if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $settings['webroot'].'<br />';	//echo $tmp;
-$tmp = $_SERVER['PHP_SELF'];
-if ($webroot != "") {
-	$tmp = str_replace($settings['webroot']."/", "", $_SERVER['PHP_SELF']);
+////TODO: Doing what? Setting path ???
+/*if ($webroot != "") {
+	$tmp = str_replace($settings['webroot']."/", "", $self);
+	echo $tmp.'<br>';
 } else {
 }
 //if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $tmp.'<br />';	//echo $tmp;
 $tmp = preg_replace("/index.php$/", "", $tmp);
-
+echo $tmp.'<br>';
 $settings['path'] = $tmp;
 if (strpos($settings['path'], "/") !== 0) {
 	$settings['path'] = "/".$settings['path'];
-}
+}*/
 //if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $settings['path'].'<br />';	
 $settings["script"] = explode("/", $tmp);
 if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
 	array_shift($settings["script"]);
 }
-//print_r($settings["script"]);
-$settings['view'] = $_SERVER['SCRIPT_NAME'];
 $GLOBALS['menuStyle'] = "popup";
 
 
