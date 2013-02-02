@@ -77,6 +77,13 @@ if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
 
 
 
+/*
+TODO: autoload objects!!!!!!!!
+http://www.php.net/manual/en/function.spl-autoload-register.php
+*/
+
+
+
 ////Global objects
 include_once($settings['incroot'] . "/html.class.php");
 $settings['h'] = html::singleton();
@@ -95,8 +102,8 @@ include_once($settings['incroot']."/Menu.class.php");
 $xmlfile = $settings['fileroot'].'/menu.xml';
 
 
-$menu = new Menu($xmlfile, $settings['script']);
-$retval = $menu->buildPathAndSetTitle(array('script'=>$settings['script']));
+$menu = new Menu($xmlfile);
+$retval = $menu->buildPathAndSetTitle();
 
 
 //echo 'um';
