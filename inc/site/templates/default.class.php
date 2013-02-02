@@ -30,7 +30,7 @@ class TemplateInstance {
 		global $h, $webroot;
 		////header container
 		////Begin Display
-		$h->body();
+		//$h->body();
 		$h->tag("a", 'name="top" id="top"', '', false);
 		////header container
 		$h->otag('a', 'href="'.$webroot.'"');
