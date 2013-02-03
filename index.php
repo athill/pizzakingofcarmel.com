@@ -23,17 +23,19 @@ $(function() {
 
 $h->br();
 $h->odiv('style="text-align: center;"');
-$h->odiv('style="float: right"');
-$h->odiv('id="canvas-wrapper"');
-$h->otag('canvas', 'id="star"');
-$h->ctag('canvas');
-$h->odiv('class="canvas-text"');
-$h->span($data['text']);
-$h->cdiv();
-$h->cdiv();
-$h->cdiv();
+if ($data['display']) {
+	$h->odiv('style="float: right"');
+	$h->odiv('id="canvas-wrapper"');
+	$h->otag('canvas', 'id="star"');
+	$h->ctag('canvas');
+	$h->odiv('class="canvas-text"');
+	$h->span($data['text']);
+	$h->cdiv('close canvas-text');
+	$h->cdiv('close canvas-wrapper');
+	$h->cdiv('close float: right');
+}
 $h->img("/img/logo_from_sack.png", "", 'align="center"');
-$h->cdiv();
+$h->cdiv('close text-align: center');
 
 $template->footer();
 
