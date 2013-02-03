@@ -116,6 +116,12 @@ class Html extends Xml {
 		return (substr($link, 0, 1) == "/") ? $GLOBALS['site']['webroot'] . $link : $link;
 	}
 
+	function pa($array) {
+		$this->opre();
+		print_r($array);
+		$this->cpre();
+	}
+
 	/*****
 	 * Document Tags
 	 ******************/
