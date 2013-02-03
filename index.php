@@ -1,8 +1,9 @@
 <?php
 $local['jsModules']['textfill'] = true;
 include("inc/application.php");
+
 $h->scriptfile('/js/star.jquery.js');
-$datafile = $fileroot."/data.json";
+$datafile = $site['fileroot']."/data.json";
 $json = file_get_contents($datafile);
 $data = json_decode($json, true);
 if ($data['display']) {
@@ -39,11 +40,6 @@ $h->cdiv('close text-align: center');
 
 $template->footer();
 
-/*
-if ($footer != "") {
-	include_once($GLOBALS['fileroot'] . $footer);
-}
-*/
 ?>
 
 

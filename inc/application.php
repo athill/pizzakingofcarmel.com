@@ -8,12 +8,12 @@ date_default_timezone_set('America/New_York');
 $host = $_SERVER['HTTP_HOST'];
 $self = $_SERVER['PHP_SELF'];
 
+
 //////////////////////
 ////Set up web and file root
 /////////////////////////
 $webroot = "";
 $basefileroot = "/home/content/p/k/c/pkcar/html";
-
 
 ////Local
 if ($host == 'localhost' || !array_key_exists($_SERVER, $host)) {
@@ -36,7 +36,8 @@ $settings = array(
 	"webroot" => $webroot,
 	"fileroot" => $basefileroot,
 	"isTST" => $webroot != "",
-
+	'dir' => dirname($self),
+	'filename' => basename($self),
 	"view" => $self,
 	"siteName" 	=> "Pizza King of Carmel",
 	"leftSideBar" => array('type'=>"none", 'args'=>array()),
@@ -49,38 +50,38 @@ $settings = array(
 );
 ////Defaults based on other defaults
 $settings['pageTitle']  = $settings['siteName'];
-
-$settings['filename'] = basename($self);	////remove '.php'
 $settings['isPRD'] = !$settings['isTST'];
 $settings['incroot'] = $settings['fileroot'] . "/inc";
 
+
+
 ////TODO: Doing what? Setting path ???
-/*if ($webroot != "") {
-	$tmp = str_replace($settings['webroot']."/", "", $self);
-	echo $tmp.'<br>';
-} else {
-}
-//if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $tmp.'<br />';	//echo $tmp;
-$tmp = preg_replace("/index.php$/", "", $tmp);
-echo $tmp.'<br>';
-$settings['path'] = $tmp;
-if (strpos($settings['path'], "/") !== 0) {
-	$settings['path'] = "/".$settings['path'];
-}*/
+// if ($webroot != "") {
+// 	$tmp = str_replace($settings['webroot']."/", "", $self);
+// 	echo $tmp.'<br>';
+// } else {
+// }
+// //if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $tmp.'<br />';	//echo $tmp;
+// $tmp = preg_replace("/index.php$/", "", $tmp);
+// echo $tmp.'<br>';
+// $settings['path'] = $tmp;
+// if (strpos($settings['path'], "/") !== 0) {
+// 	$settings['path'] = "/".$settings['path'];
+// }
 
 
-////TODO: script ??? doesn't appear to be used.
-/*$settings["script"] = explode("/", $tmp);
-if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
-	array_shift($settings["script"]);
-}*/
+// ////TODO: script ??? doesn't appear to be used.
+// /*$settings["script"] = explode("/", $tmp);
+// if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
+// 	array_shift($settings["script"]);
+// }
 
 
 
-/*
-TODO: autoload objects!!!!!!!!
-http://www.php.net/manual/en/function.spl-autoload-register.php
-*/
+
+// TODO: autoload objects!!!!!!!!
+// http://www.php.net/manual/en/function.spl-autoload-register.php
+
 
 
 
@@ -129,13 +130,15 @@ $settings['jsModules']['popup'] = true;
 
 
 ////Globalize/localize vars
-foreach ($settings as $key => $value) {
-	$GLOBALS[$key] = $value;
-	$$key = $value;
-}
+// foreach ($settings as $key => $value) {
+// 	$GLOBALS[$key] = $value;
+// 	$$key = $value;
+// }
+
+$site = $settings;
 
 ////Directory Settings -- override global settings for directory
-$dirSettings = $GLOBALS['dir'].'/directorySettings.php';
+$dirSettings = $settings['dir'].'/directorySettings.php';
 //print_r($GLOBALS);
 if (file_exists($dirSettings)) {
 	require_once($dirSettings);
@@ -144,15 +147,15 @@ if (file_exists($dirSettings)) {
 
 
 //print_r($directory);
-if (isset($directory)) $GLOBALS = array_merge($GLOBALS, $directory) or die("???");
+if (isset($directory)) $GLOBALS['site'] = array_merge($GLOBALS['site'], $directory) or die("???");
 ////Local Settings override global and directory
-if (isset($local))$GLOBALS = array_merge($GLOBALS, $local) or die("^^^");
+if (isset($local))$GLOBALS['site'] = array_merge($GLOBALS['site'], $local) or die("^^^");
 
-if (isset($directory['jsModules'])) $GLOBALS['jsModules'] = array_merge($settings['jsModules'], $directory['jsModules']) or die("???");
+if (isset($directory['jsModules'])) $GLOBALS['site']['jsModules'] = array_merge($settings['jsModules'], $directory['jsModules']) or die("???");
 ////Local Settings override global and directory
 if (isset($local['jsModules'])) {
 
-	$GLOBALS['jsModules'] = array_merge($settings['jsModules'], $local['jsModules']) or die("^^^");
+	$GLOBALS['site']['jsModules'] = array_merge($settings['jsModules'], $local['jsModules']) or die("^^^");
 }
 
 //echo '<pre>';
@@ -165,13 +168,13 @@ if (isset($local['jsModules'])) {
 
 ////Error handler
 ////TODO: Move up to global objects?
-include_once($incroot."/Error.class.php");
+include_once($site['incroot']."/Error.class.php");
 $error = new Error($fileroot.'/logs/error.log.txt');
 
 ////Template
 ////TODO: Move instantiation up to global objects? um, no -- needs Menu and Template
-include_once($incroot."/site/Template.class.php");
-$template = new Template($menu, $GLOBALS["template"]);
+include_once($site['incroot']."/site/Template.class.php");
+$template = new Template($menu, $GLOBALS['site']["template"]);
 
 ////TODO: Move head() and heading() to template.start() ?
 $template->head();

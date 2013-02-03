@@ -1,5 +1,5 @@
 <?php
-include_once($GLOBALS['incroot']."/Html.class.php");
+include_once($GLOBALS['site']['incroot']."/Html.class.php");
 $h = html::singleton();
 //echo "included";
 

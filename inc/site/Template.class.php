@@ -1,5 +1,5 @@
 <?php
-include_once($GLOBALS['incroot']."/Html.class.php");
+include_once($GLOBALS['site']['incroot']."/Html.class.php");
 $h = html::singleton();
 
 class Template {
@@ -15,7 +15,7 @@ class Template {
 		$this->templateText = $templateText;
 		// echo 'um'.$templateText;
 		if ($this->templateText == "none") return;
-		include_once($GLOBALS['incroot']."/site/templates/".$this->templateText.".class.php");
+		include_once($GLOBALS['site']['incroot']."/site/templates/".$this->templateText.".class.php");
 		$this->template = new TemplateInstance($this) or die("???");
 		$this->menu = $menu;
 	}
@@ -29,24 +29,24 @@ class Template {
 //	  $h->pa($this->includes);
 	  $this->includes = array_merge($this->includes, $this->template->scripts, $this->template->stylesheets);
 	  ////Add scripts/styles from jsModules
-	  include_once($GLOBALS['incroot']."/JsModule.class.php");
+	  include_once($GLOBALS['site']['incroot']."/JsModule.class.php");
 	  $jsMods = new JsModule();
-	  foreach ($GLOBALS['jsModules'] as $module => $bool) {
+	  foreach ($GLOBALS['site']['jsModules'] as $module => $bool) {
 		  if ($bool) {
 			  	$mod = $jsMods->modules[$module];
 		  		$this->includes = array_merge($this->includes, $mod['scripts'], $mod['styles']);
 		  }
 	  }
  	  ////Add scripts/sheets from $GLOBALS
-	  $this->includes = array_merge($this->includes, $GLOBALS['scripts'], $GLOBALS['stylesheets']);
+	  $this->includes = array_merge($this->includes, $GLOBALS['site']['scripts'], $GLOBALS['site']['stylesheets']);
 	  ////HTML/head
-	  $title = $GLOBALS['settings']['siteName'];
-	  if ($GLOBALS['settings']['pageTitle'] != "") {
-		$title .= ': '. $GLOBALS['settings']['pageTitle'];
+	  $title = $GLOBALS['site']['siteName'];
+	  if ($GLOBALS['site']['pageTitle'] != "") {
+		$title .= ': '. $GLOBALS['site']['pageTitle'];
 	  }
 	  $h->ohtml($title, $this->includes);
-	  if (array_key_exists('headerExtra', $GLOBALS)) {
-		$h->tnl($GLOBALS['headerExtra']);  
+	  if (array_key_exists('headerExtra', $GLOBALS['site'])) {
+		$h->tnl($GLOBALS['site']['headerExtra']);  
 	  }
 	  $h->body($this->template->bodyAtts);
 //	  $this->skipNav();		
@@ -57,13 +57,13 @@ class Template {
 		////Site structure
 		$h->odiv('id="layout"');
 		$class = "column123";
-		if ($GLOBALS['leftSideBar']['type'] != "none" && $GLOBALS['rightSideBar'] != "none") {
+		if ($GLOBALS['site']['leftSideBar']['type'] != "none" && $GLOBALS['site']['rightSideBar'] != "none") {
 			$class = 'column2';	////left-content-right
-			$this->leftSideBar($GLOBALS['leftSideBar']['type'], $GLOBALS['leftSideBar']['args']);
-		} else if ($GLOBALS['leftSideBar']['type'] != "none") {
+			$this->leftSideBar($GLOBALS['site']['leftSideBar']['type'], $GLOBALS['site']['leftSideBar']['args']);
+		} else if ($GLOBALS['site']['leftSideBar']['type'] != "none") {
 			$class = 'column23';	////left-content
-			$this->leftSideBar($GLOBALS['leftSideBar']['type'], $GLOBALS['leftSideBar']['args']);
-		} else if ($GLOBALS['rightSideBar'] != "none") {
+			$this->leftSideBar($GLOBALS['site']['leftSideBar']['type'], $GLOBALS['site']['leftSideBar']['args']);
+		} else if ($GLOBALS['site']['rightSideBar'] != "none") {
 			$class = 'column12';	////content-right
 		}
 		$h->odiv('id="content-wrapper" class="'.$class.'"');
@@ -74,8 +74,8 @@ class Template {
 		global $h;		
 		$h->cdiv('close #content');	////close content
 		$h->cdiv('close #content-wrapper');	//close content-wrapper
-		//$h->tbr('rsb: ' . $GLOBALS['rightSideBar']);
-		if ($GLOBALS['rightSideBar'] != "none") {
+		//$h->tbr('rsb: ' . $GLOBALS['site']['rightSideBar']);
+		if ($GLOBALS['site']['rightSideBar'] != "none") {
 			$this->rightSideBar();
 		}
 		$h->cdiv('close #layout');	//close layout
@@ -93,7 +93,7 @@ class Template {
 		array("display" => "Search"),
 		array("display" => "Primary Navigation")
 	  );
-	  if ($GLOBALS['leftSideBar']['type'] != "none") {
+	  if ($GLOBALS['site']['leftSideBar']['type'] != "none") {
 		$links[] = 	array("display" => "Secondary Navigation");
 	  }
 	  ////generate href ids
@@ -123,7 +123,7 @@ class Template {
 				$h->tnl($args['content']);
 				break;
 			case 'menu':
-				$path = $GLOBALS['settings']['path'];				
+				$path = $GLOBALS['site']['settings']['path'];				
 //				if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $path.'<br />';				
 				if (array_key_exists('path', $args)) {
 					$path = $args['path'];
@@ -145,7 +145,7 @@ class Template {
 	public function rightSideBar() {
 		global $h;
 		$h->odiv('id="column3"');
-		$h->tnl($GLOBALS['rightSideBar']);
+		$h->tnl($GLOBALS['site']['rightSideBar']);
 		$h->cdiv('close column3'); //close column 3
 	}
 	
