@@ -31,7 +31,8 @@ class TemplateInstance {
 		////header container
 		////Begin Display
 		//$h->body();
-		$h->tag("a", 'name="top" id="top"', '', true);
+		// $h->tag("a", 'name="top" id="top"', '', true);
+		// $h->oa('/');
 		////header container
 		$h->otag('a', 'href="'.$webroot.'"');
 		$h->odiv('id="header"');
@@ -41,8 +42,8 @@ class TemplateInstance {
 		$h->img("/img/magnet_right.png", "We Deliver!");
 		//$h->cdiv();
 		$h->img("/img/pizzakingme.png", "", 'style="float: right;" id="kingme-right"');
-		$h->cdiv(); ////Close header	
-		$h->ctag('a');
+		$h->cdiv('close #header');
+		$h->ctag('a', false, 'close a tag');
 		$h->odiv('id="contentwrapper"');
 		$h->odiv('id="contentcolumn"');
 
@@ -53,15 +54,6 @@ class TemplateInstance {
 		$h->h(3, "Primary Navigation", 'id="primary-navigation" class="hide"');
 //		$array = $this->base->menu->xmlMenu2array($this->xml);
 		$h->linkList($this->base->menu->xmlMenu2array(), 'class="sf-menu sf-menu sf-vertical" id="global-nav-menu"');
-	}
-
-
-	function geekOut($content) {
-		global $h;
-		$h->odiv('id="geek-out"');
-		$h->span("&nbsp;Geek Out&nbsp;", 'id="geek-out-button"');
-		$h->div($content, 'id="geek-out-content" class="hide"');
-		$h->cdiv();
 	}
 	
 	private function displaySearch() {
@@ -103,13 +95,13 @@ class TemplateInstance {
 	public function footer() {
 		global $h;
 		$this->base->closeLayout();
-		$h->cdiv();	////close content
-		$h->cdiv(); ////closecontentwrapper
+		$h->cdiv('close #contentcolumn');	////close content
+		$h->cdiv('close #contentwrapper'); ////closecontentwrapper
 
 		$h->odiv('id="leftcolumn"');
 		//$sfmenu->displayMenu();
 		$this->renderGlobalNav();
-		$h->cdiv();
+		$h->cdiv('close #leftcolumn');
 
 
 		//$h->cdiv(); ////close main
@@ -120,8 +112,8 @@ class TemplateInstance {
 		$h->a("/about.php", "About Us");  
 		$h->tnl(" | ");
 		$h->a("/contact.php", "Contact Us");
-		$h->cdiv();	////close footer  
-
+		$h->cdiv('close #footer');	////close footer  
+		$h->cdiv('close #page');
 
 		$h->chtml();
 	}

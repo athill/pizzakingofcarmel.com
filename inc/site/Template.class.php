@@ -72,13 +72,13 @@ class Template {
 
 	function closeLayout() {
 		global $h;		
-		$h->cdiv();	////close content
-		$h->cdiv();	//close content-wrapper
+		$h->cdiv('close #content');	////close content
+		$h->cdiv('close #content-wrapper');	//close content-wrapper
 		//$h->tbr('rsb: ' . $GLOBALS['rightSideBar']);
 		if ($GLOBALS['rightSideBar'] != "none") {
 			$this->rightSideBar();
 		}
-		$h->cdiv();	//close layout
+		$h->cdiv('close #layout');	//close layout
 
 
 	}
@@ -146,7 +146,7 @@ class Template {
 		global $h;
 		$h->odiv('id="column3"');
 		$h->tnl($GLOBALS['rightSideBar']);
-		$h->cdiv(); //close column 3
+		$h->cdiv('close column3'); //close column 3
 	}
 	
 	public function breadcrumbs($opts=array()) {
