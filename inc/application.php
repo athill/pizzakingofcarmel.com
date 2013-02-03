@@ -50,7 +50,7 @@ $settings = array(
 ////Defaults based on other defaults
 $settings['pageTitle']  = $settings['siteName'];
 
-$settings['filename'] = basename($self).'.php';	////remove '.php'
+$settings['filename'] = basename($self);	////remove '.php'
 $settings['isPRD'] = !$settings['isTST'];
 $settings['incroot'] = $settings['fileroot'] . "/inc";
 
@@ -85,7 +85,9 @@ http://www.php.net/manual/en/function.spl-autoload-register.php
 
 
 ////Global objects
-include_once($settings['incroot'] . "/html.class.php");
+include_once($settings['incroot'] . "/Html.class.php");
+
+$GLOBALS['site']['webroot'] = $webroot;
 $settings['h'] = html::singleton();
 $h = $settings['h'];
 include_once($settings['incroot'] . "/Logger.class.php");
@@ -98,11 +100,15 @@ include_once($settings['incroot'] . "/Logger.class.php");
 
 ////Menu
 //echo "here0".$incroot."/Menu.class.php";
+
+
 include_once($settings['incroot']."/Menu.class.php");
+
 $xmlfile = $settings['fileroot'].'/menu.xml';
 
 
 $menu = new Menu($xmlfile);
+
 $retval = $menu->buildPathAndSetTitle();
 
 
@@ -165,8 +171,8 @@ $error = new Error($fileroot.'/logs/error.log.txt');
 ////Template
 ////TODO: Move instantiation up to global objects? um, no -- needs Menu and Template
 include_once($incroot."/site/Template.class.php");
-
 $template = new Template($menu, $GLOBALS["template"]);
+
 ////TODO: Move head() and heading() to template.start() ?
 $template->head();
 $template->heading();

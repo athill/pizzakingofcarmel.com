@@ -1,5 +1,5 @@
 <?php
-include_once($GLOBALS['incroot']."/html.class.php");
+include_once($GLOBALS['incroot']."/Html.class.php");
 $h = html::singleton();
 
 class Template {
@@ -13,7 +13,7 @@ class Template {
 	public function __construct($menu, $templateText="default") {
 		global $incroot;
 		$this->templateText = $templateText;
-		//echo 'um'.$templateText;
+		// echo 'um'.$templateText;
 		if ($this->templateText == "none") return;
 		include_once($GLOBALS['incroot']."/site/templates/".$this->templateText.".class.php");
 		$this->template = new TemplateInstance($this) or die("???");

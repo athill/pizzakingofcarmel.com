@@ -22,7 +22,7 @@
  *
  */
 
-include_once($GLOBALS['settings']['incroot']."/html.class.php");
+include_once($GLOBALS['settings']['incroot']."/Html.class.php");
 
 	
 $h = html::singleton();

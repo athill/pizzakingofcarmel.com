@@ -1,5 +1,5 @@
 <?php
-include_once($GLOBALS['incroot']."/html.class.php");
+include_once($GLOBALS['incroot']."/Html.class.php");
 $h = html::singleton();
 //echo "included";
 
@@ -31,7 +31,7 @@ class TemplateInstance {
 		////header container
 		////Begin Display
 		//$h->body();
-		$h->tag("a", 'name="top" id="top"', '', false);
+		$h->tag("a", 'name="top" id="top"', '', true);
 		////header container
 		$h->otag('a', 'href="'.$webroot.'"');
 		$h->odiv('id="header"');
