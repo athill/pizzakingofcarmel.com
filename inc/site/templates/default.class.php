@@ -34,15 +34,15 @@ class TemplateInstance {
 		// $h->tag("a", 'name="top" id="top"', '', true);
 		// $h->oa('/');
 		////header container
-		$h->otag('a', 'href="'.$webroot.'"');
-		$h->odiv('id="header"');
+		$h->otag('a', 'href="'.$webroot.'" id="header-link"');
+		$h->oheader('id="header"');
 		$h->img("/img/pizzakingme.png", "", 'id="kingme-left"');
 		$h->img("/img/header_logo.png", "Pizza King of Carmel");
 		$h->tnl("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 		$h->img("/img/magnet_right.png", "We Deliver!");
 		//$h->cdiv();
 		$h->img("/img/pizzakingme.png", "", 'style="float: right;" id="kingme-right"');
-		$h->cdiv('close #header');
+		$h->cheader('close #header');
 		$h->ctag('a', false, 'close a tag');
 		$h->odiv('id="contentwrapper"');
 		$h->odiv('id="contentcolumn"');
@@ -107,12 +107,12 @@ class TemplateInstance {
 		//$h->cdiv(); ////close main
 		//$h->cdiv(); ////close main
 
-		$h->odiv('id="footer"');
+		$h->ofooter('id="footer"');
 		$h->tnl("&copy; Pizza King of Carmel, ".date('Y')." | ");
 		$h->a("/about.php", "About Us");  
 		$h->tnl(" | ");
 		$h->a("/contact.php", "Contact Us");
-		$h->cdiv('close #footer');	////close footer  
+		$h->cfooter('close #footer');	////close footer  
 		$h->cdiv('close #page');
 
 		$h->chtml();

@@ -10,6 +10,10 @@ a:hover {
 	text-decoration: underline;
 }
 
+a#header-link:hover {
+	text-decoration: none !important;
+}
+
 body{
 	font-size: 1.2em;
 	/* text-align:center; */
