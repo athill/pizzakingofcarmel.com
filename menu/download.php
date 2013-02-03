@@ -1,4 +1,8 @@
 <?php
+$webroot = '/pkcar';
+header('location: '.$webroot.'/img/menu.pdf');
+exit();
+
 ////page config
 $local['stylesheets'] = array('/css/layout.css', 'menu.css');
 $local['template'] = "Basic";
