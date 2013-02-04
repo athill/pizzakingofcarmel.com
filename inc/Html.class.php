@@ -64,16 +64,15 @@ class Html extends Xml {
 		$indentTags = explode(',', "datalist,div,dl,fieldset,footer,header,nav,ol,section,select,tr,ul");
 		$command = substr($name, 0, 1);
 		$tag = substr($name, 1);
-		$this->tbr('um '.$name);
+	
 		//echo 'command: '. $command . ' tag: ' . $tag . ' in array?'. in_array($tag, $nonemptyTags);
 		////empty tag
 		if (in_array($name, $emptyTags) && $name != 'col') {
 			$atts = count($args) > 0 ? $args[0] : '';
 			$this->tag($name, $atts);
 		////input tag
-		} else if (in_array($name, explode(',', "radio,checkbox,hidden,submit,button,intext,date,color,datetime,"&
+		} else if (in_array($name, explode(',', "radio,checkbox,hidden,submit,button,intext,date,color,datetime,".
 				"inemail,range,search,tel,time,url,week"))) {
-			$this->tbr('not in here?');
 			$fieldname = $args[0];
 			$value = count($args) >= 2 ? $args[1] : '';
 			$atts = count($args) >= 3 ? $args[2] : '';
@@ -86,7 +85,7 @@ class Html extends Xml {
 			$this->input($name, $fieldname, $value, $atts);
 		////open/close tag
 		} else if (in_array($name, $nonemptyTags)) {
-			$this->tbr('nonempty');
+			// $this->tbr('nonempty');
 			$content = $args[0];
 			$atts = count($args) >= 2 ? $args[1] : '';
 			$inline = !preg_match('/\n/', $content);
@@ -110,7 +109,6 @@ class Html extends Xml {
 			$this->ctag($tag, $indent);
 			$this->otag($tag, $atts, $indent);
 		} else {
-			echo 'default.';
 			parent::__call($name, $args);	
 		}		
 	}
@@ -120,6 +118,7 @@ class Html extends Xml {
 		return (substr($link, 0, 1) == "/") ? $GLOBALS['site']['webroot'] . $link : $link;
 	}
 
+	// print array
 	function pa($array) {
 		$this->opre();
 		print_r($array);
