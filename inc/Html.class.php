@@ -64,6 +64,7 @@ class Html extends Xml {
 		$indentTags = explode(',', "datalist,div,dl,fieldset,footer,header,nav,ol,section,select,tr,ul");
 		$command = substr($name, 0, 1);
 		$tag = substr($name, 1);
+		$this->tbr('um '.$name);
 		//echo 'command: '. $command . ' tag: ' . $tag . ' in array?'. in_array($tag, $nonemptyTags);
 		////empty tag
 		if (in_array($name, $emptyTags) && $name != 'col') {
@@ -72,18 +73,20 @@ class Html extends Xml {
 		////input tag
 		} else if (in_array($name, explode(',', "radio,checkbox,hidden,submit,button,intext,date,color,datetime,"&
 				"inemail,range,search,tel,time,url,week"))) {
+			$this->tbr('not in here?');
 			$fieldname = $args[0];
 			$value = count($args) >= 2 ? $args[1] : '';
 			$atts = count($args) >= 3 ? $args[2] : '';
 			if ($name == 'date') {
 				$atts = $this->addClass($this->fixAtts($atts), "datepicker");
-				if (strpos("size=", atts) === false) $atts .= ' size="15"';
+				if (strpos("size=", $atts) === false) $atts .= ' size="15"';
 			}
-			$pos = strpos('in', name);
+			$pos = strpos('in', $name);
 			if ($pos == 0) $name = str_replace('in', '', $name);
 			$this->input($name, $fieldname, $value, $atts);
 		////open/close tag
 		} else if (in_array($name, $nonemptyTags)) {
+			$this->tbr('nonempty');
 			$content = $args[0];
 			$atts = count($args) >= 2 ? $args[1] : '';
 			$inline = !preg_match('/\n/', $content);
@@ -107,6 +110,7 @@ class Html extends Xml {
 			$this->ctag($tag, $indent);
 			$this->otag($tag, $atts, $indent);
 		} else {
+			echo 'default.';
 			parent::__call($name, $args);	
 		}		
 	}
@@ -638,9 +642,10 @@ class Html extends Xml {
 	 * Creates a text area 	 
 	 */
 	public function textarea($name, $value='', $atts='', $rows=5, $cols=60) {
+
 		$atts = ' name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"' . $this->fixAtts($atts); 
 		$atts = $this->checkId($name, $atts);
-		tag('textarea', $atts, $value, true, false);
+		$this->tag('textarea', $atts, $value, true, false);
 	}	
 
 
@@ -917,6 +922,18 @@ class Html extends Xml {
 		return $atts;
 	}				
 
-
+	public function dictionaryGrid($defns, $atts="") {
+		$this->odiv('class="dictionary-grid"'.$atts);
+		for ($i = 0; $i < count($defns); $i++) {
+			$defn = $defns[$i]; 
+			$this->odiv('class="row"');
+			$this->div($defn['left'].":", 'class="row-left"');
+			$this->div($defn['right'], 'class="row-right"');
+			$this->cdiv();	////close row
+		}
+		$this->cdiv();
+	}
 }
+
+
 ?>	

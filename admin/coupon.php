@@ -1,12 +1,13 @@
 <?php
 $local['jsModules']['textfill'] = true;
 $local['jsModules']['jquery-ui'] = true;
-
 include("../inc/application.php");
-include($fileroot."/specials/Coupon.class.php");
+$fileroot = $site['fileroot'];
+// print_r($site);
+include($site['fileroot']."/specials/Coupon.class.php");
 
 
-$datafile = $fileroot."/specials/data.json";
+$datafile = $site['fileroot']."/specials/data.json";
 
 ?>
 
