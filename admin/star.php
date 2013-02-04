@@ -4,7 +4,7 @@ include("../inc/application.php");
 
 $h->scriptfile('../js/star.jquery.js');
 $h->scriptfile('star.js');
-$datafile = $fileroot."/data.json";
+$datafile = $site['fileroot']."/data.json";
 
 if (array_key_exists('s', $_POST)) {
 	$data = array(
