@@ -2,12 +2,15 @@
 class RestaurantMenu {
 
 	protected $menus = array();
-	private $filename = "data.json";
+	private $filename = "/menu/data.json";
+	private $form = false;
 	public $returnToTop = true;
 
-	function __construct() {
-		$json = file_get_contents($this->filename);
+	function __construct($form=false) {
+		global $site;
+		$json = file_get_contents($site['fileroot'].$this->filename);
 		$this->menus = json_decode($json, true);
+		$this->form = $form;
 //		print_r($this->menus);
 	}
 
@@ -31,8 +34,8 @@ class RestaurantMenu {
 
 	function render() {
 		global $h;
-		foreach ($this->menus as $i => $menu) {
-			$this->renderSection($menu);
+		foreach ($this->menus as $i => $category) {
+			$this->renderCategory($category, $i);
 			$h->br(2);
 			if ($this->returnToTop) $h->a('#top', "Return to Top", 'class="backtotop"');
 		}
@@ -47,8 +50,8 @@ class RestaurantMenu {
 		//$h->otd('valign="top"');
 		$h->odiv('class="menu-row"');
 		$h->odiv('class="menu-cell left"');
-		foreach ($this->menus as $i => $menu) {
-			$this->renderSection($menu);
+		foreach ($this->menus as $i => $category) {
+			$this->renderCategory($category, $i);
 			$index = array_search($i, $newCells);
 			if ($index > -1 && $index % 2 == 0) {
 				$h->cdiv();
@@ -67,16 +70,16 @@ class RestaurantMenu {
 		$h->cdiv();
 	}
 
-	function renderSection($menu) {
+	function renderCategory($category, $i) {
 		global $h;
 		////Start menu div
-		$h->odiv('class="menu-section" id="'. $menu['id'] .'"');
-		$h->div($menu['title'], 'class="menu-section-title"');		
-		$h->tag("a", 'name="'.$menu['id'].'"', ' ', false);
+		$h->odiv('class="menu-section" id="'. $category['id'] .'"');
+		$h->div($category['title'], 'class="menu-section-title"');		
+		$h->tag("a", 'name="'.$category['id'].'"', ' ', false);
 		////delegate menu display
-		for ($j = 0; $j < count($menu['sections']); $j++) {
+		foreach ($category['sections'] as $j => $section) {
 		
-			$section = $menu['sections'][$j];
+			
 	//print_r($section);
 			////Delegate menu section type
 			switch ($section['type']) {
