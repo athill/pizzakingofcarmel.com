@@ -30,11 +30,12 @@ if (stripos($webdir, $webroot."/new") === 0) {
 	$subdir .= "/tst";	
 }
 $webroot .= $subdir;
-$basefileroot .= $webroot;
+$fileroot =  $basefileroot . $webroot;
+$basefileroot;
 
 $settings = array(
 	"webroot" => $webroot,
-	"fileroot" => $basefileroot,
+	"fileroot" => $fileroot,
 	"isTST" => $webroot != "",
 	'dir' => dirname($self),
 	'filename' => basename($self),
@@ -47,6 +48,7 @@ $settings = array(
 	"stylesheets" => array(),
 	"useImageHeader" => false,
 	"cas"=>false,
+	'menufile' =>'/menu.xml'
 );
 ////Defaults based on other defaults
 $settings['pageTitle']  = $settings['siteName'];
@@ -105,8 +107,10 @@ include_once($settings['incroot'] . "/Logger.class.php");
 
 include_once($settings['incroot']."/Menu.class.php");
 
-$xmlfile = $settings['fileroot'].'/menu.xml';
-
+$xmlfile = $settings['fileroot'].$settings['menufile'];
+if (stripos($self, '/admin/') > -1) {
+	$xmlfile = $settings['fileroot'].'/admin/menu.xml';
+}
 
 $menu = new Menu($xmlfile);
 
@@ -141,12 +145,12 @@ $site = $settings;
 $dirSettings = $settings['dir'].'/directorySettings.php';
 //print_r($GLOBALS);
 if (file_exists($dirSettings)) {
+echo $settings['dir'];
 	require_once($dirSettings);
 }
 
 
-
-//print_r($directory);
+print_r($directory);
 if (isset($directory)) $GLOBALS['site'] = array_merge($GLOBALS['site'], $directory) or die("???");
 ////Local Settings override global and directory
 if (isset($local))$GLOBALS['site'] = array_merge($GLOBALS['site'], $local) or die("^^^");

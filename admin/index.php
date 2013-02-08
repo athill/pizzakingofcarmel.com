@@ -2,7 +2,7 @@
 include("../inc/application.php");
 $lis = array(
 	array('href'=>'coupon.php', 'display'=>'Coupons'),
-	array('href'=>'menu.php', 'display'=>'Menu'),
+	array('href'=>'menu/', 'display'=>'Menu'),
 	array('href'=>'star.php', 'display'=>'Star')
 
 );
