@@ -857,7 +857,7 @@ class Html extends Xml {
 		for ($i = 0; $i < strlen($addr); $i++) {
 			$email = $email . "&#" . ord(substr($addr, $i, 1)) . ";";
 		}
-		if ($display == $addr) $display = $email;
+		if ($display == $addr || $display == '') $display = $email;
 		$mailto2 = "";
 		$mailto = "mailto:";
 		for ($i = 0; $i < strlen($mailto); $i++) {
