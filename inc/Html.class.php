@@ -369,7 +369,7 @@ class Html extends Xml {
 		if (!in_array($listType, array("ul","ol"))) $listType = "ul";
 		 $this->otag($listType, $atts, true);
          foreach ($listItemArray as $item) {
-             $this->tag("li", $liAtts, $item);
+             $this->tag("li", $liAtts, trim($item));
          }
          $this->ctag($listType, true);
      }
