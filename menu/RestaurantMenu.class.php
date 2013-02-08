@@ -28,17 +28,35 @@ class RestaurantMenu {
 		foreach ($this->menus as $menu) {
 			$h->startBuffer();
 			$h->a('#'.$menu['id'], $menu['title']);
-			$items[] = $h->endBuffer();
+			$items[] = trim($h->endBuffer());
 		}
 		$h->liArray("ul", $items);	
 	}
 
 	function render() {
 		global $h;
+		if ($this->form) {
+			$h->oform('submit.php');
+		}
 		foreach ($this->menus as $i => $category) {
 			$this->renderCategory($category, $i);
 			$h->br(2);
-			if ($this->returnToTop) $h->a('#top', "Return to Top", 'class="backtotop"');
+			$h->startBuffer();
+			$h->a('#top', "Return to Top", 'class="backtotop"');
+			$backtotop = $h->endBuffer();
+			if ($this->form) {
+				$h->odiv('class="row"');
+				$h->div($backtotop, 'class="left"');
+				$h->odiv('class="right"');
+				$h->submit('s', 'Update');
+				$h->cdiv();
+				$h->cdiv('.row');
+			} else {
+				if ($this->returnToTop) $backtotop;
+			}
+		}
+		if ($this->form) {
+			$h->cform();
 		}
 	}
 	
