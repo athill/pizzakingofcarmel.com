@@ -5,6 +5,7 @@ class RestaurantMenu {
 	private $filename = "/menu/data.json";
 	private $form = false;
 	public $returnToTop = true;
+	private $basename = '';
 
 	function __construct($form=false) {
 		global $site;
@@ -78,8 +79,7 @@ class RestaurantMenu {
 		$h->tag("a", 'name="'.$category['id'].'"', ' ', false);
 		////delegate menu display
 		foreach ($category['sections'] as $j => $section) {
-		
-			
+			$this->basename = $i.'_'.$j.'_'.$section['type'];
 	//print_r($section);
 			////Delegate menu section type
 			switch ($section['type']) {
@@ -87,7 +87,7 @@ class RestaurantMenu {
 					$this->displayGridMenu($section['items']);		
 					break;
 				case "menu":
-					$this->displayMenu($section['items']);		
+					$this->displayMenu($section['items']);
 					break;
 				case "dict":
 					$this->displayDictionary($section['items']);
@@ -100,20 +100,34 @@ class RestaurantMenu {
 					break;				
 				case "text":
 				default:
-					$h->tnl($section['content']);
+					if ($this->form) {
+						$h->textarea($this->basename, $section['content']);
+					} else {
+						$h->tnl($section['content']);
+					}
 					break;
 			}
 		}	
-		$h->cdiv();	//close menu-section
+		$h->cdiv('.menu-section');	//close menu-section
 	} 	
 
 	function displayDictionary($items) {
 		global $h;
 		$h->otag('dl', 'class="pk-menu-dict"');
-		for ($i = 0; $i < count($items); $i++) {
-			$item = $items[$i];
-			$h->tag('dt', '', $item['left'].':');
-			$h->tag('dd', '', $item['right']);
+		foreach ($items as $k => $item) {
+			// print_r($item);
+			if ($this->form) {
+				$h->odt();
+				$h->intext($this->basename.'_'.$k.'_left', $item['left']);
+				$h->cdt();
+				$h->odd();
+				$h->textarea($this->basename.'_'.$k.'_right', $item['right'], 'size="50"');
+				$h->cdd();
+
+			} else {
+				$h->dt($item['left'].':');
+				$h->dd($item['right']);
+			}
 		}
 		$h->ctag('dl');
 	}
@@ -156,34 +170,67 @@ class RestaurantMenu {
 	function displayMenu($items) {
 		global $h;
 		global $webroot;
-		for ($i = 0; $i < count($items); $i++) {
-			$item = $items[$i];
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_'.$k;
 			$h->odiv('class="menu-item"');
 			$h->odiv('class="menu-item-name-price-row"');
 			$name = $item['name'];
-			if (array_key_exists('img', $item)) {
+			if (array_key_exists('img', $item) && !$this->form) {
 				$src = $webroot.'/img/'.$item['img'];
 				$thumb = $webroot.'/img/thumb/'.$item['img'];
 				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
 					'width="50" alt="'.$item['name'].'" /> ' . $name;
-			}		
-			$h->div($name, 'class="menu-item-name left"');
-			$price = preg_replace("/;/", "<br />", $item['price']);
-			$price = preg_replace("/:/", "&nbsp;", $price);
-			$h->div($price, 'class="menu-item-price right"');
-			$h->cdiv();
-			$h->div($item['descr'], 'class="menu-item-descr"');
-			$h->cdiv();
+			}
+			$atts = 'class="menu-item-name left"';
+			if ($this->form) {
+				$h->odiv($atts);
+				$h->intext($basename.'_name', $name);
+				$h->cdiv();
+			} else {
+				$h->div($name, $atts);	
+			}
+			$atts = 'class="menu-item-price right"';
+			if ($this->form) {
+				$h->odiv($atts);
+				$h->intext($basename.'_price', $item['price']);
+				$h->cdiv();
+			} else {
+				$price = preg_replace("/;/", "<br />", $item['price']);
+				$price = preg_replace("/:/", "&nbsp;", $price);
+				$h->div($price, $atts);
+			}
+			
+			$h->cdiv('.menu-item-name-price-row');
+			$atts = 'class="menu-item-descr"';
+			if ($this->form) {
+				$h->odiv($atts);
+				$h->textarea($basename.'_descr', $item['descr']);
+				$h->cdiv();
+			} else {
+				$h->div($item['descr'], $atts);
+			}
+			$h->cdiv('menu-item');
 		}
 	}                                                
 		      
 	function display2ColCtr($items) {
 		global $h;
 		$h->odiv('class="pk-menu-2-col-center"');
-		for ($i = 0; $i < count($items); $i++) {
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_'.$k;
 			$h->odiv('class="row"');
-			$h->div($items[$i]['left'], 'class="column"');
-			$h->div($items[$i]['right'], 'class="column"');
+			if ($this->form) {
+				$h->odiv('class="column"');
+				$h->intext($basename.'_left', $item['left']);
+				$h->cdiv('.column');
+				$h->odiv('class="column"');
+				$h->intext($basename.'_right', $item['right']);
+				$h->cdiv('.column');				
+
+			} else {
+				$h->div($item['left'], 'class="column"');
+				$h->div($item['right'], 'class="column"');				
+			}
 			$h->cdiv();
 		}
 		$h->cdiv();                          
@@ -192,11 +239,21 @@ class RestaurantMenu {
 	function display3Col($items) {
 		global $h;
 		$h->odiv('class="pk-menu-3-col"');
-		for ($i = 0; $i < count($items); $i++) {
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_'.$k;
 			$h->odiv('class="column"');
-			$h->div($items[$i]['title'], 'class="title"');
-			$h->div($items[$i]['descr'], 'class="descr"');
-			$h->cdiv();
+			if ($this->form) {
+				$h->odiv('class="title"');
+				$h->intext($basename.'_title', $item['title']);
+				$h->cdiv('.title');
+				$h->odiv('class="descr"');
+				$h->textarea($basename.'_descr', $item['descr'], 'style="width: 99%;"');
+				$h->cdiv('.descr');
+			} else {
+				$h->div($items[$i]['title'], 'class="title"');
+				$h->div($items[$i]['descr'], 'class="descr"');
+			}
+			$h->cdiv('.column');			
 		}
 		$h->cdiv();                          
 	} 
