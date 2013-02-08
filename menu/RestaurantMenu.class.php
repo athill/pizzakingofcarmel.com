@@ -138,30 +138,48 @@ class RestaurantMenu {
 		
 		$headers = array('', '8"', '10"', '14"', '16"');
 		$h->otable('class="menu-table"');
-		for ($i = 0; $i < count($headers); $i++) {
-			$h->th($headers[$i]);
+		foreach ($headers as $header) {
+			$h->th($header);
 		}
-		for ($i = 0; $i < count($items); $i++) {
-			
-			$item = $items[$i];
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_'.$k;
 			$h->cotr();
 			$h->otd();
 			$name = $item['name'];
 			
-			if (array_key_exists('img', $item)) {
+			if (array_key_exists('img', $item) && !$this->form) {
 				$src = $webroot.'/img/'.$item['img'];
 				$thumb = $webroot.'/img/thumb/'.$item['img'];
 				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
 					'width="50" alt="'.$item['name'].'" /> ' . $name;
 			}
-			
-			$h->div($name, 'class="menu-item-name"');			
+			$atts = 'class="menu-item-name"';
+			if ($this->form) {
+				$h->odiv($atts);
+				$h->intext($basename.'_name', $name);
+				$h->cdiv();				
+			} else {
+				$h->div($name, $atts);			
+			}
 			if (array_key_exists("toppings", $item)) {
-				$h->div($item['toppings'], 'class="menu-item-descr"');
+				$atts = 'class="menu-item-descr"';
+				if ($this->form) {
+					$h->odiv($atts);
+					$h->textarea($basename.'_toppings', $item['toppings']);
+					$h->cdiv();
+				} else {
+					$h->div($item['toppings'], $atts);
+				}
 			}			
 			$h->ctd();
-			for ($j = 0; $j < count($item['prices']); $j++) {
-				$h->td(number_format($item['prices'][$j], 2));
+			foreach ($item['prices'] as $l => $price) {
+				if ($this->form) {
+					$h->otd();
+					$h->intext($basename.'_price_'.$l, $price, 'size="6"');
+					$h->ctd();
+				} else {
+					$h->td(number_format($price, 2));
+				}
 			}
 		}
 		$h->ctable();
