@@ -5,7 +5,7 @@ $local['stylesheets'] = array('/menu/menu.css');
 require_once("../../inc/application.php");
 
 include($site['fileroot']."/menu/RestaurantMenu.class.php");
-$menu = new RestaurantMenu();
+$menu = new RestaurantMenu(true);
 
 ////render
 $h->odiv('id="menu-container"');
