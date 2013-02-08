@@ -89,3 +89,7 @@
 #print-container .right {
 	float: right;
 }
+
+input[type='text'], textarea {
+	border: gray medium solid;
+}
