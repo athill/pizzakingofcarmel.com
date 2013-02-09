@@ -17,6 +17,8 @@ $contacts = array(
 
 $h->odiv('id="contact-us"');
 $h->dictionaryGrid($contacts);
+$h->br(2);
+$h->div('<strong>Note:</strong> Email not checked daily. Please call the store if there is an immediate issue.', 'style="text-align: center;"');
 $h->cdiv();
 
 $template->footer();
