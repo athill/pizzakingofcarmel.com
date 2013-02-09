@@ -22,7 +22,7 @@ $(function() {
 
 <?php
 
-if ($GLOBALS['filename'] != "print.php") {
+if ($site['filename'] != "print.php") {
 	$h->odiv('id="specials-printable-link"');
 	$h->a("print.php", "Printable Version", 'target="_blank"');
 	$h->cdiv();
