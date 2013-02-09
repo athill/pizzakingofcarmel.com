@@ -286,8 +286,8 @@ class RestaurantMenu {
 				$h->textarea($basename.'_descr', $item['descr'], 'style="width: 99%;"');
 				$h->cdiv('.descr');
 			} else {
-				$h->div($items[$i]['title'], 'class="title"');
-				$h->div($items[$i]['descr'], 'class="descr"');
+				$h->div($item['title'], 'class="title"');
+				$h->div($item['descr'], 'class="descr"');
 			}
 			$h->cdiv('.column');			
 		}
