@@ -139,7 +139,7 @@ class Menu {
 	// builds the path and sets the title
 	// TODO: add 'look ahead' when href of form 'subfolder/...file' or something
 	/////////////////////////////////
-	function buildPathAndSetTitle($options) {
+	function buildPathAndSetTitle($options=array()) {
 		global $h;
 		$this->debug("here");
 		$defaults = array(
