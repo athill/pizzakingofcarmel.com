@@ -16,7 +16,7 @@ $webroot = "";
 $basefileroot = "/home/content/p/k/c/pkcar/html";
 
 ////Local
-if ($host == 'localhost' || !array_key_exists($_SERVER, $host)) {
+if ($host == 'localhost' || !array_key_exists('HTTP_HOST', $_SERVER)) {
 	$webroot = '/pkcar';
 	$basefileroot = '/var/www/html';
 }
