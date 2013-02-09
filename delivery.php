@@ -5,7 +5,8 @@ $h->odiv('id="pk-delivery"');
 $h->img('/img/delivery.png', 'Delivery Area');
 $h->tbr("*We offer <u>Free Delivery</u>* with a $10 minimum food purchase.");
 $h->tbr("Call to Order: 317-848-7994");
-$items = array("No checks", "We accept all credit/debit cards for delivery");
+$items = array("No checks", "We accept all credit/debit cards for delivery", 
+    "Delivery orders should be placed no later than a half an hour before closing");
 $h->liArray("ul", $items);
 $h->cdiv();
 
