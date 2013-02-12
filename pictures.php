@@ -1,4 +1,5 @@
 <?php
+$local['jsModules']['lightbox'] = true;
 include("inc/application.php");
 $pictures = array(
 //	"coupon"=>array('src'=>"4363", 'comment'=>'coupon'),
