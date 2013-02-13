@@ -22,7 +22,7 @@ class Template {
 	
 	public function head() {
 	  if ($this->templateText == "none") return;
-	  global $h, $pageTitle;
+	  global $h, $pageTitle, $site;
 	  ////Add scripts/sheets from template
 //	  $scripts = explode(",", $this->template->scripts);
 //	  $sheets = explode(",", $this->template->stylesheets);
@@ -44,6 +44,7 @@ class Template {
 	  if ($GLOBALS['site']['pageTitle'] != "") {
 		$title .= ': '. $GLOBALS['site']['pageTitle'];
 	  }
+
 	  $h->ohtml($title, $this->includes);
 	  if (array_key_exists('headerExtra', $GLOBALS['site'])) {
 		$h->tnl($GLOBALS['site']['headerExtra']);  
