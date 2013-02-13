@@ -5,12 +5,12 @@ class JsModule {
 	function __construct() {
 		$this->modules = array(
 					////Tooltip
-			// "tooltip" => array( 
-			// 	"scripts" => array("/js/jquery/jquery.bgiframe.js",
-			// 					"/js/jquery/jquery.dimensions.js",
-			// 					"/js/jquery-tooltip/jquery.tooltip.js"),
-			// 	"styles" => array("/js/jquery-tooltip/jquery.tooltip.css")
-			// ),
+			"tooltip" => array( 
+				"scripts" => array("/js/jquery/jquery.bgiframe.js",
+								"/js/jquery/jquery.dimensions.js",
+								"/js/jquery-tooltip/jquery.tooltip.js"),
+				"styles" => array("/js/jquery-tooltip/jquery.tooltip.css")
+			),
 			// ////Tree Table
 			// "treeTable" => array( 
 			// 	"scripts" => array("/js/treeTable/src/javascripts/jquery.treeTable.min.js"),
