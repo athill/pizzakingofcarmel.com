@@ -29,6 +29,26 @@ $pictures["pumpkin"] = array('src'=>"HPIM0400.JPG", 'comment'=>'Halloween');
 $pictures["grace1"] = array('src'=>'grace04.jpg', 'comment'=>'Pizza Princess 1');
 $pictures["grace2"] = array('src'=>'grace11.jpg', 'comment'=>'Pizza Princess 2');
 
+// $sequence = array();
+foreach ($pictures as $id => $data) {
+	$new_id = preg_replace('/\W/', '', $data['comment']);
+	////Thumbnail
+	$from = $site['fileroot'].'/img/thumb/';
+	$to = $site['fileroot'].'/img/pictures/thumb/';
+	c($from.$data['src'], $to.$new_id.'.jpg');
+	////Fullsize
+	$from = $site['fileroot'].'/img/';
+	$to = $site['fileroot'].'/img/pictures/';
+	c($from.$data['src'], $to.$new_id.'.jpg');	
+
+}
+
+function c($from, $to) {
+	$GLOBALS['h']->tbr($from . '-' . $to);
+	copy($from, $to);
+}
+
+
 $picture_order = array(
 	"box2",
 	"pumpkin",
