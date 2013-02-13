@@ -1,6 +1,6 @@
 <?php
 $local['jsModules']['lightbox'] = true;
-include("inc/application.php");
+include("../inc/application.php");
 $pictures = array(
 //	"coupon"=>array('src'=>"4363", 'comment'=>'coupon'),
 //	"magnet"=>array('src'=>"4371", 'comment'=>'magnet'),

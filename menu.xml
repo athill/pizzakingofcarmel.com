@@ -7,5 +7,5 @@
 	<link href="/catering.php" display="Catering"/>
 	<link href="/family.php" display="Other Family Stores"/>
 	<link href="/specials/" display="Specials/Coupons"/>
-	<link href="/pictures.php" display="Pictures"/>
+	<link href="/pictures/" display="Pictures"/>
 </menu>
