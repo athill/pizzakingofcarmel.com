@@ -51,7 +51,7 @@ for  ($i = 0; $i < count($picture_order); $i++) {
 	$h->startBuffer();
 	$h->img('/img/thumb/'.$picture['src'], $picture['comment']);
 	$img = trim($h->endBuffer());
-	$h->a('/img/'.$picture['src'], $img, 'rel="lightbox" title="'.$picture['comment'].'"');
+	$h->a('/img/'.$picture['src'], $img, 'rel="lightbox[pictures]" title="'.$picture['comment'].'"');
 	$h->div($picture['comment'], 'class="pics-comment"');
 	$h->cdiv();
 }
@@ -59,6 +59,6 @@ for  ($i = 0; $i < count($picture_order); $i++) {
 
 
 
-$h->script("$(function() { $('a[rel*=lightbox]').lightBox(); });");
+//$h->script("$(function() { $('a[rel*=lightbox]').lightBox(); });");
 $template->footer();
 ?>

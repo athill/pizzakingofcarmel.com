@@ -54,10 +54,10 @@ class JsModule {
 			////lightbox
 			"lightbox" => array( 
 				"scripts" => array(
-					"/js/jquery/lightbox/jquery.lightbox.js"
+					"/js/jquery/lightbox/js/lightbox.js"
 				),
 				"styles" => array(
-					"/js/jquery/lightbox/jquery.lightbox.css"
+					"/js/jquery/lightbox/css/lightbox.css"
 				)
 			),
 		);
