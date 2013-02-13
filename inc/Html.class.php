@@ -128,6 +128,7 @@ class Html extends Xml {
 	 * Document Tags
 	 ******************/
 	public function ohtml($title, $includes= array(), $additional="") {
+		global $site;
 		$this->tnl('<!DOCTYPE html>');
 		$this->otag("html", 'lang="en"', false);
 		$this->otag("head");
@@ -139,6 +140,7 @@ class Html extends Xml {
 		$this->meta("description", "");
 		$this->tag("link", 'rel="icon" href=""');
 		$this->tag("link", 'rel="shortcut icon" href=""');
+		$this->script('var webroot = "'.$site['webroot'].'"');
 		for ($i = 0; $i < count($includes); $i++) {
 			$filenameParts = explode('.', $includes[$i]);
 			$ext = end($filenameParts);
