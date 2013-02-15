@@ -1,6 +1,7 @@
 <?php
 $local['jsModules']['lightbox'] = true;
 include("../inc/application.php");
+include('Pictures.class.php');
 $pictures = array(
 //	"coupon"=>array('src'=>"4363", 'comment'=>'coupon'),
 //	"magnet"=>array('src'=>"4371", 'comment'=>'magnet'),
@@ -29,24 +30,50 @@ $pictures["pumpkin"] = array('src'=>"HPIM0400.JPG", 'comment'=>'Halloween');
 $pictures["grace1"] = array('src'=>'grace04.jpg', 'comment'=>'Pizza Princess 1');
 $pictures["grace2"] = array('src'=>'grace11.jpg', 'comment'=>'Pizza Princess 2');
 
-// $sequence = array();
-foreach ($pictures as $id => $data) {
-	$new_id = preg_replace('/\W/', '', $data['comment']);
-	////Thumbnail
-	$from = $site['fileroot'].'/img/thumb/';
-	$to = $site['fileroot'].'/img/pictures/thumb/';
-	c($from.$data['src'], $to.$new_id.'.jpg');
-	////Fullsize
-	$from = $site['fileroot'].'/img/';
-	$to = $site['fileroot'].'/img/pictures/';
-	c($from.$data['src'], $to.$new_id.'.jpg');	
 
+$data = array('items'=>array());
+foreach ($pictures as $old_id => $atts) {
+	$new_id = preg_replace('/\W/', '', $atts['comment']);
+	$data['items'][$new_id] = array(
+		'extension'=>'jpg',
+		'comment'=>$atts['comment']
+	);
 }
 
-function c($from, $to) {
-	$GLOBALS['h']->tbr($from . '-' . $to);
-	copy($from, $to);
+
+
+//$h->pa($data);
+$data['sequence'] = array(
+	'PizzaBox',
+	'Halloween',
+	'PizzaPrincess1',
+	'PizzaPrincess2',
+	'TheCowboyPizza',
+	'NachoDeluxe',
+	'Stromboli',
+	'Tacos',
+	'TacoSalad',
+	'TacoPizza',
+	'BuffaloWings'
+);
+
+
+$pics = new Pictures();
+foreach ($data['sequence'] as $id) {
+	$picture = $data['items'][$id];
+	$file = $id.'.'.$picture['extension'];
+	$h->odiv('class="pics-thumbs"');
+	$h->startBuffer();
+	$h->img('/img/pictures/thumb/'.$file, $picture['comment']);
+	$img = trim($h->endBuffer());
+	$h->a('/img/pictures/'.$file, $img, 'rel="lightbox[pictures]" title="'.$picture['comment'].'"');
+	$h->div($picture['comment'], 'class="pics-comment"');
+	$h->cdiv();	
 }
+
+
+exit();
+
 
 
 $picture_order = array(
