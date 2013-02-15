@@ -37,6 +37,7 @@ if ($data['display']) {
 }
 $h->img("/img/logo_from_sack.png", "", 'align="center"');
 $h->cdiv('close text-align: center');
+$h->br(2);
 
 $template->footer();
 
