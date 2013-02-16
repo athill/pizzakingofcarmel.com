@@ -3,5 +3,5 @@
 	<link href="/" display="Main Site"/>
 	<link href="/admin/coupon.php" display="Coupons"/>
 	<link href="/admin/menu/" display="Menu"/>
-	<link href="/admin/star.php" display="Star"/>
+	<link href="/admin/star/" display="Star"/>
 </menu>
