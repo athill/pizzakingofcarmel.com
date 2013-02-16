@@ -129,6 +129,9 @@ if (isset($local['jsModules'])) {
 	$GLOBALS['site']['jsModules'] = array_merge($settings['jsModules'], $local['jsModules']) or die("^^^");
 }
 
+include_once($site['incroot']."/Utils.class.php");
+$site['utils'] = new Utils();
+
 //echo '<pre>';
 //print_r($GLOBALS['jsModules']);
 //echo '</pre>';
