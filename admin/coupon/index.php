@@ -1,7 +1,7 @@
 <?php
 $local['jsModules']['textfill'] = true;
 $local['jsModules']['jquery-ui'] = true;
-include("../inc/application.php");
+include("../../inc/application.php");
 $fileroot = $site['fileroot'];
 // print_r($site);
 include($site['fileroot']."/specials/Coupon.class.php");
