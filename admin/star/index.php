@@ -1,9 +1,9 @@
 <?php
 $local['jsModules']['textfill'] = true;
+$local['scripts'] = array('/js/star.jquery.js', 'star.js');
+
 include("../../inc/application.php");
 
-$h->scriptfile('../../js/star.jquery.js');
-$h->scriptfile('star.js');
 $datafile = $site['fileroot']."/star.json";
 
 if (array_key_exists('s', $_POST)) {
