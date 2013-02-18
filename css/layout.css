@@ -582,5 +582,6 @@ Styles for print medium
 
 .canvas-text {
 	position: absolute;
+	text-align: center;
 }
 

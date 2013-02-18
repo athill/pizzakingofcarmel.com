@@ -4,4 +4,5 @@
 	<link href="/admin/coupon/" display="Coupons"/>
 	<link href="/admin/menu/" display="Menu"/>
 	<link href="/admin/star/" display="Star"/>
+	<link href="/admin/pictures/" display="Pictures"/>
 </menu>
