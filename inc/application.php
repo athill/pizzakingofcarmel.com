@@ -131,6 +131,7 @@ if (isset($local['jsModules'])) {
 
 include_once($site['incroot']."/Utils.class.php");
 $site['utils'] = new Utils();
+$utils = $site['utils'];
 
 //echo '<pre>';
 //print_r($GLOBALS['jsModules']);
