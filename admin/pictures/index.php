@@ -6,9 +6,9 @@ $local['stylesheets'] = array('styles.css');
 include("../../inc/application.php");
 include($site['fileroot'].'/pictures/Pictures.class.php');
 
-$data = $site['utils']->getJson('data.json');
+$data = $utils->getJson('data.json');
 
-$pics = new Pictures($data);
+$pics = new Pictures($data, '/admin/pictures/img');
 $pics->render(true);
 
 

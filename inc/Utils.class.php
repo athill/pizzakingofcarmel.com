@@ -3,6 +3,7 @@
 class Utils {
 
 	function setJson($file, $data) {
+		// echo $file;
 		file_put_contents($file, json_encode($data));
 	}
 

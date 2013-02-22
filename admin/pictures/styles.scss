@@ -1,15 +1,28 @@
+$thumbwidth: 125px;
+$hover: lightgray;
+
 ul#pics {
 	list-style-type: none;
 	.pics-edit {
 		padding: 0.5em;
 		margin: 0.5em;
 		border: thin dotted black;
-		clear: both;
+		// clear: both;
+		overflow: auto;
 		&:hover {
-			background: lightgray;
+			background: $hover;
+		}
+		.pics-img {
+			float: left;
+			width: $thumbwidth;
+		}
+		.pics-fields {
+			// background: yellow;
+			padding: 0.5em;
+			float: left;
 		}
 		img {
-			width: 50px;
+			width: $thumbwidth;
 			vertical-align: text-top;
 			float: left;
 		}
