@@ -10,9 +10,10 @@ class Pictures {
 
 	function render($form=false) {
 		global $h;
-		$h->pa($this->data);
+		// $h->pa($this->data);
+		////add form
 		if ($form) {
-			$h->oform('submit.php', 'post', 'enctype="multipart/form-data"');
+			$h->oform('submit.php', 'post', 'enctype="multipart/form-data" id="add-form"');
 			$h->ofieldset('Add', 'class="add"');
 			$h->label('img', 'Image:');
 			$h->file('img');
@@ -65,8 +66,10 @@ class Pictures {
 			}
 		}
 		if ($form) {
-			$h->submit('s', 'Save');
 			$h->cul('#pics');
+			$h->submit('u', 'Update');
+			$h->button('pics-preview', 'Preview');
+			$h->submit('pics-publish', 'Publish');
 			$h->hidden('sequence', implode(',', $this->data['sequence']));
 			$h->cform();
 			$h->cfieldset();
@@ -98,7 +101,7 @@ class Pictures {
 		    [bits] => 8
 		    [mime] => image/png
 		*/
-		$h->pa($info);
+		// $h->pa($info);
 		$title = $_POST['title'];
 		$id = $this->getId($title);
 		$file_name_arr = explode('.', $img['name']);
@@ -117,7 +120,6 @@ class Pictures {
 		$convert = '/usr/bin/convert '.$from.' -size '.$width.' '.$to;
 		$h->tbr($convert);
 		$retval = system($convert);
-		// // copy($img['tmp_name'], $this->imgdir.'/'.$filename);
 		//// Update data
 		$tmp = array(
 			'title'=>$title,
@@ -130,12 +132,13 @@ class Pictures {
 	}
 
 	function update() {
-		global $h;
+		global $h, $site;
 		$h->pa($_POST);
 		$prefix = 'pic_';
 		$data = $this->data;
 		$sequence = explode(',', $_POST['sequence']);
-		$h->pa($sequence);
+		$data['sequence'] = explode(',', $_POST['sequence']);
+		// $h->pa($sequence);
 		foreach ($sequence as $i => $id) {
 			$name = $prefix.$id;
 			$title = $name.'_title';
@@ -147,19 +150,69 @@ class Pictures {
 			//// else if?
 			if (array_key_exists($name.'_delete', $_POST)) {
 				$h->tbr('delete: '. $name.'_delete');
+				$filename = $id.'.'.$data['items'][$id]['extension'];
+				$h->tbr($filename);
 				////delete the item
+				unset($data['items'][$id]);
 				////delete from sequence
+				if(($key = array_search($id, $data['sequence'])) !== false) {
+				    unset($data['sequence'][$key]);
+				    $data['sequence'] = array_values($data['sequence']);
+				}
 				////delete from pictures
+				$pic = $site['fileroot'].$this->imgdir.'/'.$filename;
+				if (file_exists($pic)) {
+					unlink($pic);
+				} else {
+					$h->tbr($pic);
+				}
 				////delete from thumbs
+				$thumb = $site['fileroot'].$this->imgdir.'/thumb/'.$filename;
+				if (file_exists($thumb)) {
+					unlink($thumb);
+				} else {
+					$h->tbr($thumb);
+				}
 			}			
 		}
 		return $data;
 
 	}
 
+	function publish($pub_file, $pub_imgdir) {
+		global $h, $site;
+		////back up
+
+		//// json file
+		// file_put_contents($pub_file, $this->data);
+
+		//////TODO: images
+		////pics
+		$from = $pub_imgdir;
+		$to = $this->imgdir;
+		////thumb
+		$from = $pub_imgdir.'/'.'thumb';
+		$to = $this->imgdir.'/'.'thumb';		
+
+	}
+
+	private function publishImages($to, $from) {
+
+	}
+
 	function getId($name) {
 		$new_id = preg_replace('/\W/', '', $name);
-
+		if (array_key_exists($new_id, $this->data['items'])) {
+			$base_id = $new_id;
+			$ext = 1;
+			$currext = ($ext < 10) ? '0'.$ext : $ext;
+			$new_id = $base_id.$currext;
+			while (array_key_exists($new_id, $this->data['items'])) {
+				$ext++;
+				$currext = ($ext < 10) ? '0'.$ext : $ext;
+				$new_id = $base_id.$currext;
+			}
+		}
 		return $new_id;
 	}
 }
