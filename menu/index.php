@@ -4,8 +4,10 @@ $local['stylesheets'] = array('menu.css');
 $local['scripts'] = array('menu.js');
 require_once("../inc/application.php");
 
+$data = $utils->getJson('data.json');
+
 include("RestaurantMenu.class.php");
-$menu = new RestaurantMenu();
+$menu = new RestaurantMenu($data);
 
 ////render
 $h->odiv('id="menu-container"');

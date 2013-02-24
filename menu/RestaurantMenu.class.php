@@ -1,23 +1,20 @@
 <?php
 class RestaurantMenu {
 
-	protected $menus = array();
-	private $filename = "/menu/data.json";
+	protected $data = array();
 	private $form = false;
 	public $returnToTop = true;
 	private $basename = '';
 
-	function __construct($form=false) {
-		global $site;
-		$json = file_get_contents($site['fileroot'].$this->filename);
-		$this->menus = json_decode($json, true);
+	function __construct($data, $form=false) {
+		$this->data = $data;
 		$this->form = $form;
-//		print_r($this->menus);
+//		print_r($this->data);
 	}
 
 	function export($path="") {
 		$path = ($path == "") ? $this->filename : $path;
-		$json = json_encode($this->menus);
+		$json = json_encode($this->data);
 		file_put_contents($path, $json);
 	}
 
@@ -25,9 +22,9 @@ class RestaurantMenu {
 		global $h;
 		////Menu of menus
 		$items = array();
-		foreach ($this->menus as $menu) {
+		foreach ($this->data as $category) {
 			$h->startBuffer();
-			$h->a('#'.$menu['id'], $menu['title']);
+			$h->a('#'.$category['id'], $category['title']);
 			$items[] = trim($h->endBuffer());
 		}
 		$h->liArray("ul", $items);	
@@ -38,7 +35,7 @@ class RestaurantMenu {
 		if ($this->form) {
 			$h->oform('submit.php');
 		}
-		foreach ($this->menus as $i => $category) {
+		foreach ($this->data as $i => $category) {
 			$this->renderCategory($category, $i);
 			$h->br(2);
 			$h->startBuffer();
@@ -69,7 +66,7 @@ class RestaurantMenu {
 		//$h->otd('valign="top"');
 		$h->odiv('class="menu-row"');
 		$h->odiv('class="menu-cell left"');
-		foreach ($this->menus as $i => $category) {
+		foreach ($this->data as $i => $category) {
 			$this->renderCategory($category, $i);
 			$index = array_search($i, $newCells);
 			if ($index > -1 && $index % 2 == 0) {
@@ -166,8 +163,8 @@ class RestaurantMenu {
 			$name = $item['name'];
 			
 			if (array_key_exists('img', $item) && !$this->form) {
-				$src = $webroot.'/img/'.$item['img'];
-				$thumb = $webroot.'/img/thumb/'.$item['img'];
+				$src = $webroot.'/img/pictures/'.$item['img'];
+				$thumb = $webroot.'/img/pictures/thumb/'.$item['img'];
 				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
 					'width="50" alt="'.$item['name'].'" /> ' . $name;
 			}
@@ -212,8 +209,8 @@ class RestaurantMenu {
 			$h->odiv('class="menu-item-name-price-row"');
 			$name = $item['name'];
 			if (array_key_exists('img', $item) && !$this->form) {
-				$src = $webroot.'/img/'.$item['img'];
-				$thumb = $webroot.'/img/thumb/'.$item['img'];
+				$src = $webroot.'/img/pictures/'.$item['img'];
+				$thumb = $webroot.'/img/pictures/thumb/'.$item['img'];
 				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
 					'width="50" alt="'.$item['name'].'" /> ' . $name;
 			}
