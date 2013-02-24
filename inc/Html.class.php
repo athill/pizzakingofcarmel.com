@@ -633,7 +633,7 @@ class Html extends Xml {
 		$addAtts = ' type="'.$type.'" name="'.$name.'"';
 		if ($value != '') $addAtts .= ' value="'.$value.'"';
 		$atts = $addAtts . $atts;
-		$atts = $this->CheckId($name, $atts);
+		$atts = $this->checkId($name, $atts);
 		$this->tag('input', $atts);
 	}
 	
@@ -655,8 +655,9 @@ class Html extends Xml {
 
 
 	public function checkId($name, $atts) {
-		if (strpos("id=", $atts) === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
+		if (strpos($atts, "id=") === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
 		return $atts;
+
 	}
 
 	/**
