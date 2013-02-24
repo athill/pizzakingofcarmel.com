@@ -46,10 +46,13 @@ class RestaurantMenu {
 				$h->div($backtotop, 'class="left"');
 				$h->odiv('class="right"');
 				$h->submit('s', 'Update');
+				$h->button('menu-preview', "Preview", 'class="menu-preview" id="menu-preview-'.$i.'"');
+				$h->submit('menu-publish', "Publish", 'id="menu-publish-'.$i.'"');
 				$h->cdiv();
 				$h->cdiv('.row');
+				$h->br();
 			} else {
-				if ($this->returnToTop) $backtotop;
+				if ($this->returnToTop) $h->tnl($backtotop);
 			}
 		}
 		if ($this->form) {
@@ -303,7 +306,7 @@ class RestaurantMenu {
 			$parts = explode('_', $key);
 			$type = array_shift($parts);
 			$path = implode('_', $parts);
-			$h->tbr($type.'-----'.$path);
+			// $h->tbr($type.'-----'.$path);
 			$utils->setArrayItem($data, $path, $val);
 
 		}

@@ -7,7 +7,7 @@ include("../../inc/application.php");
 
 include($site['fileroot'].'/menu/RestaurantMenu.class.php');
 
-$debug = !$site['isPRD'] && true;
+$debug = !$site['isPRD'] && false;
 
 
 
@@ -19,20 +19,15 @@ $newdata = array();
 
 $newdata = $menu->update();
 
-$h->pa($newdata);
+// $h->pa($newdata);
 
-// // 	$utils->setJson($jsonfile, $newdata);	
-
-
+$utils->setJson($jsonfile, $newdata);	
 
 
 
-
-
-
-// if ($debug) {
-// 	$h->pa($newdata);
-// } else {
-// 	header('location: index.php');
-// }
+if ($debug) {
+	$h->pa($newdata);
+} else {
+	header('location: index.php');
+}
 ?>
