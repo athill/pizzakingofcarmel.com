@@ -94,7 +94,7 @@ class RestaurantMenu {
 		$h->tag("a", 'name="'.$category['id'].'"', ' ', false);
 		////delegate menu display
 		foreach ($category['sections'] as $j => $section) {
-			$this->basename = $i.'_'.$j.'_'.$section['type'];
+			$this->basename = $section['type'].'_'.$i.'_sections_'.$j;
 	//print_r($section);
 			////Delegate menu section type
 			switch ($section['type']) {
@@ -116,7 +116,7 @@ class RestaurantMenu {
 				case "text":
 				default:
 					if ($this->form) {
-						$h->textarea($this->basename, $section['content']);
+						$h->textarea($this->basename.'_content', $section['content']);
 					} else {
 						$h->tnl($section['content']);
 					}
@@ -133,10 +133,10 @@ class RestaurantMenu {
 			// print_r($item);
 			if ($this->form) {
 				$h->odt();
-				$h->intext($this->basename.'_'.$k.'_left', $item['left']);
+				$h->intext($this->basename.'_items_'.$k.'_left', $item['left']);
 				$h->cdt();
 				$h->odd();
-				$h->textarea($this->basename.'_'.$k.'_right', $item['right'], 'size="50"');
+				$h->textarea($this->basename.'_items_'.$k.'_right', $item['right'], 'size="50"');
 				$h->cdd();
 
 			} else {
@@ -157,7 +157,7 @@ class RestaurantMenu {
 			$h->th($header);
 		}
 		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_'.$k;
+			$basename = $this->basename.'_items_'.$k;
 			$h->cotr();
 			$h->otd();
 			$name = $item['name'];
@@ -190,7 +190,7 @@ class RestaurantMenu {
 			foreach ($item['prices'] as $l => $price) {
 				if ($this->form) {
 					$h->otd();
-					$h->intext($basename.'_price_'.$l, $price, 'size="6"');
+					$h->intext($basename.'_prices_'.$l, $price, 'size="6"');
 					$h->ctd();
 				} else {
 					$h->td(number_format($price, 2));
@@ -204,7 +204,7 @@ class RestaurantMenu {
 		global $h;
 		global $webroot;
 		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_'.$k;
+			$basename = $this->basename.'_items_'.$k;
 			$h->odiv('class="menu-item"');
 			$h->odiv('class="menu-item-name-price-row"');
 			$name = $item['name'];
@@ -250,7 +250,7 @@ class RestaurantMenu {
 		global $h;
 		$h->odiv('class="pk-menu-2-col-center"');
 		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_'.$k;
+			$basename = $this->basename.'_items_'.$k;
 			$h->odiv('class="row"');
 			if ($this->form) {
 				$h->odiv('class="column"');
@@ -273,7 +273,7 @@ class RestaurantMenu {
 		global $h;
 		$h->odiv('class="pk-menu-3-col"');
 		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_'.$k;
+			$basename = $this->basename.'_items_'.$k;
 			$h->odiv('class="column"');
 			if ($this->form) {
 				$h->odiv('class="title"');
@@ -290,6 +290,25 @@ class RestaurantMenu {
 		}
 		$h->cdiv();                          
 	} 
+
+
+	function update() {
+		global $h, $utils;
+		$data = $this->data;
+		$tmp = array();
+		foreach ($_POST as $key => $val) {
+			if (strpos($key, '_') === false) {
+				continue;
+			}
+			$parts = explode('_', $key);
+			$type = array_shift($parts);
+			$path = implode('_', $parts);
+			$h->tbr($type.'-----'.$path);
+			$utils->setArrayItem($data, $path, $val);
+
+		}
+		return $data;
+	}
 
 }
 ?>
