@@ -116,7 +116,7 @@ class RestaurantMenu {
 				case "text":
 				default:
 					if ($this->form) {
-						$h->textarea($this->basename.'_content', $section['content']);
+						$h->editor($this->basename.'_content', $section['content']);
 					} else {
 						$h->tnl($section['content']);
 					}
@@ -136,7 +136,7 @@ class RestaurantMenu {
 				$h->intext($this->basename.'_items_'.$k.'_left', $item['left']);
 				$h->cdt();
 				$h->odd();
-				$h->textarea($this->basename.'_items_'.$k.'_right', $item['right'], 'size="50"');
+				$h->editor($this->basename.'_items_'.$k.'_right', $item['right'], 'size="50"');
 				$h->cdd();
 
 			} else {
@@ -237,7 +237,7 @@ class RestaurantMenu {
 			$atts = 'class="menu-item-descr"';
 			if ($this->form) {
 				$h->odiv($atts);
-				$h->textarea($basename.'_descr', $item['descr']);
+				$h->editor($basename.'_descr', $item['descr']);
 				$h->cdiv();
 			} else {
 				$h->div($item['descr'], $atts);
@@ -274,19 +274,19 @@ class RestaurantMenu {
 		$h->odiv('class="pk-menu-3-col"');
 		foreach ($items as $k => $item) {
 			$basename = $this->basename.'_items_'.$k;
-			$h->odiv('class="column"');
+			if (!$this->form) $h->odiv('class="column"');
 			if ($this->form) {
 				$h->odiv('class="title"');
 				$h->intext($basename.'_title', $item['title']);
 				$h->cdiv('.title');
 				$h->odiv('class="descr"');
-				$h->textarea($basename.'_descr', $item['descr'], 'style="width: 99%;"');
+				$h->editor($basename.'_descr', $item['descr'], 'style="width: 99%;"');
 				$h->cdiv('.descr');
 			} else {
 				$h->div($item['title'], 'class="title"');
 				$h->div($item['descr'], 'class="descr"');
 			}
-			$h->cdiv('.column');			
+			if (!$this->form) $h->cdiv('.column');			
 		}
 		$h->cdiv();                          
 	} 

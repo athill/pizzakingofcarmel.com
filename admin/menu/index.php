@@ -1,5 +1,5 @@
 <?php
-// $local['jsModules']['tooltip'] = true;
+$local['jsModules']['editor'] = true;
 $local['stylesheets'] = array('/menu/menu.css');
 // $local['scripts'] = array('menu.js');
 require_once("../../inc/application.php");
