@@ -646,7 +646,12 @@ class Html extends Xml {
 		$atts = ' name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"' . $this->fixAtts($atts); 
 		$atts = $this->checkId($name, $atts);
 		$this->tag('textarea', $atts, $value, true, false);
-	}	
+	}
+
+
+	public function editor($name, $value) {
+		$this->textarea($name, $value, 'class="editor"');
+	}
 
 
 	public function checkId($name, $atts) {
