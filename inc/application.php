@@ -89,22 +89,8 @@ $settings['breadcrumbs'] = $retval['breadcrumbs'];
 $settings['pageTitle'] = $retval['pagetitle'];
 
 //// js/css packages
-$settings['jsModules'] = array();
-$modules = array(
-	"tooltip", "treeTable", "highcharts", "popup", "galleria", "treemenu",
-	"jquery-ui", "textfill", 'lightbox'
-);
-foreach ($modules as $module) {
-	if (!array_key_exists($module, $settings['jsModules'])) $settings['jsModules'][$module] = false;
-}
 $settings['jsModules']['popup'] = true;
 
-
-////Globalize/localize vars
-// foreach ($settings as $key => $value) {
-// 	$GLOBALS[$key] = $value;
-// 	$$key = $value;
-// }
 
 $site = $settings;
 
