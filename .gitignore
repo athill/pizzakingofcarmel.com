@@ -6,5 +6,4 @@ js/superfish/*
 logs/*
 .sass-cache/*
 admin/pictures/img/
-
-
+js/tinymce/*
