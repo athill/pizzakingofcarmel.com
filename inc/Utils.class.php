@@ -17,13 +17,37 @@ class Utils {
 					new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
 					RecursiveIteratorIterator::SELF_FIRST) as $item
 				) {
+			$file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+			echo $file.'<br>';
 			if ($item->isDir()) {
-				mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+				if (!file_exists($file)) {
+					mkdir($file);
+				}
 			} else {
-				copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+				copy($item, $file);
 			}
 		}		
 	}
+
+    function emptyDirectory($dirname,$self_delete=false) {
+		if (is_dir($dirname))
+			$dir_handle = opendir($dirname);
+		if (!$dir_handle)
+			return false;
+		while($file = readdir($dir_handle)) {
+			if ($file != "." && $file != "..") {
+				if (!is_dir($dirname."/".$file))
+					@unlink($dirname."/".$file);
+				else
+					$this->emptyDirectory($dirname.'/'.$file,true);
+			}
+		}
+		closedir($dir_handle);
+		if ($self_delete){
+			@rmdir($dirname);
+		}
+		return true;
+    }	
 
 	function getFilename($filename) {
 		global $site;
