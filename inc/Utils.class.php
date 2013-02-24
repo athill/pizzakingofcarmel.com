@@ -11,6 +11,27 @@ class Utils {
 		return json_decode(file_get_contents($file), true);
 	}
 
+	function copyDirRecursive($source, $dest) {
+		foreach (
+					$iterator = new RecursiveIteratorIterator(
+					new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+					RecursiveIteratorIterator::SELF_FIRST) as $item
+				) {
+			if ($item->isDir()) {
+				mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+			} else {
+				copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+			}
+		}		
+	}
+
+	function getFilename($filename) {
+		global $site;
+		return (strpos($filename, '/') == 0) ? 
+			$site['fileroot'].$filename : 
+			$filename;
+	}
+
 /**
  * TODO: Test and 
  */
