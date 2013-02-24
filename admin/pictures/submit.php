@@ -18,7 +18,7 @@ $pics = new Pictures($data, '/admin/pictures/img');
 
 $newdata = array();
 if (array_key_exists('pics-publish', $_POST)) {
-	$pics->publish($site['fileroot'].'/pictures/data.json', '/img/test');
+	$pics->publish($site['fileroot'].'/pictures/data.json', '/img/pictures');
 } else {
 	$newdata = (array_key_exists('title', $_POST)) ? $pics->add() : $pics->update();
 	$utils->setJson($jsonfile, $newdata);	

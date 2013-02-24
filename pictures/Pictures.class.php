@@ -186,13 +186,14 @@ class Pictures {
 		////back up
 
 		//// json file
-		// file_put_contents($pub_file, $this->data);
+		file_put_contents($pub_file, json_encode($this->data));
 
 		//////TODO: images
 		////pics
 		$from = $utils->getFilename($this->imgdir);
 		$to = $utils->getFilename($pub_imgdir);
 		$h->tbr('from: ' . $from . ' to: ' . $to);
+		$utils->emptyDirectory($to);
 		$utils->copyDirRecursive($from, $to);
 		$h->tbr('here');
 
