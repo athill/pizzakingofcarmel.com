@@ -109,15 +109,16 @@ class Pictures {
 		$filename = $id.'.'.$ext;
 		////Add main image
 		$to = $site['fileroot'].$this->imgdir.'/'.$filename;
+		copy($from, $to);
 		$width = 600;
-		$convert = '/usr/bin/convert '.$from.' -size '.$width.' '.$to;
-		$h->tbr($convert);
-		$retval = system($convert);
-		
+		$mogrify = '/usr/bin/mogrify -resize '.$width.' '.$to;
+		$h->tbr($mogrify);
+		$retval = system($mogrify);
 		////Add thumbnail
+		$from = $to;
 		$to = $site['fileroot'].$this->imgdir.'/thumb/'.$filename;
 		$width = 200;
-		$convert = '/usr/bin/convert '.$from.' -size '.$width.' '.$to;
+		$convert = '/usr/bin/convert '.$from.' -resize '.$width.' '.$to;
 		$h->tbr($convert);
 		$retval = system($convert);
 		//// Update data
@@ -180,7 +181,8 @@ class Pictures {
 	}
 
 	function publish($pub_file, $pub_imgdir) {
-		global $h, $site;
+		global $h, $site, $utils;
+
 		////back up
 
 		//// json file
@@ -188,11 +190,11 @@ class Pictures {
 
 		//////TODO: images
 		////pics
-		$from = $pub_imgdir;
-		$to = $this->imgdir;
-		////thumb
-		$from = $pub_imgdir.'/'.'thumb';
-		$to = $this->imgdir.'/'.'thumb';		
+		$from = $utils->getFilename($this->imgdir);
+		$to = $utils->getFilename($pub_imgdir);
+		$h->tbr('from: ' . $from . ' to: ' . $to);
+		$utils->copyDirRecursive($from, $to);
+		$h->tbr('here');
 
 	}
 
