@@ -11,6 +11,11 @@ class JsModule {
 								"/js/jquery-tooltip/jquery.tooltip.js"),
 				"styles" => array("/js/jquery-tooltip/jquery.tooltip.css")
 			),
+			"editor" => array( 
+				"scripts" => array("/js/tinymce/jscripts/tiny_mce/jquery.tinymce.js",
+								"/js/tinymce_config.js"),
+				"styles" => array()
+			),
 			// ////Tree Table
 			// "treeTable" => array( 
 			// 	"scripts" => array("/js/treeTable/src/javascripts/jquery.treeTable.min.js"),
