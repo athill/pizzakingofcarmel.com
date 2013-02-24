@@ -56,6 +56,34 @@ class Utils {
 			$filename;
 	}
 
+	
+	//////////////////////////
+	//// Manipulate nested array data based on input string
+	/////////////////////////
+	function getArrayItem($data, $str, $delimiter='_') {
+		$steps = explode($delimiter, $str);
+		foreach ($steps as $step) {
+			$data = $data[$step];
+		}
+		return $data;
+	}
+
+	function setArrayItem(&$data, $str, $value, $delimiter='_') {
+		$path = explode($delimiter, $str);
+		$root = &$data;
+
+		while(count($path) > 1) {
+		    $branch = array_shift($path);
+		    if (!isset($root[$branch])) {
+		        $root[$branch] = array();
+		    }
+
+		    $root = &$root[$branch];
+		}
+
+		$root[$path[0]] = $value;
+	}	
+
 /**
  * TODO: Test and 
  */
