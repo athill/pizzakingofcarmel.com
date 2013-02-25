@@ -313,5 +313,10 @@ class RestaurantMenu {
 		return $data;
 	}
 
+	public function publish($pub_file) {
+		global $utils;
+		$utils->setJson($pub_file, $this->data);
+	}
+
 }
 ?>

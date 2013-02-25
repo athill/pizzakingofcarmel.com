@@ -7,7 +7,7 @@ include("../../inc/application.php");
 
 include($site['fileroot'].'/menu/RestaurantMenu.class.php');
 
-$debug = !$site['isPRD'] && false;
+$debug = !$site['isPRD'] && true;
 
 
 
@@ -16,13 +16,13 @@ $data = $utils->getJson($jsonfile);
 $menu = new RestaurantMenu($data);
 
 $newdata = array();
-
-$newdata = $menu->update();
-
-// $h->pa($newdata);
-
-$utils->setJson($jsonfile, $newdata);	
-
+if (array_key_exists('menu-publish', $_POST)) {
+	$pub_file = $site['fileroot'].'/menu/data.json';
+	$menu->publish($pub_file);
+} else {
+	$newdata = $menu->update();
+	$utils->setJson($jsonfile, $newdata);	
+}
 
 
 if ($debug) {
