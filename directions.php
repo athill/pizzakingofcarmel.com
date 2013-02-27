@@ -25,7 +25,7 @@ We are in the same building as MacNamara Florist.
 EOT;
 $h->tag('p', '', $text);
 
-$h->oform($filename."#directions", "get");
+$h->oform($site['filename']."#directions", "get");
 $h->tnl("<strong>Where are you?</strong>");
 $value = (array_key_exists('start', $_GET)) ? $_GET['start'] : "";
 $h->input("text", "start", $value);
