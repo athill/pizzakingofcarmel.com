@@ -7,7 +7,7 @@ include("../../inc/application.php");
 
 include($site['fileroot'].'/menu/RestaurantMenu.class.php');
 
-$debug = !$site['isPRD'] && true;
+$debug = !$site['isPRD'] && false;
 
 
 
