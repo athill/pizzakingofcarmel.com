@@ -1,5 +1,5 @@
 a:link, a:visited {
-  color: #cc0000;
+  color: #b31000;
   text-decoration: none; }
 
 a:hover {
@@ -30,10 +30,16 @@ img {
 /* left side menu */
 /* Superfish */
 .sf-menu li:hover, .sf-menu li.sfHover, .sf-menu a:focus, .sf-menu a:hover {
-  background: #ee0 !important; }
-.sf-menu li.active a:hover, .sf-menu li.active a:visited, .sf-menu li.active a:link {
-  background-color: #777;
-  color: #FFF !important; }
+  background: #eeee00 !important;
+  color: #b31000; }
+.sf-menu a, .sf-menu a:visited, .sf-menu a:link {
+  color: #b31000 !important; }
+.sf-menu li.active a, .sf-menu li.active a:visited, .sf-menu li.active a:link {
+  background-color: #b31000;
+  color: white !important; }
+.sf-menu li.active a:hover, .sf-menu li.active a:focus {
+  color: #b31000 !important;
+  background-color: #eeee00; }
 
 /* Rows */
 div.row {
