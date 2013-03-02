@@ -1,5 +1,8 @@
 <?php
 date_default_timezone_set('America/New_York');
+///Make sure magic_quotes_gpc is false
+ini_set('magic_quotes_gpc', false);
+
 ////useless here if any vars are set. first thing on each page (for sessions)
 //session_start();
 ///////////////////
@@ -138,5 +141,4 @@ $template = new Template($menu, $GLOBALS['site']["template"]);
 ////TODO: Move head() and heading() to template.start() ?
 $template->head();
 $template->heading();
-
 ?>

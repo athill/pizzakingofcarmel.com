@@ -221,6 +221,15 @@ div#drop {
 	margin:0;
 }
 
+#admin-link {
+	display: inline-block;
+	float: right;
+	color: #FFF;
+	&:hover {
+		color: #CCC;
+	}
+}
+
 .col-2 {
 	width: 50%;
 	float: left;	

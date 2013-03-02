@@ -193,6 +193,13 @@ div#drop {
   padding: 10px;
   margin: 0; }
 
+#admin-link {
+  display: inline-block;
+  float: right;
+  color: #FFF; }
+  #admin-link:hover {
+    color: #CCC; }
+
 .col-2 {
   width: 50%;
   float: left; }

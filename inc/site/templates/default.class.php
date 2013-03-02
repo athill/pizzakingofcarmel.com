@@ -52,7 +52,7 @@ class TemplateInstance {
 		//$h->tbr('renderGlobalNav');
 		$h->h(3, "Primary Navigation", 'id="primary-navigation" class="hide"');
 		$items = $this->base->menu->xmlMenu2array();
-		// $h->pa($items);
+		//  $h->pa($items);
 		$h->linkList($items, 'class="sf-menu sf-menu sf-vertical" id="global-nav-menu"');
 	}
 	
@@ -112,6 +112,7 @@ class TemplateInstance {
 		$h->a("/about.php", "About Us");  
 		$h->tnl(" | ");
 		$h->a("/contact.php", "Contact Us");
+		$h->a('/admin', 'Admin', 'id="admin-link"');
 		$h->cfooter('close #footer');	////close footer  
 		$h->cdiv('close #page');
 
