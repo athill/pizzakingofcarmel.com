@@ -391,7 +391,7 @@ div.pk-menu-2-col-center .column {
 
 .specials-coupon {
   width: 475px;
-  background: white url(/pkcar/img/coupongradient.png) repeat-x bottom;
+  background: white url(../img/coupongradient.png) repeat-x bottom;
   border: #b31000 dashed thick;
   color: black;
   /* position: relative; */
