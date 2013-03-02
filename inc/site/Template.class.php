@@ -58,6 +58,7 @@ class Template {
 		////Site structure
 		$h->odiv('id="layout"');
 		$class = "column123";
+		
 		if ($GLOBALS['site']['leftSideBar']['type'] != "none" && $GLOBALS['site']['rightSideBar'] != "none") {
 			$class = 'column2';	////left-content-right
 			$this->leftSideBar($GLOBALS['site']['leftSideBar']['type'], $GLOBALS['site']['leftSideBar']['args']);
@@ -118,7 +119,7 @@ class Template {
 	public function leftSideBar($type, $args) {
 		global $h;
 		$h->odiv('id="column1"');
-		//$h->pa($leftSideBar);
+		// $h->pa($leftSideBar);
 		switch ($type) {
 			case "content":
 				$h->tnl($args['content']);
@@ -133,7 +134,7 @@ class Template {
 				if (!preg_match("/\/$/", $path)) $path .= "/";
 				$xml = $this->menu->getNodeFromPath(array('path'=>$path));
 				$array = $this->menu->xmlMenu2array(array('xml'=>$xml, 'root'=>$path));
-		//		$h->pa($array);
+				$h->pa($array);
 				$h->linkList($array, 'class="tree" id="lsb-menu"');
 				break;
 			default:

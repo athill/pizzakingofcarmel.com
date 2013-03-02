@@ -47,7 +47,7 @@ class Menu {
 	 */ 
  	function __construct($pathToXmlFile, $script="") {
 		global $webroot; 		
-		$this->debugOn = ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') && false;
+		$this->debugOn =  false;
 		if(!$this->xml=simplexml_load_file($pathToXmlFile)) {
 		    trigger_error('Error reading XML file',E_USER_ERROR);
 		}
@@ -251,7 +251,7 @@ class Menu {
 	///////////////////////////////////////////////////
 	function xmlMenu2array($options=array()) {
 		global $h;
-		$d = $this->debugOn && false; 	////debug
+		$d = $this->debugOn || false; 	////debug
 		$defaults = array(
 			'xml' => $this->xml,	////Xml to parse -- used in recursion
 			'path'=>'',				////Build the path -- used in recursion
@@ -297,7 +297,7 @@ class Menu {
 	///////////////////////////////////////////////////
 	function parseItem($item, $path, $depth, $test="") {
 		global $h;
-		$d = false; 		////debug
+		$d = $this->debugOn || false; 	////debug
 		$active = false;	////node is in path
 		if ($d) print_r($this->script);
 		////If href is in pipe form, split into href|display
@@ -307,7 +307,10 @@ class Menu {
 		/////Exception for matching root element
 		if (count($this->script) == 0 && $depth == 0 && $item['href'] == "/") {
 			$item['liAtts'] = 'class="active"';
-			if ($d) $h->tbr('active!');
+			if ($d) {
+				$h->tbr('active!'.count($this->script).' '. $depth);
+				// $h->pa($this->script);
+			}
 			return $item;			
 		}
 		////If redirect attribute exists, that's the link and it's not in the path,
@@ -337,6 +340,7 @@ class Menu {
 		} else if ($item['href'] == $this->path || 
 				$item['href'] == './?'.$_SERVER['QUERY_STRING'] || 
 				($depth < count($this->script) && $step == $this->script[$depth])) {
+
 			$active = true;
 		}
 		if ($active) {

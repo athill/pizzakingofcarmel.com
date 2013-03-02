@@ -55,6 +55,15 @@ $settings['pageTitle']  = $settings['siteName'];
 $settings['isPRD'] = !$settings['isTST'];
 $settings['incroot'] = $settings['fileroot'] . "/inc";
 
+////set "script"
+$tmp = preg_replace("/index.php$/", "", $self);
+if ($webroot != "") {
+	$tmp = str_replace($settings['webroot']."/", "", $_SERVER['PHP_SELF']);
+}
+$settings["script"] = explode("/", $tmp);
+if (count($settings["script"]) > 0 && $settings["script"][0] == "") {
+	array_shift($settings["script"]);
+}
 
 
 // TODO: autoload objects!!!!!!!!
@@ -96,14 +105,10 @@ $site = $settings;
 
 ////Directory Settings -- override global settings for directory
 $dirSettings = $settings['dir'].'/directorySettings.php';
-//print_r($GLOBALS);
 if (file_exists($dirSettings)) {
-echo $settings['dir'];
 	require_once($dirSettings);
 }
 
-
-print_r($directory);
 if (isset($directory)) $GLOBALS['site'] = array_merge($GLOBALS['site'], $directory) or die("???");
 ////Local Settings override global and directory
 if (isset($local))$GLOBALS['site'] = array_merge($GLOBALS['site'], $local) or die("^^^");
@@ -119,13 +124,6 @@ include_once($site['incroot']."/Utils.class.php");
 $site['utils'] = new Utils();
 $utils = $site['utils'];
 
-//echo '<pre>';
-//print_r($GLOBALS['jsModules']);
-//echo '</pre>';
-
-//print_r($GLOBALS['stylesheets']);
-
-//echo 'TEMPLATE: '.$GLOBALS["template"];
 
 ////Error handler
 ////TODO: Move up to global objects?

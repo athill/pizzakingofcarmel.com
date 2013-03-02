@@ -32,11 +32,6 @@ class TemplateInstance {
 	private function displayHeader() {
 		global $h, $webroot;
 		////header container
-		////Begin Display
-		//$h->body();
-		// $h->tag("a", 'name="top" id="top"', '', true);
-		// $h->oa('/');
-		////header container
 		$h->otag('a', 'href="'.$webroot.'" id="header-link"');
 		$h->oheader('id="header"');
 		$h->img("/img/pizzakingme.png", "", 'id="kingme-left"');
@@ -54,9 +49,11 @@ class TemplateInstance {
 
 	function renderGlobalNav() {
 		global $h;
+		//$h->tbr('renderGlobalNav');
 		$h->h(3, "Primary Navigation", 'id="primary-navigation" class="hide"');
-//		$array = $this->base->menu->xmlMenu2array($this->xml);
-		$h->linkList($this->base->menu->xmlMenu2array(), 'class="sf-menu sf-menu sf-vertical" id="global-nav-menu"');
+		$items = $this->base->menu->xmlMenu2array();
+		// $h->pa($items);
+		$h->linkList($items, 'class="sf-menu sf-menu sf-vertical" id="global-nav-menu"');
 	}
 	
 	private function displaySearch() {

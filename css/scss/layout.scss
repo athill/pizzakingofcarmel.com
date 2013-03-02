@@ -1,6 +1,8 @@
+$linkcolor:  #C00;
+$link-background: #FFF;
 
 a:link, a:visited {
-	color: #C00;
+	color: $linkcolor;
 	text-decoration:none;
 }
 
@@ -32,6 +34,24 @@ h1 {
 
 img{
 	border:0px;
+}
+
+
+
+/* left side menu */
+	/* Superfish */
+.sf-menu {
+	li:hover, li.sfHover, a:focus, a:hover {
+		background: #ee0 !important;
+	}
+
+// .sf-menu a, .sf-menu a:visited, .sf-menu a:link 	
+	li.active {
+		a:hover, a:visited, a:link {
+			background-color: #777;
+			color: #FFF !important;
+		}
+	}
 }
 
 /* Rows */
