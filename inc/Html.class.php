@@ -940,6 +940,4 @@ class Html extends Xml {
 		$this->cdiv();
 	}
 }
-
-
-?>	
+?>
