@@ -35,7 +35,7 @@ img {
 .sf-menu a, .sf-menu a:visited, .sf-menu a:link {
   color: #b31000 !important; }
 .sf-menu li.active a, .sf-menu li.active a:visited, .sf-menu li.active a:link {
-  background-color: #b31000;
+  background-color: #555;
   color: white !important; }
 .sf-menu li.active a:hover, .sf-menu li.active a:focus {
   color: #b31000 !important;

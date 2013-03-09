@@ -55,7 +55,7 @@ img{
 // .sf-menu a, .sf-menu a:visited, .sf-menu a:link 	
 	li.active {
 		a, a:visited, a:link {
-			background-color: $linkcolor;
+			background-color: #555;
 			color: $link-background !important;
 		}
 		a:hover, a:focus {
