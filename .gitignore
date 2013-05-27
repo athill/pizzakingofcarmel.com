@@ -1,9 +1,3 @@
-img/*
 inc/dompdf/*
-js/jquery/*
-js/jquery-tooltip/*
-js/superfish/*
 logs/*
 .sass-cache/*
-admin/pictures/img/
-js/tinymce/*

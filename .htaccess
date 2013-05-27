@@ -1,0 +1,15 @@
+# old
+# RewriteEngine on
+# RewriteRule .* maintenance.php [NC]
+
+
+# new #
+# Get mod_rewrite going
+# Options -MultiViews +FollowSymLinks not using
+ RewriteEngine On
+
+# Redirect everyone who's not from your IP
+RewriteCond %{REMOTE_ADDR} !127.0.0.1 [NC]
+# Allow real files to be served
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* maintenance.php [NC]
