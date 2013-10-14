@@ -1,10 +1,12 @@
 <?php
-$local['jsModules']['tooltip'] = true;
-$local['stylesheets'] = array('menu.css');
-$local['scripts'] = array('menu.js');
+$local = array(
+	'jsModules'=>array('tooltip'=>true),
+	'stylesheets'=>array('menu.css'),
+	'scripts'=>array('menu.js'),
+);
 require_once("../inc/application.php");
-
-$data = $utils->getJson('data.json');
+echo 'here';
+$data = $site['utils']->getJson('data.json');
 
 include("RestaurantMenu.class.php");
 $menu = new RestaurantMenu($data);

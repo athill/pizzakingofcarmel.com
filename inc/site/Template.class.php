@@ -1,5 +1,4 @@
 <?php
-include_once($GLOBALS['site']['incroot']."/Html.class.php");
 $h = html::singleton();
 
 class Template {
@@ -8,64 +7,68 @@ class Template {
 	private $home;
 	public $menu;
 	private $includes = array();
+	public $hasSkipNav = true;
 	
 	
 	public function __construct($menu, $templateText="default") {
-		global $incroot;
+		global $site;
 		$this->templateText = $templateText;
 		// echo 'um'.$templateText;
 		if ($this->templateText == "none") return;
-		include_once($GLOBALS['site']['incroot']."/site/templates/".$this->templateText.".class.php");
+		include_once($site['incroot']."/site/templates/".$this->templateText.".class.php");
 		$this->template = new TemplateInstance($this) or die("???");
 		$this->menu = $menu;
 	}
 	
 	public function head() {
 	  if ($this->templateText == "none") return;
-	  global $h, $pageTitle, $site;
+	  global $h, $site;
 	  ////Add scripts/sheets from template
 //	  $scripts = explode(",", $this->template->scripts);
 //	  $sheets = explode(",", $this->template->stylesheets);
 //	  $h->pa($this->includes);
-	  $this->includes = array_merge($this->includes, $this->template->scripts, $this->template->stylesheets);
+	  
+	  
 	  ////Add scripts/styles from jsModules
-	  include_once($GLOBALS['site']['incroot']."/JsModule.class.php");
+	  include_once($site['incroot']."/JsModule.class.php");
 	  $jsMods = new JsModule();
-	  foreach ($GLOBALS['site']['jsModules'] as $module => $bool) {
+	  foreach ($jsMods->jquery as $script) {
+	  	$this->includes[] = $script;
+	  }
+	  foreach ($site['jsModules'] as $module => $bool) {
 		  if ($bool) {
 			  	$mod = $jsMods->modules[$module];
 		  		$this->includes = array_merge($this->includes, $mod['scripts'], $mod['styles']);
 		  }
 	  }
+	  $this->includes = array_merge($this->includes, $this->template->scripts, $this->template->stylesheets);
  	  ////Add scripts/sheets from $GLOBALS
-	  $this->includes = array_merge($this->includes, $GLOBALS['site']['scripts'], $GLOBALS['site']['stylesheets']);
+	  $this->includes = array_merge($this->includes, $site['scripts'], $site['stylesheets']);
 	  ////HTML/head
-	  $title = $GLOBALS['site']['siteName'];
-	  if ($GLOBALS['site']['pageTitle'] != "") {
-		$title .= ': '. $GLOBALS['site']['pageTitle'];
+	  $title = $site['siteName'];
+	  if ($site['pageTitle'] != "") {
+		$title .= ': '. $site['pageTitle'];
 	  }
-
-	  $h->ohtml($title, $this->includes);
-	  if (array_key_exists('headerExtra', $GLOBALS['site'])) {
-		$h->tnl($GLOBALS['site']['headerExtra']);  
+	  $h->ohtml($title, $this->includes, $site['meta']);
+	  if (array_key_exists('headerExtra', $site)) {
+		$h->tnl($site['headerExtra']);  
 	  }
 	  $h->body($this->template->bodyAtts);
-//	  $this->skipNav();		
+	  if ($this->hasSkipNav) $this->skipNav();		
 	}
 
 	public function openLayout() {
-		global $h;
+		global $h, $site;
 		////Site structure
 		$h->odiv('id="layout"');
 		$class = "column123";
-		
-		if ($GLOBALS['site']['leftSideBar']['type'] != "none" && $GLOBALS['site']['rightSideBar'] != "none") {
+		if ($site['leftSideBar']['type'] != "none" && $site['rightSideBar'] != "none") {
 			$class = 'column2';	////left-content-right
-			$this->leftSideBar($GLOBALS['site']['leftSideBar']['type'], $GLOBALS['site']['leftSideBar']['args']);
-		} else if ($GLOBALS['site']['leftSideBar']['type'] != "none") {
+			$this->leftSideBar($site['leftSideBar']['type'], $site['leftSideBar']['args']);
+		} else if ($site['leftSideBar']['type'] != "none") {
 			$class = 'column23';	////left-content
-			$this->leftSideBar($GLOBALS['site']['leftSideBar']['type'], $GLOBALS['site']['leftSideBar']['args']);
-		} else if ($GLOBALS['site']['rightSideBar'] != "none") {
+			$this->leftSideBar($site['leftSideBar']['type'], $site['leftSideBar']['args']);
+		} else if ($site['rightSideBar'] != "none") {
 			$class = 'column12';	////content-right
 		}
 		$h->odiv('id="content-wrapper" class="'.$class.'"');
@@ -73,14 +76,14 @@ class Template {
 	}
 
 	function closeLayout() {
-		global $h;		
-		$h->cdiv('close #content');	////close content
-		$h->cdiv('close #content-wrapper');	//close content-wrapper
-		//$h->tbr('rsb: ' . $GLOBALS['site']['rightSideBar']);
-		if ($GLOBALS['site']['rightSideBar'] != "none") {
+		global $h, $site;		
+		$h->cdiv();	////close content
+		$h->cdiv();	//close content-wrapper
+		//$h->tbr('rsb: ' . $GLOBALS['rightSideBar']);
+		if ($site['rightSideBar'] != "none") {
 			$this->rightSideBar();
 		}
-		$h->cdiv('close #layout');	//close layout
+		$h->cdiv();	//close layout
 
 
 	}
@@ -95,7 +98,7 @@ class Template {
 		array("display" => "Search"),
 		array("display" => "Primary Navigation")
 	  );
-	  if ($GLOBALS['site']['leftSideBar']['type'] != "none") {
+	  if ($site['leftSideBar']['type'] != "none") {
 		$links[] = 	array("display" => "Secondary Navigation");
 	  }
 	  ////generate href ids
@@ -117,24 +120,22 @@ class Template {
 	
 	////Left side bar
 	public function leftSideBar($type, $args) {
-		global $h;
+		global $h, $site;
 		$h->odiv('id="column1"');
-		// $h->pa($leftSideBar);
+		//$h->pa($leftSideBar);
 		switch ($type) {
 			case "content":
 				$h->tnl($args['content']);
 				break;
 			case 'menu':
-				$path = $GLOBALS['site']['settings']['path'];				
-//				if ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') echo 'path?!?' . $path.'<br />';				
+				$path = $site['path'];				
 				if (array_key_exists('path', $args)) {
 					$path = $args['path'];
 				}
 				$path = preg_replace('/\/[a-z0-9A-Z\-_]+\.php$/', '/', $path);
-				if (!preg_match("/\/$/", $path)) $path .= "/";
 				$xml = $this->menu->getNodeFromPath(array('path'=>$path));
 				$array = $this->menu->xmlMenu2array(array('xml'=>$xml, 'root'=>$path));
-				$h->pa($array);
+		//		$h->pa($array);
 				$h->linkList($array, 'class="tree" id="lsb-menu"');
 				break;
 			default:
@@ -147,8 +148,8 @@ class Template {
 	public function rightSideBar() {
 		global $h;
 		$h->odiv('id="column3"');
-		$h->tnl($GLOBALS['site']['rightSideBar']);
-		$h->cdiv('close column3'); //close column 3
+		$h->tnl($site['rightSideBar']);
+		$h->cdiv(); //close column 3
 	}
 	
 	public function breadcrumbs($opts=array()) {

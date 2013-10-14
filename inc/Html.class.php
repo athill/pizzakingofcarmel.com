@@ -22,16 +22,14 @@ Copyright 2012 andy hill
  * @version 3.1
  *
  */
-
 require_once('Xml.class.php');
 
 class Html extends Xml {
 
 	private static $instance;
- 	
-
-
- 	/**
+	var $js = array();
+	var $jsInline = false;	
+	 	/**
 	 * constructor
 	 */ 
  	function __construct() {
@@ -70,7 +68,7 @@ class Html extends Xml {
 			$atts = count($args) > 0 ? $args[0] : '';
 			$this->tag($name, $atts);
 		////input tag
-		} else if (in_array($name, explode(',', "radio,file,checkbox,hidden,submit,button,intext,date,color,datetime,".
+		} else if (in_array($name, explode(',', "radio,checkbox,hidden,submit,button,reset,number,month,intext,date,color,datetime,".
 				"inemail,range,search,tel,time,url,week"))) {
 			$fieldname = $args[0];
 			$value = count($args) >= 2 ? $args[1] : '';
@@ -112,9 +110,19 @@ class Html extends Xml {
 		}		
 	}
 
+	// public function rtn($fn, $args) {
+	// 	$this->startBuffer();
+	// 	$this->__call($fn, $args);
+	// 	return $this->endBuffer();
+	// }
+
 	private function fixLink($link) {
+		global $site;
 		// print_r($GLOBALS['site']);
-		return (substr($link, 0, 1) == "/") ? $GLOBALS['site']['webroot'] . $link : $link;
+//		echo strpos($link, $GLOBALS['site']['webroot']);
+		return (substr($link, 0, 1) == "/" && strlen($site['webroot']) && strpos($link, $site['webroot']) === false) ? 
+			$GLOBALS['site']['webroot'] . $link : 
+			$link;
 	}
 
 	// print array
@@ -123,24 +131,53 @@ class Html extends Xml {
 		print_r($array);
 		$this->cpre();
 	}
+	
+	public function rtn($methodName, $args=array()) {
+		if ($methodName == "rtn") die("Recursion fail");
+		if (!method_exists($this, $methodName)) die("Bad method name");
+		if ($methodName == "startBuffer" || $methodName == "endBuffer") die("Bad method start/endBuffer");
+		try {
+			$this->startBuffer();
+			call_user_func_array(array($this, $methodName), $args);
+			return trim($this->endBuffer());		
+		} catch (Exception $e) {
+			die("Unspecified error in rtn");
+		}
+		
+	}	
 
 	/*****
 	 * Document Tags
 	 ******************/
-	public function ohtml($title, $includes= array(), $additional="") {
-		global $site;
+	public function ohtml($title, $includes= array(), $options=array()) {
 		$this->tnl('<!DOCTYPE html>');
 		$this->otag("html", 'lang="en"', false);
 		$this->otag("head");
-		$this->tag("title", '', $title, true);
-		$this->tag("meta", 'charset="utf-8"');
-		//<meta http-equiv="X-UA-Compatible" content="IE=9" >
-		$this->tag("meta", 'http-equiv="X-UA-Compatible" content="IE=9"');
-		$this->meta("keywords", "");
-		$this->meta("description", "");
-		$this->tag("link", 'rel="icon" href=""');
-		$this->tag("link", 'rel="shortcut icon" href=""');
-		$this->script('var webroot = "'.$site['webroot'].'"');
+		$this->tag("title", '', $title, true, false);
+		$defaults = array(
+		  'description' => "",
+		  'keywords' => "",
+		  'author' => "",
+		  'copyright' => date('Y'). '',
+		  'icon'=>'',
+		  'compatible'=>'IE=edge,chrome=1',
+		  'viewport'=>'width=device-width',
+		  'charset'=>'uft-8'
+		);
+		$options = $this->extend($defaults, $options);
+		$this->tag("meta", 'charset="'.$options['charset'].'"');
+		$this->tag("meta", 'http-equiv="X-UA-Compatible" content="'.$options['compatible'].'"');
+		
+		$metas = array('keywords', 'description', 'author', 'copyright', 'viewport');
+		foreach ($metas as $meta) {
+			if ($options[$meta] != '') {
+				$this->tag('meta', 'name="'.$meta.'" content="'.$options[$meta].'"');
+			}
+		}
+		if ($options['icon'] != '') {
+			$this->tag("link", 'rel="icon" href="'.$options['icon'].'"');
+			$this->tag("link", 'rel="shortcut icon" href="'.$options['icon'].'"');
+		}
 		for ($i = 0; $i < count($includes); $i++) {
 			$filenameParts = explode('.', $includes[$i]);
 			$ext = end($filenameParts);
@@ -160,6 +197,23 @@ class Html extends Xml {
 	}
 
 	public function chtml() {
+		if(!$this->jsInline){
+			for($i=0;$i<sizeof($this->js);$i++) {
+				 if($this->js[$i]['type']=='file'){
+					 $this->scriptfile($this->js[$i]['value'],true);
+				 } else {
+					 
+				 	if ($i==0 || $this->js[$i-1]['type']=='file'){
+				 		$this->oscript(true);
+				 	}
+				 	$this->tnl($this->js[$i]['value']);
+				 	if ($i == sizeof($this->js)-1 || $this->js[$i+1]['type']=='file') {
+				 		$this->cscript(true);
+				 	}
+					
+				 }	
+			}
+		}
 		$this->tnl('</body>');
 		$this->tnl("</html>");
 	}
@@ -176,6 +230,13 @@ class Html extends Xml {
 		if ($display == "") $display = $href;
 		$this->tnl('<a href="'.$this->fixLink($href).'"'.$this->fixAtts($atts).'>'.$display.'</a>');
 	}
+	
+	////name
+	public function name($name, $content="", $atts='') {		
+		$atts = 'name="'.$name.'" id="'.$name.'"'.$this->fixAtts($atts);
+		//$this->tag("a", $atts, $content, true);	
+		$this->tnl('<a '.$atts.'>'.$content.'</a>');
+	}	
 
 	////img
 	public function img($src, $alt, $atts="") {
@@ -184,37 +245,54 @@ class Html extends Xml {
 	}
 
 	///////Javascript
-	public function scriptfile($files) {
-		//$this->tnl('<script type="text/javascript" src="'.$uri.'"></script>');
-	  	if (!is_array($files)) $files = array($files);
+	public function scriptfile($files,$inline='') {
+		if ($inline == '') $inline = $this->jsInline;
+		if (!is_array($files)) $files = array($files);
 		foreach ($files as $file) {
-			//if (substr($file, 0, 1) == "/") $file = $GLOBALS['site']['webroot'] . $file;
-			//$this->tnl('<link rel="stylesheet" type="text/css" href="'.$sheet.'" />');	
-			$this->tag('script', 'src="'.$this->fixLink($file).'"', '', true, false);
+			if($inline) { 
+				$this->tag('script', 'src="'.$this->fixLink($file).'"', '', true, false);
+			} else {
+				$this->js[] = array('type'=>'file','value'=>$file);
+			}
 		}		
 	}
 
-	public function script($js) {
-		$this->oscript();
-		//add XHTML comments
-		$this->tnl(trim($js));
-		//if ($js[count($js)] != "\n") $this->wo("\n");
-		$this->cscript();
+	public function script($js,$inline='') {
+		if ($inline == '') $inline = $this->jsInline;
+		if($inline){
+			$this->oscript();
+			//add XHTML comments
+			$this->tnl(trim($js));
+			//if ($js[count($js)] != "\n") $this->wo("\n");
+			$this->cscript();
+		} else {
+			$this->js[] = array('type'=>'script','value'=>$js);
+		}
 	}	
 	/***
 	 * Opens a script tag
 	 */
-	 public function oscript() {
-		$this->otag('script', array('type'=>'text/javascript'));
-	 	$this->tnl("//<![CDATA[");
+	 public function oscript($inline='') {
+		if ($inline == '') $inline = $this->jsInline; 
+		if($inline){
+			$this->otag('script', array('type'=>'text/javascript'));
+		 	$this->tnl("//<![CDATA[");
+		} else {
+			$this->startBuffer();
+		}
 	 }
 
 	/***
 	 * Closes a script tag
 	 */
-	 public function cscript() {
-	 	$this->tnl("//]]>");
-		$this->ctag('script');
+	 public function cscript($inline='') {
+		if ($inline == '') $inline = $this->jsInline; 
+		if($inline){
+	 		$this->tnl("//]]>");
+			$this->ctag('script');
+		} else {
+			$this->js[] = array('type'=>'script','value'=>$this->endBuffer());
+		}
 	 }
 
 	/***
@@ -250,8 +328,8 @@ class Html extends Xml {
 	  public function stylesheet($sheets) {
 	  	if (!is_array($sheets)) $sheets = array($sheets);
 		foreach ($sheets as $sheet) {
-			if (substr($sheet, 0, 1) == "/") $sheet = $GLOBALS['site']['webroot'] . $sheet;
-			$this->tnl('<link rel="stylesheet" type="text/css" href="'.$sheet.'" />');	
+			//if (substr($sheet, 0, 1) == "/") $sheet = $GLOBALS['site']['webroot'] . $sheet;
+			$this->tnl('<link rel="stylesheet" type="text/css" href="'.$this->fixLink($sheet).'" />');	
 		}
 	 }	 
 
@@ -364,16 +442,28 @@ class Html extends Xml {
 	/********************************************
 	 * List Functions
 	 **********************************************/
-     /**
+      /**
       *  Creates a list of $listType (ul or ol) with list items defined by $listItemArray
       */
-  	public function liArray($listType, $listItemArray, $atts='', $liAtts='') {
-		if (!in_array($listType, array("ul","ol"))) $listType = "ul";
-		 $this->otag($listType, $atts, true);
-         foreach ($listItemArray as $item) {
-             $this->tag("li", $liAtts, trim($item));
+  	public function liArray($listType, $listItemArray, $atts="",$liAtts=array()) {
+		if (!$listType === "ul" && !$listType == "ol") $listType = "ul";
+		 $this->otag($listType, $atts);
+         for ($i = 0; $i < count($listItemArray); $i++) {
+			 $liAttr = (array_key_exists($i, $liAtts)) ? $liAtts[$i] : '';
+			 if (is_array($listItemArray[$i])) {
+				 if (array_key_exists('children', $listItemArray[$i])) {
+					 $this->otag('li');
+					 $this->tnl($listItemArray[$i]['content']);
+					 $this->liArray($listType, $listItemArray[$i]['children']);
+					 $this->ctag('li');
+				 } else {
+					 $this->tag("li", $liAttr, $listItemArray[$i]['content'], true);
+				 }
+			 } else {
+	             $this->tag("li", $liAttr, $listItemArray[$i], true);
+			 }
          }
-         $this->ctag($listType, true);
+         $this->ctag($listType);
      }
 
 	 ////Takes an array of link structs and generates an unordered list
@@ -424,6 +514,16 @@ class Html extends Xml {
 	/*********************************************
 	 *  Form functions						 *
 	 *********************************************/
+	 
+	public function editor($name, $content='', $options=array()) {
+		if (count($options) > 0) {
+			$this->script("var conf = utils.editorManager.conf(".json_encode($options)."); ".
+				"alert(utils.printObj(conf)); tinyMCE.init(utils.editorManager.conf(".json_encode($options)."));");			
+		}
+		//$this->script('alert(utils.printObj(utils.editorManager.conf()));');
+		$this->textarea($name, $content, 'class="editor"');
+	}	 
+	 
 	  function formTable($config) {
 	  	$defaults = array(
 			'atts'=>'',
@@ -433,10 +533,13 @@ class Html extends Xml {
 			'subheaders'=>array(),
 			'rows'=>array(),
 			'sideLabelAtts'=>'class="side-header"',
-			'mode'=>'view',
-			'useLabelAsValue'=>false
-		);  
+			'mode'=>'form',
+			'useLabelAsValue'=>false,
+			'debug'=>false
+		);
+		//print_r($config['rows']);  
 		$config = $this->extend($defaults, $config);
+		//// Set Up
 		$arrays = explode(',', 'headers,subheaders,rows');
 		foreach ($arrays as $array) {
 			foreach ($config[$array] as $i => $value) {
@@ -452,6 +555,7 @@ class Html extends Xml {
 		if (count($config['subheaders']) > 0) {
 			$colspan = ' colspan="'.count($config['subheaders'])/count($config['headers']).'"';
 		}
+		//// Start rendering
 		$this->otable($config['atts']);
 		$this->th($config['upper_left_label']);
 		foreach ($config['headers'] as $header) {
@@ -470,6 +574,7 @@ class Html extends Xml {
 				$this->th('&nbsp;');
 			}			
 		}
+		$allvalues = array();
 		foreach ($config['rows'] as $row) {
 			$atts = ' ';
 			$name = '';
@@ -488,7 +593,7 @@ class Html extends Xml {
 				$spans = array();
 				$spanning = false;
 				if ($start == '[label]') {
-					$labelAtts .= ' colspan="'. (count($headers) + 1).'"';
+					$labelAtts .= ' colspan="'. (count($headers) + 1).'" class="colspan"';
 					$spans[] = '[label]';
 				}				
 				foreach ($headers as $header) {
@@ -498,57 +603,67 @@ class Html extends Xml {
 				}
 			}
 			$this->th($row['label'], $labelAtts);
-			foreach ($headers as $header) {
+			$allvalues[$row['id']] = array();
+			///////Loop through headers
+			foreach ($headers as $index => $header) {
 				$thisAtts = $atts;
 				$type = (array_key_exists('type', $header)) ? $header['type'] : $config['type'];
-				$type = (array_key_exists('type', $row)) ? $row['type'] : $type;	
+				$type = (array_key_exists('type', $row)) ? $row['type'] : $type;
+				if (array_key_exists('format', $header) && $header['format'] != '') {
+					$thisAtts = ($header['format'] == 'none') ? '' : 'class="'.$header['format'].'"';
+				}
 				$name = $header['id'];
 				if (array_key_exists('colspan', $row) && in_array($name, $spans)) {
 					if ($name == $spans[0]) {
 						$content = (array_key_exists('content', $row['colspan'])) ? 
 							$row['colspan']['content'] : 
 							'&nbsp;';
-						$this->td($content, 'colspan="'.count($spans).'"');
+						$this->td($content, 'colspan="'.count($spans).'" class="colspan"');
 					}
 				} else {
 					$this->otd();
+					//$this->tnl($type);
+					if ($config['debug']) $this->tnl($row['id'].'_'.$name);
 					if ($type == 'text') {
 						$value = '';
-						if (array_key_exists('values', $row) && array_key_exists($name, $row['values'])) {
-							$value = $row['values'][$name];
-						}
-						if (array_key_exists('totals', $row) && array_key_exists($name, $row['totals'])) {
-							$value = 0;
-							//$this->tbr('totals for '.$row['id'].' : '.$row['totals'][$name]);
-							$addends = explode(',', $row['totals'][$name]);
-							foreach($addends as $addend) {
-								
-								if (strpos($addend, '_')) {
-									list($qid,$hid) = explode('_', $addend);
-								} else {
-									$qid = $row['id'];
-									$hid = $name;	
-									$value = 0;
-								}
-								foreach ($config['rows'] as $r) {
-									//$this->tbr('looping: '.$r['id'] . ' '.$hid);
-									if ($qid == $r['id'] && array_key_exists('values', $r) 
-											&& array_key_exists($hid, $r['values'])) {
-										$value += $r['values'][$hid];
-										//$this->tbr($hid.': '.$value);
+						$functionAtts = '';
+						if (array_key_exists('values', $row)) {
+							////function for entire row
+							if (array_key_exists('func', $row['values'])) {
+								////Make shortcuts explicit
+								$func = $row['values'];
+								foreach ($func['cells'] as $i => $cell) {
+								  if (!strpos($cell, '_')) {
+									  $func['cells'][$i] .= '_'.$name;
+								  }
+								}								
+								$value = $this->formTableFunction($func, $allvalues);
+								$functionAtts = ' class="function-target" data-function="'.$func['func'].'" data-values="'.implode(',', $func['cells']).'"';
+							} else if (count($row['values']) > $index) {
+								$cell = $row['values'][$index];
+								////function for cell
+								if (is_array($cell) && array_key_exists('func', $cell)) {
+									foreach ($cell['cells'] as $i => $c) {
+								  		if (!strpos($c, '_')) {
+									  		$cell['cells'][$i] .= '_'.$name;
+										}
 									}
+									$value = $this->formTableFunction($cell, $allvalues);
+									$functionAtts = ' class="function-target" data-function="'.$cell['func'].'" data-values="'.implode(',', $cell['cells']).'"';
+								////Value is in cell	
+								} else {							
+									$value = $cell;
 								}
 							}
-							$thisAtts = $this->combineClassAtts($thisAtts.' class="formtable-totals" data-totals="'.$row['totals'][$name].'"');
-							$row['values'][$name] = $value;
-							
 						}
+						$thisAtts = $this->combineClassAtts($thisAtts.$functionAtts);
 //						$this->tbr($config['type']);
 						if ($config['mode'] == 'view') {
 							$this->span($value, $thisAtts.' id="'.$row['id'].'_'.$name.'"');
 						} else {
 							$this->input($type, $row['id'].'_'.$name, $value, $thisAtts);
 						}
+					////radio/checkbox
 					} else {
 						$thisAtts = $atts.' id="'.$row['id'].'_'.$name.'"';
 						$viewValue = '';
@@ -563,6 +678,8 @@ class Html extends Xml {
 							$this->input($type, $row['id'].'[]', $value, $thisAtts);
 						}
 					}
+					$value = preg_replace('/[$%]/', '', $value);
+					$allvalues[$row['id']][$name] = $value;
 					$this->ctd();
 				}
 			}
@@ -573,6 +690,42 @@ class Html extends Xml {
 			}
 		}
 		$this->ctable();
+//		$this->pa($allvalues);
+	  }
+	  
+	  private function formTableFunction($def, $allvalues) {
+		  $func = $def['func'];
+		  $cells = $def['cells'];
+//		  $this->pa($cells);
+		  $value = '';
+		  foreach ($cells as $i => $cellid) {
+//			  $this->tbr('value: '.$cellid);		  
+			  list($qid, $hid) = explode('_', $cellid);
+			  $cell = '';
+			  if (array_key_exists($qid, $allvalues) && array_key_exists($hid, $allvalues[$qid])) {
+				$cell = $this->clearNumFormatting($allvalues[$qid][$hid]);
+			  }
+			  //$this->tbr($cellid.' |'.$cell.'| '.$value);
+			  if ($value == '' && is_numeric($cell)) {
+			  	$value = $cell;
+			  } else if (is_numeric($cell)) {
+				  if ($func == 'sum') {
+					$value += $cell;  
+				  } else if ($func == 'product') {
+					$value *= $cell;  
+				  } else if ($func == 'difference') {
+					$value -= $cell;  
+				  } else if ($func == 'quotient' && $cell != 0) {
+					  $value /= $cell;
+				  }
+			  }
+			  //$this->tbr('<strong>'.$value.'</strong>');
+		  }
+		  return is_numeric($value) ? number_format($value) : '';
+	  }
+	  
+	  function clearNumFormatting($num) {
+		  return str_replace(',', '', trim($num));
 	  }
 
 
@@ -611,9 +764,11 @@ class Html extends Xml {
 	/**
 	 * Opens a fieldset and legend tag	
 	 */	
-	public function ofieldset($legend, $atts='', $legendAtts='') {
+	public function ofieldset($legend='', $atts='', $legendAtts='') {
 		$this->otag('fieldset', $atts, true);
-		$this->tag('legend', $legendAtts, $legend, true, false);
+		if ($legend != '') {
+			$this->tag('legend', $legendAtts, $legend, true, false);
+		}
 	}
 	
 	/**
@@ -621,7 +776,7 @@ class Html extends Xml {
 	 */
 	public function label($id, $content, $atts='') {
 		$atts = 'for="'.$id.'"' . $this->fixAtts($atts);
-		$this->tag('label', $atts, $content, true);
+		$this->tag('label', $atts, $content, true, false);
 	}
 
 
@@ -633,7 +788,7 @@ class Html extends Xml {
 		$addAtts = ' type="'.$type.'" name="'.$name.'"';
 		if ($value != '') $addAtts .= ' value="'.$value.'"';
 		$atts = $addAtts . $atts;
-		$atts = $this->checkId($name, $atts);
+		$atts = $this->CheckId($name, $atts);
 		$this->tag('input', $atts);
 	}
 	
@@ -646,18 +801,12 @@ class Html extends Xml {
 		$atts = ' name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"' . $this->fixAtts($atts); 
 		$atts = $this->checkId($name, $atts);
 		$this->tag('textarea', $atts, $value, true, false);
-	}
-
-
-	public function editor($name, $value) {
-		$this->textarea($name, $value, 'class="editor"');
-	}
+	}	
 
 
 	public function checkId($name, $atts) {
-		if (strpos($atts, "id=") === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
+		if (strpos("id=", $atts) === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
 		return $atts;
-
 	}
 
 	/**
@@ -865,7 +1014,7 @@ class Html extends Xml {
 		for ($i = 0; $i < strlen($addr); $i++) {
 			$email = $email . "&#" . ord(substr($addr, $i, 1)) . ";";
 		}
-		if ($display == $addr || $display == '') $display = $email;
+		if ($display == '') $display = $email;
 		$mailto2 = "";
 		$mailto = "mailto:";
 		for ($i = 0; $i < strlen($mailto); $i++) {
@@ -939,5 +1088,28 @@ class Html extends Xml {
 		}
 		$this->cdiv();
 	}
+	/***** 
+	 * HTML Templates
+	 ******/
+	//// interpolate a string from a template
+ 	public function tint($str) {
+ 		$this->tnl('<%= '.$str.' %>');
+ 	}
+
+	//// escape a string from a template
+ 	public function tesc($str) {
+ 		$this->tnl('<%- '.$str.' %>');
+ 	} 	
+
+	//// evaluate a string from a template
+ 	public function tevl($str) {
+ 		$this->tnl('<% '.$str.' %>');
+ 	} 	
+
+ 	public function tblock($head, $blockfn) {
+ 		$this->tevl($head.' {');
+ 		$blockfn();
+ 		$this->tevl('}');
+ 	}
 }
-?>
+?>	
