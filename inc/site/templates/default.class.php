@@ -8,7 +8,7 @@ class TemplateInstance {
 
 	public $bodyAtts = 'id="default" class="default"';	
 	public $stylesheets = array("/css/layout.css", "/css/accessible.css");
-	public $scripts = array("http://code.jquery.com/jquery-1.7.2.min.js", 
+	public $scripts = array(//"http://code.jquery.com/jquery-1.7.2.min.js", 
 							//"http://code.jquery.com/jquery-migrate-1.1.0.min.js",
 							"/js/site.js"
 	);
