@@ -36,7 +36,7 @@ $site = array(
 	'filedir' => dirname($_SERVER['SCRIPT_FILENAME']),
 	"isTST" => $webroot != "",
 	"view" => $self,
-	"siteName" 	=> "andyhill.us",
+	"siteName" 	=> "pizzakingofcarmel.com",
 	"leftSideBar" => array('type'=>"none", 'args'=>array()),
 	"rightSideBar" => "none",
 	"template" => "default",
@@ -48,10 +48,10 @@ $site = array(
 	"useImageHeader" => false,
 	"cas"=>false,
 	'meta'=>array(
-		  'description' => "Andy Hill's Webpage",
-		  'keywords' => "Andy Hill,Bloomington, IN",
+		  'description' => "Pizza KIng of Carmel",
+		  'keywords' => "Pizza King,Pizza,King,Carmel,Indiana,Mexican Food",
 		  'author' => "Andy Hill",
-		  'copyright' => date('Y'). ', andyhill.us',
+		  'copyright' => date('Y'). ', Pizza KIng of Carmel',
 		  'icon'=>'',
 		  'compatible'=>'IE=edge,chrome=1',
 		  'viewport'=>'width=device-width',
@@ -59,8 +59,6 @@ $site = array(
 	)	
 );
 ////Mobile?
-
-
 require_once('IsMobile.class.php');
 $device = new IsMobile();
 $site['isMobile'] = $device->isMobile;
