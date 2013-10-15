@@ -15,7 +15,7 @@ class coupon {
 
 	function display() {
 		global $h;
-		global $webroot;
+		// global $webroot;
 		$h->odiv('class="specials-coupon" id="coupon-'.$this->id.'"');
 		///////Top area
 		$h->odiv('class="coupon-top"');

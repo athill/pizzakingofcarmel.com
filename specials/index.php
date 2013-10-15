@@ -10,17 +10,14 @@ include("../inc/application.php");
 //$h->tnl("text");
 include_once("CouponPage.class.php");
 
-?>
-<script type="text/javascript">
+$h->script('
 $(function() {
 	////set up
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
 	$(".coupon-header").textfill({ maxFontPixels: 80 });
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
-});
-</script>
+});');
 
-<?php
 
 if ($site['filename'] != "print.php") {
 	$h->odiv('id="specials-printable-link"');

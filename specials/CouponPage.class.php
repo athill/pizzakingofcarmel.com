@@ -38,7 +38,7 @@ class CouponPage {
 		$h->otable('id="specials-coupons"');
 		foreach ($data as $i => $item) {
 			$item['body'] = str_replace('\"', '"', $item['body']);
-			$coupon = new coupon($i, $item['header'], $item['body'], $item['expire']);
+			$coupon = new Coupon($i, $item['header'], $item['body'], $item['expire']);
 			$h->otd();
 			$coupon->display();	
 			$h->ctd();
