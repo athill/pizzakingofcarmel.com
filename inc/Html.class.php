@@ -115,14 +115,18 @@ class Html extends Xml {
 	// 	$this->__call($fn, $args);
 	// 	return $this->endBuffer();
 	// }
-
+	
+	//// Adds webroot to local link if not already there
 	private function fixLink($link) {
 		global $site;
-		// print_r($GLOBALS['site']);
-//		echo strpos($link, $GLOBALS['site']['webroot']);
-		return (substr($link, 0, 1) == "/" && strlen($site['webroot']) && strpos($link, $site['webroot']) === false) ? 
-			$GLOBALS['site']['webroot'] . $link : 
+		$startsWithSlash = substr($link, 0, 1) == "/";
+		$webrootNonempty = strlen($site['webroot']);
+		$noWebrootInLink = strpos($link, $site['webroot']) !== 0;
+		$link = ($startsWithSlash && $webrootNonempty && $noWebrootInLink) ? 
+			$site['webroot'] . $link : 
 			$link;
+		// $this->tbr('webroot: '.$startsWithSlash.'|'.$webrootNonempty.'|'.$noWebrootInLink);
+		return $link;
 	}
 
 	// print array
