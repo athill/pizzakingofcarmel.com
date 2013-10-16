@@ -1,6 +1,10 @@
 <?php
-$local['jsModules']['textfill'] = true;
-$local['jsModules']['jquery-ui'] = true;
+$local = array(
+	'jsModules'=>array(
+		'textfill'=>true,
+		'jquery-ui'=>true,
+	),
+);
 include("../../inc/application.php");
 $fileroot = $site['fileroot'];
 // print_r($site);
@@ -9,44 +13,36 @@ include($site['fileroot']."/specials/Coupon.class.php");
 
 $datafile = $site['fileroot']."/specials/data.json";
 
-?>
-
-
-<script type="text/javascript">
-$(function() {
+$h->script('$(function() {
 	////set up
-
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
 	$(".body-text").each(function(index, domele) {
-		$(this).val($(this).val().replace(/\t/g, ''));
+		$(this).val($(this).val().replace(/\t/g, ""));
 	});
 	$(".coupon-header").textfill({ maxFontPixels: 80 });
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
 	$(".expire-text").datepicker();
-	
 	////events
 	$(".header-text").keyup(function() {
-		var id = $(this).attr('id');
-		var coupon = '#coupon-'+id.replace(/.*-([^\-]+)$/, "$1");
+		var id = $(this).attr("id");
+		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
 		$(coupon + " .coupon-header span").html($(this).val());
 		$(coupon + " .coupon-header").textfill({ maxFontPixels: 80 });
 	});
 	$(".body-text").keyup(function() {
-		var id = $(this).attr('id');
-		var coupon = '#coupon-'+id.replace(/.*-([^\-]+)$/, "$1");
-		$(coupon + " .coupon-body span").html($(this).val().replace(/\n/g, '<br />'));
+		var id = $(this).attr("id");
+		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
+		$(coupon + " .coupon-body span").html($(this).val().replace(/\n/g, "<br />"));
 		$(coupon + " .coupon-body").textfill({ maxFontPixels: 80 });
 	});
 	$(".expire-text").change(function() {
-		var id = $(this).attr('id');
-		var coupon = '#coupon-'+id.replace(/.*-([^\-]+)$/, "$1");
-		$(coupon + ' .coupon-expire').html($(this).val());
+		var id = $(this).attr("id");
+		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
+		$(coupon + " .coupon-expire").html($(this).val());
 	});
+});');
 
-});
-</script>
 
-<?php
 //$price, $line1, $line2, $line3, $expr
 //$coupon = new coupon("012345678", "line1<br />line2<br />line3", "1/1/2020");
 //#f02490
@@ -61,15 +57,24 @@ if (array_key_exists('ids', $_POST)) {
 	$ids = explode(',', $_POST['ids']);
 	foreach ($ids as $id) {
 		if (!array_key_exists('delete-text-'.$id, $_POST)) {
+			$display = array_key_exists('display-'.$id, $_POST) ? 1 : 0;
 			$data[] = array(
-				'header'=>$_POST['header-text-'.$id],	
-				'body'=>$_POST['body-text-'.$id],
+				'header'=>stripcslashes($_POST['header-text-'.$id]),	
+				'body'=>stripcslashes($_POST['body-text-'.$id]),
 				'expire'=>$_POST['expire-text-'.$id],
+				'display'=>$display
 			);
 		}
 	}
+	// $h->pa($data);
 	$json = json_encode($data);
-	file_put_contents($datafile, $json);	
+	$h->tbr($datafile);
+	try {
+		file_put_contents($datafile, $json);
+	} catch (Exception $e) {
+		print_r($e);
+	}
+	
 }
 
 
@@ -81,6 +86,7 @@ if (array_key_exists('add', $_POST)) {
 		'header'=>'filler',	
 		'body'=>'a line of text',
 		'expire'=>date('m/d/Y'),
+		'display'=>0
 	);	
 }
 
@@ -95,7 +101,7 @@ foreach ($data as $i => $item) {
 	$h->otd();
 //	print_r($item);
 	$item['body'] = str_replace('\"', '"', $item['body']);
-	couponForm($i, $item['header'], $item['body'], $item['expire']);
+	couponForm($i, $item['header'], $item['body'], $item['expire'], $item['display']);
 	$h->ctd();
 	$h->otd();
 	$coupon = new coupon($i, $item['header'], $item['body'], $item['expire']);
@@ -114,10 +120,14 @@ $template->footer();
 
 
 ////helper
-function couponForm($id, $header, $body, $expire) {
+function couponForm($id, $header, $body, $expire, $display) {
 	global $h;
 	$h->odiv('class="coupon-form" id="coupon-'.$id.'"');	
 	$h->tbr("<strong>Header:</strong>");
+	$atts = 'class="display-text"';
+	if ($display === 1) $atts.= ' checked';
+	$h->input("checkbox", "display-".$id, '1', $atts);
+	$h->label("display-".$id, ' Display');
 	$h->intext("header-text-".$id, $header, 'class="header-text"');	
 	$h->input("checkbox", "delete-text-".$id, '1', 'class="delete-text"');
 	$h->label("delete-text-".$id, ' Delete');
