@@ -3,8 +3,8 @@ include_once('CouponPage.class.php');
 
 class CouponPagePdf extends CouponPage {
 	function renderHeader() {
-		global $h;
-		global $fileroot;
+		global $h, $site;
+		$fileroot = $site['fileroot'];
 		/////////////Header
 		$h->tag('img', 'src="'.$fileroot.'/img/pk_logo_black.png"', '');
 		$h->otable('width="100%" cellpadding="0" cellspacing="0"');
