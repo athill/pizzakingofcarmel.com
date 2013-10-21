@@ -34,15 +34,20 @@ class TemplateInstance {
 		////header container
 		$h->otag('a', 'href="'.$webroot.'" id="header-link"');
 		$h->oheader('id="header"');
-		$h->img("/img/pizzakingme.png", "", 'id="kingme-left"');
-		$h->img("/img/header_logo.png", "Pizza King of Carmel");
-		$h->tnl("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-		$h->img("/img/magnet_right.png", "We Deliver!");
+		$h->img("/img/pizzakingme.png", "", 'id="kingme-left" class="kingme"');
+		$h->img("/img/header_logo.png", "Pizza King of Carmel", 'id="header-logo"');
+		$h->span("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", 'id="header-spacer"');
+		$h->img("/img/magnet_right.png", "We Deliver!", 'id="header-delivery"');
 		//$h->cdiv();
-		$h->img("/img/pizzakingme.png", "", 'style="float: right;" id="kingme-right"');
+		$h->img("/img/pizzakingme.png", "", 'id="kingme-right" class="kingme"');
+		$h->img('/img/icons/menu_icon.jpg', 'menu toggle', 'id="menu-toggle"');
 		$h->cheader('close #header');
 		$h->ctag('a', false, 'close a tag');
 		$h->odiv('id="contentwrapper"');
+		$h->odiv('id="leftcolumn"');
+		//$sfmenu->displayMenu();
+		$this->renderGlobalNav();
+		$h->cdiv('close #leftcolumn');
 		$h->odiv('id="contentcolumn"');
 
 	}
@@ -96,13 +101,10 @@ class TemplateInstance {
 		global $h;
 		$this->base->closeLayout();
 		$h->cdiv('close #contentcolumn');	////close content
+		
+
+
 		$h->cdiv('close #contentwrapper'); ////closecontentwrapper
-
-		$h->odiv('id="leftcolumn"');
-		//$sfmenu->displayMenu();
-		$this->renderGlobalNav();
-		$h->cdiv('close #leftcolumn');
-
 
 		//$h->cdiv(); ////close main
 		//$h->cdiv(); ////close main

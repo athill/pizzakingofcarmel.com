@@ -60,7 +60,6 @@ div.row {
   /* float:left; */
   position: relative;
   width: 100%;
-  height: 115px;
   background: #EEEE00;
   /* #F5E521; */
   /* #E8E500 */
@@ -82,7 +81,7 @@ div.row {
   right: 14px; }
 
 #contentwrapper {
-  float: left;
+  /*float: left;*/
   width: 100%; }
 
 #contentcolumn {
@@ -93,98 +92,18 @@ div.row {
   float: left;
   width: 14em;
   /*Width of left column*/
-  margin-left: -100%; }
-
-/*
-#header-center {
-	background: red;
-	margin: 0px auto;
+  /*margin-left: -100%; }*/
 }
-*/
-.page-header {
-  position: absolute;
-  font: italic bold 20pt arial;
-  padding: 5px;
-  top: 0px;
-  left: 0px;
-  color: #b31000; }
 
 div#drop {
   left: 2px;
   top: 2px;
   color: #CCC; }
 
-/**************************************
- * flow layout from http://matthewjamestaylor.com/blog/perfect-2-column-left-menu.htm
- *************************************/
-/* 'widths' sub menu */
-/*
-#layoutdims {
-	clear:both;
-	background:#eee;
-	border-top:4px solid #000;
-	margin:0;
-	padding:6px 15px !important;
-	text-align:right;
-}
-*/
-/* column container */
-.colmask {
-  position: relative;
-  /* This fixes the IE7 overflow hidden bug */
-  clear: both;
-  float: left;
-  width: 100%;
-  /* width of whole page */
-  overflow: hidden;
-  /* This chops off any overhanging divs */ }
-
-/* common column settings */
-.colright,
-.colmid,
-.colleft {
-  float: left;
-  width: 100%;
-  position: relative; }
-
-.col1,
-.col2,
-.col3 {
-  float: left;
-  /* position:relative; */
-  padding: 0 0 1em 0;
-  /* overflow:hidden; */ }
-
-/* 2 Column (left menu) settings */
-.leftmenu {
-  background: #fff;
-  /* right column background colour */ }
-
-.colleft {
-  /*	right:85%; */
-  /* right column width */ }
-
-.col1 {
-  width: 13em;
-  /* right column content width */
-  /*background: blue;	*/
-  /* left column background colour */
-  /*left: 15%; */
-  /* 100% plus left column left padding */ }
-
-.col2 {
-  width: 40em;
-  margin-left: 10em;
-  /* margin auto 50%; */
-  /* width:85%; */
-  /* left column content width (column width minus left and right padding) */
-  /* left: 20em;	*/
-  /* (right column left and right padding) plus (left column left padding) */ }
-
 /* Footer styles */
 #footer {
   clear: both;
-  float: left;
+  /*float: left;*/
   width: 100%;
   border-top: 1px solid #000;
   text-align: center; }
@@ -200,10 +119,6 @@ div#drop {
   #admin-link:hover {
     color: #CCC; }
 
-.col-2 {
-  width: 50%;
-  float: left; }
-
 .indent {
   padding-left: 1em; }
 
@@ -217,7 +132,7 @@ div#drop {
   margin-left: auto;
   margin-right: auto;
   width: 25em;
-  font-size: 2em; }
+  /*font-size: 2em;*/ }
 
 .dictionary-grid .row {
   clear: both;
@@ -243,7 +158,7 @@ div#drop {
   width: 10em; }
 
 #pk-family .dictionary-grid {
-  font-size: 1.4em; }
+  /*font-size: 1.4em;*/ }
 
 #pk-family .dictionary-grid {
   width: 30em; }
@@ -535,3 +450,69 @@ Styles for print medium
 
 .canvas-text {
   position: absolute; }
+
+#header-logo {
+  width: 33%;
+  height: auto;
+  max-width: 132px;
+  max-height: 118px;
+}
+
+#header-delivery {
+  width: 60%;
+  height: auto;
+  max-width: 253px;
+  max-height: 118px;
+}
+
+#pizzaking-big {
+  width: 96%;
+  height: auto;
+  max-width: 400px;
+  padding: 2%;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  body {
+    min-width: 0;
+    font-size: 80%;
+  }
+  
+  #kingme-left, #kingme-right, #header-spacer {
+    display: none;
+  }
+  #menu-toggle {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 8%;
+    height: auto;
+    z-index: 100;
+  }
+  #contentwrapper {
+    position: relative;
+  }
+
+  #leftcolumn {
+    display: none;
+    float: none;
+    margin: 0;
+  }
+  #leftcolumn, #global-nav-menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+  }
+
+  #contentcolumn {
+    margin: 0;
+  }
+
+
+}

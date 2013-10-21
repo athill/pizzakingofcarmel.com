@@ -35,7 +35,7 @@ if ($data['display']) {
 	$h->cdiv('close canvas-wrapper');
 	$h->cdiv('close float: right');
 }
-$h->img("/img/logo_from_sack.png", "", 'align="center"');
+$h->img("/img/logo_from_sack.png", "", 'align="center" id="pizzaking-big"');
 $h->cdiv('close text-align: center');
 $h->br(2);
 
