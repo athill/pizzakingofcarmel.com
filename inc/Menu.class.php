@@ -1,5 +1,5 @@
 <?php
-/**
+:/**
  * XML menu interface
  * Expects and XML file of the following "schema":
  * Root node: menu (no attributes)
@@ -201,21 +201,21 @@ class Menu {
 
 // 	}
 
-	function parseData($options=[]) {
+	function parseData($options=array()) {
 		global $h, $site;
-		$defaults = [
+		$defaults = array(
 			'xml' => $this->xml,	////MenuXml to parse -- used in recursion
 			'script' => str_replace('index.php', '', $_SERVER['PHP_SELF']),
 			'path'=>$site['webroot'],	////Build the path -- used in recursion
 			'depth'=>0,				////Current depth -- used in recursion
 			'return'=> array(
 						'breadcrumbs'=> array(
-							['href'=>'/', 'display'=>'Home']
+							array('href'=>'/', 'display'=>'Home')
 						), ////seq of assoc: href,display
 						'pageTitle'=>"",		////pagetitle
 						'complete'=>false,		////full url matched
 					)
-		];
+		);
 		$opts = $h->extend($defaults, $options);
 		$isRoot = $opts['script'] == $site['webroot'].'/';
 		////Main loop over children
@@ -240,10 +240,10 @@ class Menu {
 				$display = (string)$elem['display'];
 				$opts['path'] = $compare;
 				$opts['depth']++;
-				$opts['return']['breadcrumbs'][] = [
+				$opts['return']['breadcrumbs'][] = array(
 					'href'=>$compare,
 					'display'=>$display,
-				];
+				);
 				$opts['return']['pageTitle'] = $display;
 				// echo 'cpm: '.$opts['script'].' '.$compare."\n";
 				if ($opts['script'] === $compare) {
@@ -266,10 +266,10 @@ class Menu {
 		);
 		$opts = $h->extend($defaults, $options);		
 		$len = count($opts['breadcrumbs']);
-		$lis = [];
+		$lis = array();
 		foreach ($opts['breadcrumbs'] as $i => $bc) {
 			$lis[] = ($i < $len - 1) ?
-				$h->rtn('a', [$bc['href'], $bc['display']]) :
+				$h->rtn('a', array($bc['href'], $bc['display'])) :
 				$bc['display'];
 		}
 

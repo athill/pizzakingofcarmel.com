@@ -10,6 +10,7 @@ require_once('autoload.php');
 $webroot = "";
 $basefileroot = "/home/content/p/k/c/pkcar/html";
 $host = $_SERVER['HTTP_HOST'];
+$self = $_SERVER['PHP_SELF'];
 ////Local
 if ($host == 'localhost' || !array_key_exists('HTTP_HOST', $_SERVER)) {
 	$webroot = '/pkcar';
@@ -28,7 +29,7 @@ $webroot .= $subdir;
 $fileroot =  $basefileroot . $webroot;
 
 //// Set up site
-$self = $_SERVER['PHP_SELF'];
+
 $site = array(
 	"webroot" => $webroot,
 	"fileroot" => $basefileroot.$webroot,
