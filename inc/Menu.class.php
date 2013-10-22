@@ -1,5 +1,5 @@
 <?php
-:/**
+/**
  * XML menu interface
  * Expects and XML file of the following "schema":
  * Root node: menu (no attributes)
@@ -203,7 +203,7 @@ class Menu {
 
 	function parseData($options=array()) {
 		global $h, $site;
-		$defaults = array(
+		$defaults = array( 
 			'xml' => $this->xml,	////MenuXml to parse -- used in recursion
 			'script' => str_replace('index.php', '', $_SERVER['PHP_SELF']),
 			'path'=>$site['webroot'],	////Build the path -- used in recursion
@@ -240,7 +240,7 @@ class Menu {
 				$display = (string)$elem['display'];
 				$opts['path'] = $compare;
 				$opts['depth']++;
-				$opts['return']['breadcrumbs'][] = array(
+				$opts['return']['breadcrumbs'][] = array( 
 					'href'=>$compare,
 					'display'=>$display,
 				);

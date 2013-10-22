@@ -514,5 +514,8 @@ Styles for print medium
     margin: 0;
   }
 
+  #pizzaking-big {
+    width: auto;
+  }
 
 }
