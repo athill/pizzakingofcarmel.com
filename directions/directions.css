@@ -1,0 +1,11 @@
+#directions-map {
+	max-width: 100%;
+	height: auto;
+}
+
+#map_canvas {
+	width: 70%; 
+	height: 480px; 
+	float:left; 
+	border: 1px solid black;	
+}

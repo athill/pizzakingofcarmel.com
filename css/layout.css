@@ -132,10 +132,10 @@ div#drop {
   margin-left: auto;
   margin-right: auto;
   width: 25em;
-  /*font-size: 2em;*/ }
+  font-size: 2em; }
 
 .dictionary-grid .row {
-  clear: both;
+  overflow: auto;
   padding: 0.5em 1em; }
 
 .row .row-left {
@@ -147,38 +147,42 @@ div#drop {
   float: left; }
 
 .center-column {
-  margin-left: auto;
-  margin-right: auto;
-  width: 550px; }
+  margin: 0 auto; 
+  max-width: 40em; }
 
 /*******************
  ******Page specific****
  ************************/
-#store-hours .dictionary-grid .row .row-left {
-  width: 10em; }
+
 
 #pk-family .dictionary-grid {
   /*font-size: 1.4em;*/ }
 
 #pk-family .dictionary-grid {
-  width: 30em; }
+  width: 28em; }
 
 #pk-family .dictionary-grid .row {
   padding: 2em; }
 
 #pk-family .dictionary-grid .row .row-left {
-  width: 8em; }
+  width: 7em; }
 
 #pk-delivery {
   font-size: 1.2em;
   font-weight: bold;
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
+  max-width: 500px;
+  padding: 1em;
   /*
   	float: right;
   	padding-left: 555px;
   */ }
+
+#pk-delivery-map {
+  width: 100%;
+  height: auto;
+}  
 
 /**********************
  * Menu Page 
@@ -239,10 +243,10 @@ div.pk-menu-2-col-center .column {
   margin: 1em;
   /* background: blue; */
   border: thin dashed black;
-  height: 13em;
+  /*height: 13em;*/
   min-height: 13em;
   text-align: center;
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle; }
 
 .pics-thumbs .pics-comment {
@@ -513,9 +517,15 @@ Styles for print medium
   #contentcolumn {
     margin: 0;
   }
-
-  #pizzaking-big {
-    width: auto;
+ 
+  .dictionary-grid {
+    font-size: 1.1em;
   }
+
+  /* need javascript to always fit: http://stackoverflow.com/questions/9994493/scale-image-to-fit-a-bounding-box-css-only */
+  /*#pizzaking-big {
+    width: auto;
+    max-width: auto;
+  }*/
 
 }

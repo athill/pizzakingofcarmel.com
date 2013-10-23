@@ -5,7 +5,6 @@ $local = array(
 	'scripts'=>array('menu.js'),
 );
 require_once("../inc/application.php");
-echo 'here';
 $data = $site['utils']->getJson('data.json');
 
 include("RestaurantMenu.class.php");

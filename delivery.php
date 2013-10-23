@@ -2,7 +2,7 @@
 include("inc/application.php");
 
 $h->odiv('id="pk-delivery"');
-$h->img('/img/delivery.png', 'Delivery Area');
+$h->img('/img/delivery.png', 'Delivery Area', 'id="pk-delivery-map"');
 $h->tbr("*We offer <u>Free Delivery</u>* with a $10 minimum food purchase.");
 $h->tbr("Call to Order: 317-848-7994");
 $items = array("No checks", "We accept all credit/debit cards for delivery", 

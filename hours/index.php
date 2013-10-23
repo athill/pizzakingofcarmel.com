@@ -1,5 +1,9 @@
 <?php
-include("inc/application.php");
+$local = array(
+	'stylesheets'=>array('hours.css'),
+);
+
+include("../inc/application.php");
 
 $hours = array(
 	array('left'=>"Monday-Thursday", 'right'=>"11:00am to 10:00pm"),

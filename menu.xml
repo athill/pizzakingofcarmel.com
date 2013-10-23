@@ -1,8 +1,8 @@
 <menu>
 	<link href="/" display="Home"/>
 	<link href="/menu/" display="Menu"/>
-	<link href="/hours.php" display="Hours"/>
-	<link href="/directions.php" display="Directions"/>
+	<link href="/hours/" display="Hours"/>
+	<link href="/directions/" display="Directions"/>
 	<link href="/delivery.php" display="Delivery"/>
 	<link href="/catering.php" display="Catering"/>
 	<link href="/family.php" display="Other Family Stores"/>
