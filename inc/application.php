@@ -37,7 +37,7 @@ $site = array(
 	'filedir' => dirname($_SERVER['SCRIPT_FILENAME']),
 	"isTST" => $webroot != "",
 	"view" => $self,
-	"siteName" 	=> "pizzakingofcarmel.com",
+	"siteName" 	=> "Pizza King of Carmel",
 	"leftSideBar" => array('type'=>"none", 'args'=>array()),
 	"rightSideBar" => "none",
 	"template" => "default",
@@ -102,7 +102,7 @@ $menu = $site['menu'];
 $rv = $site['menu']->parseData();
 // $h->pa($rv);
 $site['breadcrumbs'] = $rv['breadcrumbs'];
-$site['pageTitle'] = $rv['pagetitle'];
+$site['pageTitle'] = $rv['pageTitle'];
 
 
 ////Directory Settings -- override global settings for directory
