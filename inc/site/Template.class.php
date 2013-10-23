@@ -59,6 +59,10 @@ class Template {
 
 	public function openLayout() {
 		global $h, $site;
+		if (method_exists($this->template, 'openLayout')) {
+			$this->template->openLayout();
+			return;
+		}
 		////Site structure
 		$h->odiv('id="layout"');
 		$class = "column123";
@@ -77,6 +81,10 @@ class Template {
 
 	function closeLayout() {
 		global $h, $site;		
+		if (method_exists($this->template, 'closeLayout')) {
+			$this->template->closeLayout();
+			return;
+		}		
 		$h->cdiv();	////close content
 		$h->cdiv();	//close content-wrapper
 		//$h->tbr('rsb: ' . $GLOBALS['rightSideBar']);
@@ -121,27 +129,31 @@ class Template {
 	////Left side bar
 	public function leftSideBar($type, $args) {
 		global $h, $site;
-		$h->odiv('id="column1"');
-		//$h->pa($leftSideBar);
-		switch ($type) {
-			case "content":
-				$h->tnl($args['content']);
-				break;
-			case 'menu':
-				$path = $site['path'];				
-				if (array_key_exists('path', $args)) {
-					$path = $args['path'];
-				}
-				$path = preg_replace('/\/[a-z0-9A-Z\-_]+\.php$/', '/', $path);
-				$xml = $this->menu->getNodeFromPath(array('path'=>$path));
-				$array = $this->menu->xmlMenu2array(array('xml'=>$xml, 'root'=>$path));
-		//		$h->pa($array);
-				$h->linkList($array, 'class="tree" id="lsb-menu"');
-				break;
-			default:
-				$h->tnl("Unsupported sidebar type");
+		$h->onav('id="column1"');
+		if (method_exists($this->template, 'leftSideBar')) {
+			$this->template->leftSideBar();
+		} else {
+			//$h->pa($leftSideBar);
+			switch ($type) {
+				case "content":
+					$h->tnl($args['content']);
+					break;
+				case 'menu':
+					$path = $site['path'];				
+					if (array_key_exists('path', $args)) {
+						$path = $args['path'];
+					}
+					$path = preg_replace('/\/[a-z0-9A-Z\-_]+\.php$/', '/', $path);
+					$xml = $this->menu->getNodeFromPath(array('path'=>$path));
+					$array = $this->menu->xmlMenu2array(array('xml'=>$xml, 'root'=>$path));
+			//		$h->pa($array);
+					$h->linkList($array, 'class="tree" id="lsb-menu"');
+					break;
+				default:
+					$h->tnl("Unsupported sidebar type");
+			}
 		}
-		$h->cdiv(); //close column 1
+		$h->cnav('/#column1'); //close column 1
 				
 	}
 

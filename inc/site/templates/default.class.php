@@ -43,13 +43,21 @@ class TemplateInstance {
 		$h->img('/img/icons/menu_icon.jpg', 'menu toggle', 'id="menu-toggle"');
 		$h->cheader('close #header');
 		$h->ctag('a', false, 'close a tag');
-		$h->odiv('id="contentwrapper"');
-		$h->odiv('id="leftcolumn"');
-		//$sfmenu->displayMenu();
-		$this->renderGlobalNav();
-		$h->cdiv('close #leftcolumn');
-		$h->odiv('id="contentcolumn"');
+	}
 
+	function openLayout() {
+		global $h;
+		$h->odiv('id="contentwrapper"');
+		$h->onav('id="leftcolumn"');
+		$this->renderGlobalNav();
+		$h->cnav('close #leftcolumn');
+		$h->odiv('id="contentcolumn"');
+	}
+
+	function closeLayout() {
+		global $h;
+		$h->cdiv('close #contentcolumn');	////close content
+		$h->cdiv('close #contentwrapper'); ////closecontentwrapper
 	}
 
 	function renderGlobalNav() {
@@ -100,15 +108,6 @@ class TemplateInstance {
 	public function footer() {
 		global $h;
 		$this->base->closeLayout();
-		$h->cdiv('close #contentcolumn');	////close content
-		
-
-
-		$h->cdiv('close #contentwrapper'); ////closecontentwrapper
-
-		//$h->cdiv(); ////close main
-		//$h->cdiv(); ////close main
-
 		$h->ofooter('id="footer"');
 		$h->tnl("&copy; Pizza King of Carmel, ".date('Y')." | ");
 		$h->a("/about.php", "About Us");  

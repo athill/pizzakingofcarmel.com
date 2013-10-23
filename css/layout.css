@@ -80,6 +80,10 @@ div.row {
   top: 14px;
   right: 14px; }
 
+
+/**********************
+ * Content area layout. Sidebars, etc.
+ ****************************/
 #contentwrapper {
   /*float: left;*/
   width: 100%; }
