@@ -12,7 +12,15 @@ $fileroot = $site['fileroot'];
 // print_r($site);
 
 include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
-$fh = new FieldHandler(array());
+
+$fields = array(
+	'test'=>array(
+		'fieldtype'=>'textarea'
+	)
+);
+$fh = new FieldHandler($fields);
+
+$fh->field('test');
 
 include($site['fileroot']."/specials/Coupon.class.php");
 
