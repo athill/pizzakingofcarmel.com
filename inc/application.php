@@ -95,6 +95,9 @@ $site['mailer'] = new Mailer();
 
 ////Menu
 $xmlfile = $site['fileroot'].'/menu.xml';
+if (preg_match('/^\/admin/', $site['path'])) {
+	$xmlfile = $site['fileroot'].'/admin/menu.xml';
+}
 $site['menu'] = new Menu($xmlfile, $site['script']);
 //// FIX: $menu should not be global
 $menu = $site['menu'];
