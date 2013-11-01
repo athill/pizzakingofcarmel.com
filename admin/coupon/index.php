@@ -3,44 +3,23 @@ $local = array(
 	'jsModules'=>array(
 		'textfill'=>true,
 		'jquery-ui'=>true,
+
 	),
+	'scripts'=>array('scripts.js')
 );
 include("../../inc/application.php");
 $fileroot = $site['fileroot'];
 // print_r($site);
+
+include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
+$fh = new FieldHandler(array());
+
 include($site['fileroot']."/specials/Coupon.class.php");
 
+$datafile = "data.json";
+$pubfile = $site['fileroot']."/specials/data.json";
 
-$datafile = $site['fileroot']."/specials/data.json";
-
-$h->script('$(function() {
-	////set up
-	$(".coupon-body").textfill({ maxFontPixels: 80 });
-	$(".body-text").each(function(index, domele) {
-		$(this).val($(this).val().replace(/\t/g, ""));
-	});
-	$(".coupon-header").textfill({ maxFontPixels: 80 });
-	$(".coupon-body").textfill({ maxFontPixels: 80 });
-	$(".expire-text").datepicker();
-	////events
-	$(".header-text").keyup(function() {
-		var id = $(this).attr("id");
-		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
-		$(coupon + " .coupon-header span").html($(this).val());
-		$(coupon + " .coupon-header").textfill({ maxFontPixels: 80 });
-	});
-	$(".body-text").keyup(function() {
-		var id = $(this).attr("id");
-		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
-		$(coupon + " .coupon-body span").html($(this).val().replace(/\n/g, "<br />"));
-		$(coupon + " .coupon-body").textfill({ maxFontPixels: 80 });
-	});
-	$(".expire-text").change(function() {
-		var id = $(this).attr("id");
-		var coupon = "#coupon-"+id.replace(/.*-([^\-]+)$/, "$1");
-		$(coupon + " .coupon-expire").html($(this).val());
-	});
-});');
+// $h->script('');
 
 
 //$price, $line1, $line2, $line3, $expr

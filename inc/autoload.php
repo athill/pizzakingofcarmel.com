@@ -3,12 +3,12 @@ spl_autoload_register('my_autoloader');
 
 function my_autoloader($class_name) {
 	global $site;		
-
     //class directories
     $directories = array(
         $site['incroot'].'/',
     );
-   
+    $class_name = str_replace('_', '/', $class_name);
+    // echo $class_name.'<br>';
     //for each directory
     foreach($directories as $directory) {
         //see if the file exsists
