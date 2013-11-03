@@ -809,7 +809,7 @@ class Html extends Xml {
 
 
 	public function checkId($name, $atts) {
-		if (strpos("id=", $atts) === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
+		if (strpos($atts, "id=") === false) $atts = ' id="'.$name.'"' . $this->fixAtts($atts);
 		return $atts;
 	}
 
