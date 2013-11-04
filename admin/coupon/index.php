@@ -9,19 +9,10 @@ $local = array(
 );
 include("../../inc/application.php");
 $fileroot = $site['fileroot'];
+
 // print_r($site);
 
-include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
-$fields = array(
-	'test'=>array(
-		'fieldtype'=>'textarea',
-		'label'=>'Test'
-	)
-);
 
-$fh = new FieldHandler($fields, array('opts'=>array('series'=>true)));
-
-$fh->fieldpair('test');
 
 include($site['fileroot']."/specials/Coupon.class.php");
 
@@ -69,6 +60,21 @@ if (array_key_exists('ids', $_POST)) {
 $json = file_get_contents($datafile);
 $data = json_decode($json, true);
 
+
+include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
+
+include('fields.inc.php');
+
+
+$fh = new FieldHandler($fields, 
+	array(
+		'data'=>$data,
+		'opts'=>array(
+			'series'=>true,
+		)
+	)
+);
+
 if (array_key_exists('add', $_POST)) {
 	$data[] = array(
 		'header'=>'filler',	
@@ -109,23 +115,24 @@ $template->footer();
 
 ////helper
 function couponForm($id, $header, $body, $expire, $display) {
-	global $h;
+	global $h, $fh;
 	$h->odiv('class="coupon-form" id="coupon-'.$id.'"');	
-	$h->tbr("<strong>Header:</strong>");
-	$atts = 'class="display-text"';
-	if ($display === 1) $atts.= ' checked';
-	$h->input("checkbox", "display-".$id, '1', $atts);
-	$h->label("display-".$id, ' Display');
-	$h->intext("header-text-".$id, $header, 'class="header-text"');	
-	$h->input("checkbox", "delete-text-".$id, '1', 'class="delete-text"');
-	$h->label("delete-text-".$id, ' Delete');
-	$h->br();
-	$h->tbr("<strong>Body:</strong>");
-	//trim(str_replace("<br />", "\n", $body))
-	$h->textarea("body-text-".$id, $body, 'class="body-text"');
-	$h->br();
-	$h->tbr("<strong>Expire:</strong>");
-	$h->intext("expire-text-".$id, $expire, 'class="expire-text"');
+	$fh->fieldpair('header');
+	// $h->tbr("<strong>Header:</strong>");
+	// $atts = 'class="display-text"';
+	// if ($display === 1) $atts.= ' checked';
+	// $h->input("checkbox", "display-".$id, '1', $atts);
+	// $h->label("display-".$id, ' Display');
+	// $h->intext("header-text-".$id, $header, 'class="header-text"');	
+	// $h->input("checkbox", "delete-text-".$id, '1', 'class="delete-text"');
+	// $h->label("delete-text-".$id, ' Delete');
+	// $h->br();
+	// $h->tbr("<strong>Body:</strong>");
+	// //trim(str_replace("<br />", "\n", $body))
+	// $h->textarea("body-text-".$id, $body, 'class="body-text"');
+	// $h->br();
+	// $h->tbr("<strong>Expire:</strong>");
+	// $h->intext("expire-text-".$id, $expire, 'class="expire-text"');
 	$h->cdiv();
 	
 }

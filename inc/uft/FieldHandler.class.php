@@ -14,17 +14,17 @@ class FieldHandler {
 		$this->original = $defs;
 		$defaults = array(
 			'data'=>array(),
-			'opts'=>array(),
+			'opts'=>array(
+				'colonafterlabel'=>true,
+				'prefix'=>'',
+				'series'=>false
+			),
 
 		);
 		$opts = $h->extend($defaults, $opts);
 		$this->data = $opts['data'];
-		$optDefaults = array(
-			'colonafterlabel'=>true,
-			'prefix'=>'',
-			'series'=>false
-		);
-		$this->opts = $h->extend($optDefaults, $opts['opts']);
+		print_r($this->data);
+		$this->opts = $opts['opts'];
 		$this->defaults = array(
 			'global'=>array(
 				'required'=>array('name'),
@@ -42,13 +42,14 @@ class FieldHandler {
 	function fieldpair($id, $opts=array()) {
 		global $h;
 		$defaults = array(
-			'index'=>-1,
+			'container'=>'div',	////div,li,none,tr1,tr2,td1,td2
 			'divatts'=>'',
 			'labelfirst'=>true
 		);
 
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
+		$ff['id'] = $this->getId($ff);
 		//// attributes
 		$divatts = 'id="'.$ff['id'].'_div"'.$h->fixAtts($opts['divatts']);
 		$h->odiv($divatts);
@@ -64,6 +65,18 @@ class FieldHandler {
 
 	}
 
+	private function ocontainer($container, $id) {
+
+	}
+
+	private function cocontainer($container, $id) {
+
+	}
+
+	private function cc ontainer($container, $id) {
+
+	}
+
 
 	function label($id, $opts=array()) {
 		global $h;
@@ -76,19 +89,6 @@ class FieldHandler {
 		$h->label($ff['id'], $label, $ff['labelatts']);
 	}
 
-	function getId($ff) {
-		$id = $ff['name'];
-		if ($this->opts['series']) {
-			if (array_key_exists($id, $this->seriesIndices)) {
-				$this->seriesIndices[$id] = 0;
-			} else {
-				$this->seriesIndices[$id]++;
-			}
-			$id .= '-'.$this->seriesIndices[$id];
-		}
-		return $id;
-	}
-
 	function field($id, $opts=array()) {
 		global $h;
 		$defaults = array(
@@ -96,16 +96,14 @@ class FieldHandler {
 		);
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
-		if (array_key_exists('value', $this->data)) {
-			$ff['value'] = $this->data['value'];
-		}
+		$value = $this->getValue($id);
 		//$ff['atts'] .= ' id="'.$this->getId($ff).'"';
 		$id = $ff['id'];
 		$type = $ff['fieldtype'];
 		$atts = $ff['atts'];
 		switch ($ff['fieldtype']) {
 			case 'textarea':
-				$h->textarea($id, $ff['value'], $ff['atts']);
+				$h->textarea($id, $value, $atts);
 				break;
 			case 'intext':
 			case 'phone':
@@ -122,13 +120,13 @@ class FieldHandler {
 				if ($type == 'date') {
 					$atts = $h->addClass($atts, 'datepicker');
 				}
-				$h->input($type, $id, $ff['value'], $atts);
+				$h->input($type, $id, $value, $atts);
 				break;
 			case 'checkbox':
-				$h->input($type, $id, $ff['value'], $atts);
+				$h->input($type, $id, $value, $atts);
 				break;		
 			case 'select':
-				$h->select($id, $ff['options'], $ff['value'], $ff['atts']);
+				$h->select($id, $ff['options'], $value, $ff['atts']);
 				break;
 			default:
 				# code...
@@ -155,12 +153,14 @@ class FieldHandler {
 				$ff['name'] = 'anon'.$this->anonIndex++;
 			}
 		}
-
-		$ff['id'] = $this->getId($ff);
 		
 		if (array_key_exists('defaultsSet', $ff) && !$reset) {
 			return $ff;
 		}
+
+		
+		
+
 		// print_r($this->defaults['global']['required']);
 
 		foreach ($this->defaults['global']['required'] as $attr) {
@@ -174,7 +174,7 @@ class FieldHandler {
 				$ff[$attr] = $this->defaults['global']['optional'][$attr];
 			}
 		}
-		$ff['value'] = $this->getValue($ff['value']);
+		// $ff['value'] = $this->getValue($ff['value']);
 
 		$ff['defaultsSet'] = true;
 		$this->defs[$ff['name']] = $ff;
@@ -182,15 +182,37 @@ class FieldHandler {
 	}
 
 	function getValue($field_id) {
-		if (array_key_exists('value', $this->defs[$field_id])) {
+		global $h;
+		$h->tbr('?'.$this->opts['series']);
+		if (array_key_exists('value', $this->defs[$field_id]) && $this->defs[$field_id]['value'] != '') {
 			return $this->defs[$field_id]['value'];
 		} else if (array_key_exists($field_id, $this->data)) {
 			return $this->data[$field_id];	
+		} else if ($this->opts['series'] && array_key_exists($field_id, $this->seriesIndices) 
+				&& array_key_exists($field_id, $this->data[$this->seriesIndices[$field_id]])) {
+			return $this->data[$this->seriesIndices[$field_id]][$field_id];
 		} else if (array_key_exists('defaultVal', $this->defs[$field_id])) {
 			return $this->defs[$field_id]['defaultVal'];
 		} else {
 			return '';
 		}
+	}	
+
+	function getId($ff) {
+		$id = $ff['name'];
+		if ($this->opts['series']) {
+			// print_r($this->seriesIndices);
+			if (!array_key_exists($id, $this->seriesIndices)) {
+				// echo 'here 0';
+				$this->seriesIndices[$id] = 0;
+			} else {
+				// echo 'here ++';
+				$this->seriesIndices[$id]++;
+			}
+			$id .= '-'.$this->seriesIndices[$id];
+		}
+		$this->defs[$ff['name']]['id'] = $id;
+		return $id;
 	}	
 }
 
