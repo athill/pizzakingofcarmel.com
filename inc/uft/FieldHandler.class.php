@@ -23,7 +23,7 @@ class FieldHandler {
 		);
 		$opts = $h->extend($defaults, $opts);
 		$this->data = $opts['data'];
-		print_r($this->data);
+		// print_r($this->data);
 		$this->opts = $opts['opts'];
 		$this->defaults = array(
 			'global'=>array(
@@ -51,29 +51,67 @@ class FieldHandler {
 		$ff = $this->setDefaults($id);
 		$ff['id'] = $this->getId($ff);
 		//// attributes
-		$divatts = 'id="'.$ff['id'].'_div"'.$h->fixAtts($opts['divatts']);
-		$h->odiv($divatts);
+		$divatts = 'id="'.$ff['id'].'_wrapper"'.$h->fixAtts($opts['divatts']);
+		$this->ocontainer($opts['container'], $divatts);
 		if ($opts['labelfirst']) {
 			$this->label($id, $opts);	
+			$this->cocontainer($opts['container']);
 		}
 		$this->field($id, $opts);
 		if (!$opts['labelfirst']) {
+			$this->cocontainer($opts['container']);
 			$this->label($id, $opts);	
 		}		
 		
-		$h->cdiv('/#'.$divid);
+		$this->ccontainer($opts['container'], $ff['id']);
 
 	}
 
-	private function ocontainer($container, $id) {
+	private function ocontainer($container, $atts='') {
+		global $h;
+		if ($container == 'none') return;
+		$c = preg_replace('/(\w+)\d$/', '$1', $container);
+		if (in_array($c, array('div', 'li', 'tr'))) {
+			call_user_func(array($h, 'o'.$c), $atts);		
+		}
+		if (in_array($c, array('tr', 'td'))) {
+			$num = preg_replace('/\w+(\d)$/', '$1', $container);
+			if ($num == 1) {
+				$atts = $c == 'td' ? $atts : '';
+				$h->otd($atts);
+			} else {
+				$h->oth();
+			}
+		}
 
 	}
 
 	private function cocontainer($container, $id) {
-
+		global $h;
+		if ($container == 'none') return;
+		$c = preg_replace('/(\w+)\d$/', '$1', $container);
+		if (in_array($c, array('tr', 'td'))) {
+			$num = preg_replace('/\w+(\d)$/', '$1', $container);
+			if ($num == 1) {
+				$h->otd();
+			} else {
+				$h->oth();
+			}
+		}
 	}
 
-	private function cc ontainer($container, $id) {
+	private function ccontainer($container, $id) {
+		global $h;
+		if ($container == 'none') return;
+		$c = preg_replace('/(\w+)\d$/', '$1', $container);
+		if (in_array($c, array('tr', 'td'))) {
+			$num = preg_replace('/\w+(\d)$/', '$1', $container);
+			$id = $c == 'td' && $num == 1 ? $id : '';
+			$h->ctd($id);
+		}
+		if (in_array($c, array('div', 'li', 'tr'))) {
+			call_user_func(array($h, 'c'.$c), '/#'.$id);		
+		}
 
 	}
 
@@ -183,7 +221,7 @@ class FieldHandler {
 
 	function getValue($field_id) {
 		global $h;
-		$h->tbr('?'.$this->opts['series']);
+		// $h->tbr('?'.$this->opts['series']);
 		if (array_key_exists('value', $this->defs[$field_id]) && $this->defs[$field_id]['value'] != '') {
 			return $this->defs[$field_id]['value'];
 		} else if (array_key_exists($field_id, $this->data)) {
