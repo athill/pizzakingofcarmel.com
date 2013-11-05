@@ -56,25 +56,11 @@ if (array_key_exists('ids', $_POST)) {
 	
 }
 
-
+//// data
 $json = file_get_contents($datafile);
 $data = json_decode($json, true);
 
-
-include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
-
-include('fields.inc.php');
-
-
-$fh = new FieldHandler($fields, 
-	array(
-		'data'=>$data,
-		'opts'=>array(
-			'series'=>true,
-		)
-	)
-);
-
+//// adding
 if (array_key_exists('add', $_POST)) {
 	$data[] = array(
 		'header'=>'filler',	
@@ -84,9 +70,33 @@ if (array_key_exists('add', $_POST)) {
 	);	
 }
 
+//// fieldhandler
+include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
+include('fields.inc.php');
+$fh = new FieldHandler($fields, 
+	array(
+		'data'=>$data,
+		'opts'=>array(
+			'series'=>true,
+		)
+	)
+);
 
 
-$h->oform("");
+//// formhandler
+include($site['fileroot'].'/inc/uft/FormHandler.class.php');
+$formhandler = new FormHandler(
+	$fh,
+	array(
+		'formatts'=>array(
+			'id'=>"coupon-admin-form",
+			'action'=>''
+		)
+	),
+);
+
+//// render form
+$formhandler->oform("");
 $h->otable();
 $ids = array();
 foreach ($data as $i => $item) {
@@ -108,7 +118,7 @@ $h->ctable();
 $h->input('hidden', 'ids', implode(',', $ids));
 $h->input("submit", 'add', "Add a Coupon");
 $h->input("submit", 's', "Save");
-$h->cform();
+$formhandler->cform();
 
 $template->footer();
 

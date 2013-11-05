@@ -1063,6 +1063,11 @@ class Html extends Xml {
 		}
 	}
 
+	public function addAtt($atts, $att, $value) {
+		$atts .= ' '.$att.'="'.$value.'"';
+		return $atts;
+	}
+
 	public function combineClassAtts($atts) {
 		$i = 0; 
 		$matches = array();
