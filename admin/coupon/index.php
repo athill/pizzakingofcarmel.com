@@ -70,6 +70,8 @@ if (array_key_exists('add', $_POST)) {
 	);	
 }
 
+
+
 //// fieldhandler
 include($site['fileroot'].'/inc/uft/FieldHandler.class.php');
 include('fields.inc.php');
@@ -92,11 +94,11 @@ $formhandler = new FormHandler(
 			'id'=>"coupon-admin-form",
 			'action'=>''
 		)
-	),
+	)
 );
 
 //// render form
-$formhandler->oform("");
+$h->oform("");
 $h->otable();
 $ids = array();
 foreach ($data as $i => $item) {
@@ -118,7 +120,7 @@ $h->ctable();
 $h->input('hidden', 'ids', implode(',', $ids));
 $h->input("submit", 'add', "Add a Coupon");
 $h->input("submit", 's', "Save");
-$formhandler->cform();
+$h->cform();
 
 $template->footer();
 
@@ -128,21 +130,21 @@ function couponForm($id, $header, $body, $expire, $display) {
 	global $h, $fh;
 	$h->odiv('class="coupon-form" id="coupon-'.$id.'"');	
 	$fh->fieldpair('header');
-	// $h->tbr("<strong>Header:</strong>");
-	// $atts = 'class="display-text"';
-	// if ($display === 1) $atts.= ' checked';
-	// $h->input("checkbox", "display-".$id, '1', $atts);
-	// $h->label("display-".$id, ' Display');
-	// $h->intext("header-text-".$id, $header, 'class="header-text"');	
-	// $h->input("checkbox", "delete-text-".$id, '1', 'class="delete-text"');
-	// $h->label("delete-text-".$id, ' Delete');
-	// $h->br();
-	// $h->tbr("<strong>Body:</strong>");
-	// //trim(str_replace("<br />", "\n", $body))
-	// $h->textarea("body-text-".$id, $body, 'class="body-text"');
-	// $h->br();
-	// $h->tbr("<strong>Expire:</strong>");
-	// $h->intext("expire-text-".$id, $expire, 'class="expire-text"');
+	$h->tbr("<strong>Header:</strong>");
+	$atts = 'class="display-text"';
+	if ($display === 1) $atts.= ' checked';
+	$h->input("checkbox", "display-".$id, '1', $atts);
+	$h->label("display-".$id, ' Display');
+	$h->intext("header-text-".$id, $header, 'class="header-text"');	
+	$h->input("checkbox", "delete-text-".$id, '1', 'class="delete-text"');
+	$h->label("delete-text-".$id, ' Delete');
+	$h->br();
+	$h->tbr("<strong>Body:</strong>");
+	//trim(str_replace("<br />", "\n", $body))
+	$h->textarea("body-text-".$id, $body, 'class="body-text"');
+	$h->br();
+	$h->tbr("<strong>Expire:</strong>");
+	$h->intext("expire-text-".$id, $expire, 'class="expire-text"');
 	$h->cdiv();
 	
 }

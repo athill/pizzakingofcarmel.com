@@ -15,7 +15,7 @@ class FormHandler {
 				'class'=>'uft-form',
 				'enctype'=>'',
 				'atts'=>'',
-				'id'=>''
+				'id'=>'',
 			),
 			'rowtype'=>'div' //div|tr|none
 		);
