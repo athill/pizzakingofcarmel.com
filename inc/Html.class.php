@@ -1036,23 +1036,31 @@ class Html extends Xml {
 	}
 	
 	////Overrides struct defaults with options
-	public function extend($defaults, $Args) {
+	public function extend($defaults, $args) {
 		$a = array();
 			
 		foreach ($defaults as $key => $value) {
-			$a[$key] = array_key_exists($key, $Args) ? $Args[$key] : $value;		
+			$a[$key] = array_key_exists($key, $args) ? $args[$key] : $value;		
 		}
-		return $a;
+		// return $a;
+		return $this->array_merge_recursive2($defaults, $args);
 	}
 
-	public function addClass($atts, $class) {
-		
+	function array_merge_recursive2($paArray1, $paArray2) {
+	    if (!is_array($paArray1) or !is_array($paArray2)) { return $paArray2; }
+	    foreach ($paArray2 as $sKey2 => $sValue2) {
+	        $paArray1[$sKey2] = $this->array_merge_recursive2($paArray1[$sKey2], $sValue2);
+	    }
+	    return $paArray1;
+	}	
+
+	public function addClass($atts, $class) {		
 		if (strpos($atts, "class=") === false) {
 			//$this->tbr("in func". $atts . ' class="'.$class.'"');
 			if (strlen($atts) > 0) return $atts . ' class="'.$class.'"';	
 			else return $atts . 'class="'.$class.'"';	
 		} else {
-			$regex = '\s?class="([^"]+)"';
+			$regex = '\s*class\s*=\s*"([^"]+)"';
 			$classes = preg_replace("/.*".$regex.".*/", "\\1", $atts);
 			$pre = preg_replace("/(.*)".$regex.".*/", "\\1", $atts);
 			$post = preg_replace("/.*".$regex."(.*)/", "\\2", $atts);
@@ -1063,10 +1071,6 @@ class Html extends Xml {
 		}
 	}
 
-	public function addAtt($atts, $att, $value) {
-		$atts .= ' '.$att.'="'.$value.'"';
-		return $atts;
-	}
 
 	public function combineClassAtts($atts) {
 		$i = 0; 

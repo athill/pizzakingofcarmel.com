@@ -1,13 +1,16 @@
 <?php
 class FieldHandler {
 
-	private $defaults = array();
-	private $defs = array();
-	private $data = array();
-	private $original = array();
-	private $anonIndex = 0;
-	private $seriesIndices = array();
+	private $defaults = array();		//// defaults on a per-field basis
+	private $defs = array();			//// field definitions; override defaults and opts
+	private $data = array();			//// field values: $k=>$v or indexed array $k=>$v
+	private $opts = array();			//// defaults for all fields, can be overriddeen at field level
+	private $original = array();		//// copy of defs before it's altered
+	private $anonIndex = 0;				//// suffix for fields generated on the fly without a name
+	private $seriesIndices = array();	//// used in series. TODO: review how it works
 
+
+	//// defs, see above; opts: split into data and opts, see above
 	function __construct($defs, $opts= array()) {
 		global $h;
 		$this->defs = $defs;
@@ -16,15 +19,16 @@ class FieldHandler {
 			'data'=>array(),
 			'opts'=>array(
 				'colonafterlabel'=>true,
-				'prefix'=>'',
-				'series'=>false
+				'prefix'=>'',				////TODO	
+				'series'=>false,			////Not sure should apply per field
+				'labelfirst'=>true,
 			),
 
 		);
 		$opts = $h->extend($defaults, $opts);
 		$this->data = $opts['data'];
-		// print_r($this->data);
 		$this->opts = $opts['opts'];
+		
 		$this->defaults = array(
 			'global'=>array(
 				'required'=>array('name'),
@@ -39,12 +43,14 @@ class FieldHandler {
 		);
 	}
 
+
+
+
 	function fieldpair($id, $opts=array()) {
 		global $h;
 		$defaults = array(
 			'container'=>'div',	////div,li,none,tr1,tr2,td1,td2
 			'divatts'=>'',
-			'labelfirst'=>true
 		);
 
 		$opts = $h->extend($defaults, $opts);
@@ -53,12 +59,13 @@ class FieldHandler {
 		//// attributes
 		$divatts = 'id="'.$ff['id'].'_wrapper"'.$h->fixAtts($opts['divatts']);
 		$this->ocontainer($opts['container'], $divatts);
-		if ($opts['labelfirst']) {
+		if ($ff['labelfirst']) {
 			$this->label($id, $opts);	
 			$this->cocontainer($opts['container']);
 		}
 		$this->field($id, $opts);
-		if (!$opts['labelfirst']) {
+		if (!$ff['labelfirst']) {
+			$ff['colonafterlabel'] = false;
 			$this->cocontainer($opts['container']);
 			$this->label($id, $opts);	
 		}		
@@ -123,7 +130,7 @@ class FieldHandler {
 		);
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
-		$label = ($this->opts['colonafterlabel']) ? $ff['label'].':' : $ff['label'];
+		$label = ($ff['colonafterlabel']) ? $ff['label'].':' : $ff['label'];
 		$h->label($ff['id'], $label, $ff['labelatts']);
 	}
 
@@ -173,6 +180,7 @@ class FieldHandler {
 	}
 
 	function setDefaults($id, $reset=false) {
+		global $h;
 		$ff = array();
 		if (!is_array($id)) {
 			if (!array_key_exists($id, $this->defs)) {
@@ -194,10 +202,7 @@ class FieldHandler {
 		
 		if (array_key_exists('defaultsSet', $ff) && !$reset) {
 			return $ff;
-		}
-
-		
-		
+		}		
 
 		// print_r($this->defaults['global']['required']);
 
@@ -213,6 +218,7 @@ class FieldHandler {
 			}
 		}
 		// $ff['value'] = $this->getValue($ff['value']);
+		$ff = $h->extend($this->opts, $ff);
 
 		$ff['defaultsSet'] = true;
 		$this->defs[$ff['name']] = $ff;
@@ -235,6 +241,11 @@ class FieldHandler {
 			return '';
 		}
 	}	
+
+	public function attr() {
+		
+	}
+
 
 	function getId($ff) {
 		$id = $ff['name'];

@@ -9,14 +9,12 @@ class FormHandler {
 		global $h;
 		$this->fh = $fieldhandler;
 		$defaults = array(
-			'formatts'=>array(
-				'action'=>'submit.php',
-				'method'=>'post',
-				'class'=>'uft-form',
-				'enctype'=>'',
-				'atts'=>'',
-				'id'=>'',
-			),
+			'action'=>'submit.php',
+			'method'=>'post',
+			'class'=>'uft-form',
+			'upload'=>false,
+			'atts'=>'',
+			'id'=>'',
 			'rowtype'=>'div' //div|tr|none
 		);
 		$this->opts = $h->extend($defaults, $opts);
@@ -24,35 +22,32 @@ class FormHandler {
 
 	function oform() {
 		global $h;
-		$formatts = $this->opts['formatts'];
 		$atts = '';
-		foreach (array('class', 'enctype', 'id') as $att) {
+		$opts = $this->opts;
+		foreach (array('class', 'id') as $att) {
 			// $h->tbr($att.': '.$formatts[$att]);
-			if ($formatts[$att] == '') continue;
-			$atts = $h->addAtt($atts, $att, $formatts[$att]);
+			if ($opts[$att] == '') continue;
+			$atts = $h->addAtt($atts, $att, $opts[$att]);
 		}
-		$atts = $h->fixAtts($atts, $formatts['atts']);
-		$h->oform($formatts['action'], $formatts['method'], $atts);
+
+		if ($opts['upload']) {
+			$atts = $h->addAtt($atts, 'enctype', 'multipart/form-data');	
+		}
+		if ($opts['atts'] != '') {
+			$atts = $h->addAtt($atts, $opts['atts']);
+		}
+		$h->oform($opts['action'], $opts['method'], $atts);
 	}
 
-	function row($ids, $opts=array()) {
-		global $h;
-		// $defaults = array(
-		// 	'rowtype'=>$this['opts']['rowtype'],
-		// 	'atts'='',
-		// 	'class'=>''
-		// );
-		// $opts = $h->extend($defaults, $opts);	
-		// $atts = $opts['atts'];
-		// if ($opts['class'] != '') {
-		// 	$atts = $h->addClass($atts, $class);
-		// }
-		// call_user_func(array($h, 'o'.$this->opts['rowtype']), $atts);
-		// foreach ($ids as $id) {
-		// 	$this->fh->fieldpair($id);
-		// }
-		// call_user_func(array($h, 'c'.$this->opts['rowtype']), $atts);
+	function rows($rows) {
+		foreach ($rows as $row) {
+			echo 'row!';
+			$this->row($row);
+		}
 	}
+
+
+
 
 	function cform() {
 		global $h;

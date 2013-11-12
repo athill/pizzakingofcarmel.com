@@ -128,6 +128,22 @@ public string function rtn(required string methodName, required any args) {
 	}
 
 	/**
+	 * @param $atts string - current atts
+	 * @param $att string or array - name of attribute or array of atribute-value pairs
+	 * @param $value string - optional value if $att is a string
+	 */
+	public function addAtt($atts, $att, $value='') {
+		if (is_array($att)) {
+			foreach ($att as $k => $v) {
+				$atts .= ' '.$k.'="'.$v.'"';
+			}
+		} else {
+			$atts .= ' '.$att.'="'.$value.'"';
+		}
+		return $atts;
+	}
+
+	/**
 	 * Base output public void function. Outputs to screen or adds to buffer, depending on whether in buffer
 	 */
 	public function wo($str) {

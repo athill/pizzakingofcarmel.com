@@ -80,25 +80,24 @@ $fh = new FieldHandler($fields,
 		'data'=>$data,
 		'opts'=>array(
 			'series'=>true,
+			'labelfirst'=>false,
 		)
 	)
 );
 
 
 //// formhandler
-include($site['fileroot'].'/inc/uft/FormHandler.class.php');
-$formhandler = new FormHandler(
+include($site['fileroot'].'/inc/uft/UftGrid.class.php');
+$uft = new UftGrid(
 	$fh,
 	array(
-		'formatts'=>array(
-			'id'=>"coupon-admin-form",
-			'action'=>''
-		)
+		'id'=>"coupon-admin-form",
+		'action'=>''
 	)
 );
 
 //// render form
-$h->oform("");
+$uft->oform("");
 $h->otable();
 $ids = array();
 foreach ($data as $i => $item) {
@@ -120,16 +119,19 @@ $h->ctable();
 $h->input('hidden', 'ids', implode(',', $ids));
 $h->input("submit", 'add', "Add a Coupon");
 $h->input("submit", 's', "Save");
-$h->cform();
+$uft->cform();
 
 $template->footer();
 
 
 ////helper
 function couponForm($id, $header, $body, $expire, $display) {
-	global $h, $fh;
+	global $h, $uft;
 	$h->odiv('class="coupon-form" id="coupon-'.$id.'"');	
-	$fh->fieldpair('header');
+	$uft->rows(array(
+		array('display', 'delete'),
+		'header'
+	));
 	$h->tbr("<strong>Header:</strong>");
 	$atts = 'class="display-text"';
 	if ($display === 1) $atts.= ' checked';
