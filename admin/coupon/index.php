@@ -109,6 +109,7 @@ foreach ($data as $i => $item) {
 $h->cul();
 $h->hidden('sequence', '');
 $h->submit('s', "Save");
+$h->submit('s_and_p', "Save and Publish");
 $h->cfieldset();
 $uft->cform();
 

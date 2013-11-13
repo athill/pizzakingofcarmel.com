@@ -34,6 +34,9 @@ if (array_key_exists('sequence', $_POST)) {
 	} catch (Exception $e) {
 		print_r($e);
 	}
+	if (array_key_exists('s_and_p', $_POST)) {
+		copy($datafile, $pubfile);
+	}
 	
 }
 
