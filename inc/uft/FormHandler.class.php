@@ -17,6 +17,11 @@ class FormHandler {
 			'id'=>'',
 			'rowtype'=>'div' //div|tr|none
 		);
+		if (array_key_exists('class', $opts)) {
+			$opts['class'] = substr($opts['class'], 0, 1) == '!' ?
+				substr($opts['class'], 1) :
+				$defaults['class'].' '.$opts['class'];
+		}		
 		$this->opts = $h->extend($defaults, $opts);
 	}
 
@@ -24,12 +29,11 @@ class FormHandler {
 		global $h;
 		$atts = '';
 		$opts = $this->opts;
-		foreach (array('class', 'id') as $att) {
+		foreach (array('id', 'class') as $att) {
 			// $h->tbr($att.': '.$formatts[$att]);
 			if ($opts[$att] == '') continue;
 			$atts = $h->addAtt($atts, $att, $opts[$att]);
 		}
-
 		if ($opts['upload']) {
 			$atts = $h->addAtt($atts, 'enctype', 'multipart/form-data');	
 		}
@@ -41,7 +45,6 @@ class FormHandler {
 
 	function rows($rows) {
 		foreach ($rows as $row) {
-			echo 'row!';
 			$this->row($row);
 		}
 	}

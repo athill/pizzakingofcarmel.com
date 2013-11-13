@@ -4,6 +4,7 @@ class JsModule {
 	
 	function __construct() {
 		$this->jquery = array('/js/jquery-1.10.1.min.js', '/js/jquery-migrate-1.2.1.min.js');
+		$this->ui = 'jquery-ui-1.10.3.custom';
 		$this->modules = array(
 					////Tooltip
 			"tooltip" => array( 
@@ -54,8 +55,8 @@ class JsModule {
 			),
 			///jquery-ui
 			"jquery-ui" => array(
-				"scripts" => array("/js/jquery/jquery-ui/js/jquery-ui-1.8.11.custom.min.js"),
-				"styles" => array("/js/jquery/jquery-ui/css/ui-darkness/jquery-ui-1.8.11.custom.css")
+				"scripts" => array("/js/".$this->ui."/js/".$this->ui.".min.js"),
+				"styles" => array("/js/".$this->ui."/css/ui-darkness/".$this->ui.".css")
 			),
 			////lightbox
 			"lightbox" => array( 
@@ -66,6 +67,15 @@ class JsModule {
 					"/js/jquery/lightbox/css/lightbox.css"
 				)
 			),
+			////uft
+			"uft" => array( 
+				"scripts" => array(
+					
+				),
+				"styles" => array(
+					"/js/uft/grid.css"
+				)
+			),			
 		);
 	}
 	

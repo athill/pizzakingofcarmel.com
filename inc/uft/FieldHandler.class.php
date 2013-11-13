@@ -40,6 +40,12 @@ class FieldHandler {
 					'value'=>''
 				)
 			),
+			'checkbox'=>array(
+				'optional'=>array(
+					'labelfirst'=>false,
+					'valueifchecked'=>1
+				)
+			)
 		);
 	}
 
@@ -55,7 +61,7 @@ class FieldHandler {
 
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
-		$ff['id'] = $this->getId($ff);
+		$ff['id'] = $this->getId($ff['originalname']);
 		//// attributes
 		$divatts = 'id="'.$ff['id'].'_wrapper"'.$h->fixAtts($opts['divatts']);
 		$this->ocontainer($opts['container'], $divatts);
@@ -65,7 +71,7 @@ class FieldHandler {
 		}
 		$this->field($id, $opts);
 		if (!$ff['labelfirst']) {
-			$ff['colonafterlabel'] = false;
+			$this->defs[$id]['colonafterlabel'] = false;
 			$this->cocontainer($opts['container']);
 			$this->label($id, $opts);	
 		}		
@@ -130,6 +136,9 @@ class FieldHandler {
 		);
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
+		if ($ff['label'] == '') {
+			return;
+		}
 		$label = ($ff['colonafterlabel']) ? $ff['label'].':' : $ff['label'];
 		$h->label($ff['id'], $label, $ff['labelatts']);
 	}
@@ -141,8 +150,7 @@ class FieldHandler {
 		);
 		$opts = $h->extend($defaults, $opts);
 		$ff = $this->setDefaults($id);
-		$value = $this->getValue($id);
-		//$ff['atts'] .= ' id="'.$this->getId($ff).'"';
+		$value = $this->getValue($ff['originalname']);
 		$id = $ff['id'];
 		$type = $ff['fieldtype'];
 		$atts = $ff['atts'];
@@ -155,6 +163,7 @@ class FieldHandler {
 			case 'date':
 			case 'email':
 			case 'number':
+			case 'submit':
 				$type = ($ff['fieldtype'] == 'intext') ? 'text': $ff['fieldtype'];
 				if (array_key_exists('size', $ff)) {
 					$atts = $this->addAtt($atts, 'size="'.$ff['size'].'"');
@@ -165,9 +174,13 @@ class FieldHandler {
 				if ($type == 'date') {
 					$atts = $h->addClass($atts, 'datepicker');
 				}
+				
 				$h->input($type, $id, $value, $atts);
 				break;
 			case 'checkbox':
+				if ($ff['valueifchecked'] == $value) {
+					$atts = $h->addAtt($atts, 'checked');
+				}
 				$h->input($type, $id, $value, $atts);
 				break;		
 			case 'select':
@@ -185,25 +198,32 @@ class FieldHandler {
 		if (!is_array($id)) {
 			if (!array_key_exists($id, $this->defs)) {
 				echo $id;
-				print_r($this->defs);
-				//throw new Exception('undefined id in setDefaults', 1);	
+				exit();
 			} else {
 				$ff = $this->defs[$id];
-				// print_r($ff);
-				$ff['name'] = $id;
+				if (!array_key_exists('name', $ff)) {
+					$ff['name'] = $id;	
+				}
+				
 				
 			}
 		} else {
 			$ff = $id;
-			if (!array_key_exists('name', $ff)) {
+			if (array_key_exists('name', $ff)) {
+				if (array_key_exists($ff['name'], $this->defs)) {
+					$ff = $this->defs[$ff['name']];
+				} else 	if (array_key_exists($ff['originalname'], $this->defs)) {
+					$ff = $this->defs[$ff['originalname']];
+				}
+			} else {
 				$ff['name'] = 'anon'.$this->anonIndex++;
-			}
+			}			
+
 		}
-		
 		if (array_key_exists('defaultsSet', $ff) && !$reset) {
 			return $ff;
 		}		
-
+		$ff['originalname'] = $ff['name'];
 		// print_r($this->defaults['global']['required']);
 
 		foreach ($this->defaults['global']['required'] as $attr) {
@@ -212,22 +232,44 @@ class FieldHandler {
 			}
 		}
 
-		foreach ($this->defaults['global']['optional'] as $attr => $val) {
-			if (!array_key_exists($attr, $ff)) {
-				$ff[$attr] = $this->defaults['global']['optional'][$attr];
+
+		$ff = $h->extend($this->defaults['global']['optional'], $ff);
+
+
+		if (array_key_exists($ff['fieldtype'], $this->defaults)) {
+			$fieldDefaults = $this->defaults[$ff['fieldtype']];
+			if (array_key_exists('required', $fieldDefaults)) {
+				foreach ($fieldDefaults['required'] as $attr) {
+					if (!array_key_exists($attr, $ff)) {
+						echo 'required '.$attr.' missing';
+						exit(1);
+					}
+				}
 			}
+			if (array_key_exists('optional', $fieldDefaults)) {
+				$ff = $h->extend($fieldDefaults['optional'], $ff);
+			}			
 		}
-		// $ff['value'] = $this->getValue($ff['value']);
+
 		$ff = $h->extend($this->opts, $ff);
+			
+		if (array_key_exists('prefix', $ff) && $ff['prefix'] != '') {
+			$ff['name'] = $ff['prefix'].'-'.$ff['name'];
+		}		
 
 		$ff['defaultsSet'] = true;
-		$this->defs[$ff['name']] = $ff;
+
+		$this->defs[$ff['originalname']] = $ff;
+		// if ($ff['originalname'] == 'submit') {
+		// 	$h->pa($this->defs);
+		// }		
 		return $ff;
 	}
 
 	function getValue($field_id) {
 		global $h;
-		// $h->tbr('?'.$this->opts['series']);
+		// $h->pa($this->data);
+		// $h->tbr('?'.$this->opts['']);
 		if (array_key_exists('value', $this->defs[$field_id]) && $this->defs[$field_id]['value'] != '') {
 			return $this->defs[$field_id]['value'];
 		} else if (array_key_exists($field_id, $this->data)) {
@@ -247,20 +289,24 @@ class FieldHandler {
 	}
 
 
-	function getId($ff) {
+	function getId($name) {
+		global $h;
+		$ff = $this->setDefaults($name);
+		
 		$id = $ff['name'];
 		if ($this->opts['series']) {
 			// print_r($this->seriesIndices);
-			if (!array_key_exists($id, $this->seriesIndices)) {
+			if (!array_key_exists($name, $this->seriesIndices)) {
 				// echo 'here 0';
-				$this->seriesIndices[$id] = 0;
+				$this->seriesIndices[$name] = 0;
 			} else {
 				// echo 'here ++';
-				$this->seriesIndices[$id]++;
+				$this->seriesIndices[$name]++;
 			}
-			$id .= '-'.$this->seriesIndices[$id];
+			$id .= '-'.$this->seriesIndices[$name];
 		}
-		$this->defs[$ff['name']]['id'] = $id;
+		$this->defs[$name]['id'] = $id;
+		//$h->pa($this->defs[$name]);
 		return $id;
 	}	
 }

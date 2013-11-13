@@ -6,6 +6,7 @@ include('FormHandler.class.php');
 class UftGrid extends FormHandler {
 	
 	function __construct($fieldhandler, $opts=array()) {
+		$opts['class'] = 'uft-grid';
 		parent::__construct($fieldhandler, $opts);
 	}
 
@@ -23,16 +24,19 @@ class UftGrid extends FormHandler {
 		// }
 		if (!is_array($ids)) $ids = array($ids);
 		$h->odiv('class="uft-row"');
-		foreach ($ids as $id) {
-			$this->fh->fieldpair($id);
+		$layout = array();
+		if (array_key_exists('layout', $ids)) {
+			$layout = $ids['layout'];
+			$ids = $ids['fields'];
+		}
+		$class = 'p'.intval(100/count($ids));
+		foreach ($ids as $i => $id) {
+			$cls = array_key_exists($i, $layout) ? 
+				'p'.$layout[$i] : 
+				$class;
+			$this->fh->fieldpair($id, array('divatts'=>'class="'.$cls.'"'));
 		}
 		$h->cdiv('/.uft-row');
-
-		// call_user_func(array($h, 'o'.$this->opts['rowtype']), $atts);
-		// foreach ($ids as $id) {
-		// 	$this->fh->fieldpair($id);
-		// }
-		// call_user_func(array($h, 'c'.$this->opts['rowtype']), $atts);
 	}
 }
 ?>

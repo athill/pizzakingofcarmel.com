@@ -326,7 +326,9 @@ div.pk-menu-2-col-center .column {
   color: black;
   /* position: relative; */
   font-weight: bold;
-  margin: 6px !important; }
+  margin: 6px !important;
+  display: inline-block;
+}
 
 .coupon-top {
   color: #b31000; }

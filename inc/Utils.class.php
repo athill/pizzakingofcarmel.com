@@ -8,7 +8,9 @@ class Utils {
 	}
 
 	function getJson($file) {
-		return json_decode(file_get_contents($file), true);
+		$data = json_decode(file_get_contents($file), true);
+		$this->stripslashes_deep($data);
+		return $data;
 	}
 
 	function copyDirRecursive($source, $dest) {
@@ -83,6 +85,21 @@ class Utils {
 
 		$root[$path[0]] = $value;
 	}	
+
+	function stripslashes_deep(&$arr) {
+        foreach ($arr as $k => &$v) {
+            $nk = stripslashes($k);
+            if ($nk != $k) {
+                $arr[$nk] = &$v;
+                unset($arr[$k]);
+            }
+            if (is_array($v)) {
+                $this->stripslashes_deep($v);
+            } else {
+                $arr[$nk] = stripslashes($v);
+            }
+        }
+    }	
 
 /**
  * TODO: Test and 

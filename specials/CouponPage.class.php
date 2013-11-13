@@ -3,13 +3,17 @@ include_once('Coupon.class.php');
 
 class CouponPage {
 
+	function __construct($data) {
+		$this->data = $data;
+	}
+
 
 	function renderHeader() {
 		global $h;
 		/////////////Header
 		$h->odiv('id="specials-header"');
 		////Logo
-		$h->img('/img/pk_logo_black.png', "Pizza King", 'id="specials-logo"');
+		$h->img('/img/logo_from_sack.png', "Pizza King", 'id="specials-logo"');
 		////pick up or delivery, etc.
 		$h->odiv('id="specials-calltext"');
 		$h->tbr("Pick Up");
@@ -35,16 +39,15 @@ class CouponPage {
 		$datafile = "data.json";
 		$json = file_get_contents($datafile);
 		$data = json_decode($json, true);
-		$h->otable('id="specials-coupons"');
-		foreach ($data as $i => $item) {
-			$item['body'] = str_replace('\"', '"', $item['body']);
-			$coupon = new Coupon($i, $item['header'], $item['body'], $item['expire']);
-			$h->otd();
-			$coupon->display();	
-			$h->ctd();
-			if ($i % 2 == 1 && $i < count($data) - 1) $h->cotr();
+		$h->odiv('id="specials-coupons"');
+		foreach ($this->data as $i => $item) {
+			// $item['body'] = str_replace('\"', '"', $item['body']);
+			if (array_key_exists('display', $item) && $item['display'] == 1)  {
+				$coupon = new Coupon($i, $item);
+				$coupon->display();	
+			}
 		}
-		$h->ctable();
+		$h->cdiv();
 	}
 
 }

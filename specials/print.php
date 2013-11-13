@@ -5,28 +5,27 @@
  * @description coupon/specials page
  *************************/
 
-$local['jsModules']['textfill'] = true;
-$local['template'] = 'Basic';
-$local['stylesheets'] = array('/css/layout.css');
+$local = array(
+	'jsModules'=>array('textfill'=>true),
+	'template'=>'Basic',
+	'stylesheets'=>array('/css/layout.css'),
+);
 include("../inc/application.php");
 //$h->tnl("text");
 include_once("CouponPage.class.php");
 
-?>
-<script type="text/javascript">
-$(function() {
+
+$h->script('$(function() {
 	////set up
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
 	$(".coupon-header").textfill({ maxFontPixels: 80 });
 	$(".coupon-body").textfill({ maxFontPixels: 80 });
-});
-</script>
+});');
 
-<?php
 
 $h->odiv('id="specials"');
-
-$page = new CouponPage();
+$data = $site['utils']->getJson('data.json');
+$page = new CouponPage($data);
 $page->renderHeader();
 $page->renderCoupons();
 

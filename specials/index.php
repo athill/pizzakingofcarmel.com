@@ -27,8 +27,8 @@ if ($site['filename'] != "print.php") {
 
 
 $h->odiv('id="specials"');
-
-$page = new CouponPage();
+$data = $site['utils']->getJson('data.json');
+$page = new CouponPage($data);
 $page->renderHeader();
 $page->renderCoupons();
 

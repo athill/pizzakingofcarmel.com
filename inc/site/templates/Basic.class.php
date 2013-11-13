@@ -8,7 +8,7 @@ class TemplateInstance {
 
 	public $bodyAtts = 'id="default" class="default"';	
 	public $stylesheets = array('/css/accessible.css');
-	public $scripts = array('/js/jquery.js');
+	public $scripts = array();
 	private $base;
 	
 	public function __construct($base) {

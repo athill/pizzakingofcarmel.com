@@ -1,16 +1,23 @@
 <?php
 ////Coupon class
-class coupon {
+class Coupon {
 	var $header;
 	var $body;
 	var $expr;
 	private $id;
 	
- 	function __construct($id, $header, $body, $expr) {
+ 	function __construct($id, $opts=array()) {
+ 		global $h;
+ 		$defaults = array(
+ 			'header'=>'Sample Header',
+ 			'body'=>"Sample\nBody\nText",
+ 			'expr'=>strtotime('next month')
+ 		);
+ 		$opts = $h->extend($defaults, $opts);
  		$this->id		   	= $id;
- 		$this->header       = $header;
- 		$this->body 		= $body;
-		$this->expr	   	   	= $expr;
+ 		$this->header       = $opts['header'];
+ 		$this->body 		= $opts['body'];
+		$this->expr	   	   	= $opts['expire'];
  	}
 
 	function display() {
