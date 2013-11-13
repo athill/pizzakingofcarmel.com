@@ -53,5 +53,4 @@ if (array_key_exists('add-header', $_POST)) {
 }
 
 header('location: index.php?mssg='.$mssg);
-
 ?>
