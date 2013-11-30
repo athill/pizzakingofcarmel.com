@@ -32,7 +32,7 @@ $page = new CouponPage($data);
 $page->renderHeader();
 $page->renderCoupons();
 
-$h->cdiv(); ////close specials div (whole page)
+$h->cdiv('/#specials'); ////close specials div (whole page)
 
 $template->footer();
 ?>

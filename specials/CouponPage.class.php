@@ -30,15 +30,15 @@ class CouponPage {
 		$h->div("301 E. Carmel Drive", 'id="specials-addr"');
 		////phone
 		$h->div("317.848.7994", 'id="specials-phone"');
-		$h->cdiv(); ////close specials-header div
+		$h->cdiv('/#specials-header'); ////close specials-header div
 	
 	}
 	
 	function renderCoupons() {
 		global $h;
-		$datafile = "data.json";
-		$json = file_get_contents($datafile);
-		$data = json_decode($json, true);
+		// $datafile = "data.json";
+		// $json = file_get_contents($datafile);
+		// $data = json_decode($json, true);
 		$h->odiv('id="specials-coupons"');
 		foreach ($this->data as $i => $item) {
 			// $item['body'] = str_replace('\"', '"', $item['body']);
@@ -47,7 +47,7 @@ class CouponPage {
 				$coupon->display();	
 			}
 		}
-		$h->cdiv();
+		$h->cdiv('/#specials-coupons');
 	}
 
 }

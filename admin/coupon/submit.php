@@ -1,11 +1,12 @@
 <?php
+$debug = true;
+
 $local = array(
 	'template'=>'none',
 );
+include("../../inc/application.php");
 $datafile = "data.json";
 $pubfile = $site['fileroot']."/specials/data.json";
-include("../../inc/application.php");
-
 
 
 $mssg='';
@@ -14,10 +15,11 @@ $mssg='';
 if (array_key_exists('sequence', $_POST)) {
 	$data = array();
 	$sequence = explode(',', $_POST['sequence']);
-	$h->pa($sequence);
+	// $h->pa($_POST);
 	foreach ($sequence as $item) {
 		$id = preg_replace('/cfc-(\d+)/', '$1', $item);
 		if (!array_key_exists('admin-delete-'.$id, $_POST)) {
+			// $h->tbr('adding '.$id);
 			$display = array_key_exists('admin-display-'.$id, $_POST) ? 1 : 0;
 			$data[] = array(
 				'header'=>stripcslashes($_POST['admin-header-'.$id]),	
@@ -35,6 +37,7 @@ if (array_key_exists('sequence', $_POST)) {
 		print_r($e);
 	}
 	if (array_key_exists('s_and_p', $_POST)) {
+		$h->tbr('copying '.$datafile.' to '.$pubfile);
 		copy($datafile, $pubfile);
 	}
 	
@@ -54,6 +57,7 @@ if (array_key_exists('add-header', $_POST)) {
 	$mssg = 'Coupon added';
 
 }
-
-header('location: index.php?mssg='.$mssg);
+if (!$debug) {
+	header('location: index.php?mssg='.$mssg);
+}
 ?>
