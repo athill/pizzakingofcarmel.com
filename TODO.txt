@@ -1,6 +1,14 @@
 TODO
 
 * Finish up review of mobile
+**** messed up pages: 
+	* home
+	* hours
+	* directions (?)
+	* pictures carousel not working
+	* Padding around content
+
+
 * uft
 	* Remove row functions from uftBase, extend with uftGrid
 	* class: "!class ..." replaces current class, "class ..." appends
