@@ -44,14 +44,14 @@ class Menu {
 	 * @param 
 	 */ 
  	function __construct($pathToXmlFile, $script="") {
-		global $webroot; 		
+		global $webroot, $site; 		
 		$this->debugOn = ($_SERVER['REMOTE_ADDR'] == '24.1.115.39') && false;
 		if(!$this->xml=simplexml_load_file($pathToXmlFile)) {
 		    trigger_error('Error reading XML file',E_USER_ERROR);
 		}
 //print_r($GLOBALS);
 		$this->script = ($script=="") ? $GLOBALS['settings']['script'] : $script;
-		$this->path = ($path=="") ? $GLOBALS['settings']['path'] : implode("/", $script);		
+		$this->path = ($site['path']=="") ? $GLOBALS['settings']['path'] : implode("/", $script);		
 		if (array_key_exists('REDIRECT_URL', $_SERVER)) {
 			$path = $_SERVER['REDIRECT_URL'];
 			if (stripos($path, $webroot) === 0) {

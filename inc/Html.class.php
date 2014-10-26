@@ -121,7 +121,7 @@ class Html extends Xml {
 		global $site;
 		$startsWithSlash = substr($link, 0, 1) == "/";
 		$webrootNonempty = strlen($site['webroot']);
-		$noWebrootInLink = strpos($link, $site['webroot']) !== 0;
+		$noWebrootInLink = $webrootNonempty && strpos($link, $site['webroot']) !== 0;
 		$link = ($startsWithSlash && $webrootNonempty && $noWebrootInLink) ? 
 			$site['webroot'] . $link : 
 			$link;

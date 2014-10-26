@@ -16,6 +16,11 @@ if ($host == 'localhost' || !array_key_exists('HTTP_HOST', $_SERVER)) {
 	$webroot = '/pkcar';
 	$basefileroot = '/var/www/html';
 }
+
+if ($host == 'pkcar.app') {
+	$basefileroot = '/home/vagrant/Code/sites/pkcar';
+}
+
 $webdir = dirname($self);
 $subdir = '';
 if (stripos($webdir, $webroot."/new") === 0) {
