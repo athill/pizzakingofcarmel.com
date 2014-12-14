@@ -6,15 +6,16 @@ $local['template'] = "Basic";
 //$local['scripts'] = array('menu.js');
 require_once("../inc/application.php");
 
-include("RestaurantMenu.class.php");
-$menu = new RestaurantMenu();
-$menu->returnToTop = false;
+$h->div('Temporarily out of service. Please check back soon!', 'class="alert"');
 
-$h->odiv('id="print-container"');
-////render
-//$h->odiv('id="menu-container"');
-$menu->renderPrint();
-//$h->cdiv(); //close menu-container
-$h->cdiv(); //close print-container
+// include("RestaurantMenu.class.php");
+// $menu = new RestaurantMenu();
+// $menu->returnToTop = false;
+
+// $h->odiv('id="print-container"');
+// ////render
+// $menu->renderPrint();
+
+// $h->cdiv(); //close print-container
 $template->footer();
 ?>

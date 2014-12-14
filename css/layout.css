@@ -32,11 +32,14 @@ img {
 .sf-menu li:hover, .sf-menu li.sfHover, .sf-menu a:focus, .sf-menu a:hover {
   background: #eeee00 !important;
   color: #b31000; }
+
 .sf-menu a, .sf-menu a:visited, .sf-menu a:link {
   color: #b31000 !important; }
+
 .sf-menu li.active a, .sf-menu li.active a:visited, .sf-menu li.active a:link {
   background-color: #555;
   color: white !important; }
+
 .sf-menu li.active a:hover, .sf-menu li.active a:focus {
   color: #b31000 !important;
   background-color: #eeee00; }
@@ -45,15 +48,17 @@ img {
 div.row {
   position: relative;
   padding-top: 10px; }
-  div.row .left {
-    position: absolute;
-    left: 0;
-    text-align: left; }
-  div.row .right {
-    position: absolute;
-    right: 0;
-    width: 300px;
-    text-align: right; }
+
+div.row .left {
+  position: absolute;
+  left: 0;
+  text-align: left; }
+
+div.row .right {
+  position: absolute;
+  right: 0;
+  width: 300px;
+  text-align: right; }
 
 /* Header styles */
 #header {
@@ -80,7 +85,6 @@ div.row {
   top: 14px;
   right: 14px; }
 
-
 /**********************
  * Content area layout. Sidebars, etc.
  ****************************/
@@ -96,8 +100,7 @@ div.row {
   float: left;
   width: 14em;
   /*Width of left column*/
-  /*margin-left: -100%; }*/
-}
+  /*margin-left: -100%; }*/ }
 
 div#drop {
   left: 2px;
@@ -120,8 +123,9 @@ div#drop {
   display: inline-block;
   float: right;
   color: #FFF; }
-  #admin-link:hover {
-    color: #CCC; }
+
+#admin-link:hover {
+  color: #CCC; }
 
 .indent {
   padding-left: 1em; }
@@ -151,14 +155,12 @@ div#drop {
   float: left; }
 
 .center-column {
-  margin: 0 auto; 
+  margin: 0 auto;
   max-width: 40em; }
 
 /*******************
  ******Page specific****
  ************************/
-
-
 #pk-family .dictionary-grid {
   /*font-size: 1.4em;*/ }
 
@@ -185,8 +187,7 @@ div#drop {
 
 #pk-delivery-map {
   width: 100%;
-  height: auto;
-}  
+  height: auto; }
 
 /**********************
  * Menu Page 
@@ -327,8 +328,7 @@ div.pk-menu-2-col-center .column {
   /* position: relative; */
   font-weight: bold;
   margin: 6px !important;
-  display: inline-block;
-}
+  display: inline-block; }
 
 .coupon-top {
   color: #b31000; }
@@ -465,36 +465,31 @@ Styles for print medium
   width: 33%;
   height: auto;
   max-width: 132px;
-  max-height: 118px;
-}
+  max-height: 118px; }
 
 #header-delivery {
   width: 60%;
   height: auto;
   max-width: 253px;
-  max-height: 118px;
-}
+  max-height: 118px; }
 
 #pizzaking-big {
   width: 96%;
   height: auto;
   max-width: 400px;
-  padding: 2%;
-}
+  padding: 2%; }
 
 #menu-toggle {
-  display: none;
-}
+  display: none; }
 
 @media (max-width: 600px) {
   body {
     min-width: 0;
-    font-size: 80%;
-  }
-  
+    font-size: 80%; }
+
   #kingme-left, #kingme-right, #header-spacer {
-    display: none;
-  }
+    display: none; }
+
   #menu-toggle {
     display: block;
     position: absolute;
@@ -502,36 +497,35 @@ Styles for print medium
     bottom: 0;
     width: 8%;
     height: auto;
-    z-index: 100;
-  }
+    z-index: 100; }
+
   #contentwrapper {
-    position: relative;
-  }
+    position: relative; }
 
   #leftcolumn {
     display: none;
     float: none;
-    margin: 0;
-  }
+    margin: 0; }
+
   #leftcolumn, #global-nav-menu {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 1000;
-  }
+    z-index: 1000; }
 
   #contentcolumn {
-    margin: 0;
-  }
- 
+    margin: 0; }
+
   .dictionary-grid {
-    font-size: 1.1em;
-  }
+    font-size: 1.1em; }
 
   /* need javascript to always fit: http://stackoverflow.com/questions/9994493/scale-image-to-fit-a-bounding-box-css-only */
   /*#pizzaking-big {
     width: auto;
     max-width: auto;
-  }*/
-
-}
+  }*/ }
+.alert {
+  padding-top: 1em;
+  color: #F00;
+  font-size: 16pt;
+  text-align: center; }

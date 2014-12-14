@@ -1,6 +1,6 @@
 <menu>
 	<link href="/" display="Home"/>
-	<link href="/menu/" display="Menu"/>
+	<!-- <link href="/menu/" display="Menu"/> -->
 	<link href="/hours/" display="Hours"/>
 	<link href="/directions/" display="Directions"/>
 	<link href="/delivery.php" display="Delivery"/>
