@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/New_York');
 //// autoloader
-require_once('autoload.php');
+
 
 ////useless here if any vars are set. first thing on each page (for sessions)
 //session_start();
@@ -20,6 +20,8 @@ if ($host == 'localhost' || !array_key_exists('HTTP_HOST', $_SERVER)) {
 if ($host == 'pkcar.app') {
 	$basefileroot = '/home/vagrant/Code/sites/pkcar';
 }
+
+$basefileroot = dirname(dirname(__FILE__));
 
 $webdir = dirname($self);
 $subdir = '';
@@ -40,7 +42,7 @@ $site = array(
 	"fileroot" => $basefileroot.$webroot,
 	'filename' => basename($self),
 	'filedir' => dirname($_SERVER['SCRIPT_FILENAME']),
-	"isTST" => $webroot != "",
+	"isTST" => $webroot != "" || strpos($fileroot, '/Code/') !== false,
 	"view" => $self,
 	"siteName" 	=> "Pizza King of Carmel",
 	"leftSideBar" => array('type'=>"none", 'args'=>array()),
@@ -64,6 +66,9 @@ $site = array(
 		  'charset'=>'uft-8'
 	)	
 );
+require_once($site['fileroot'].'/inc/autoload.php');
+require_once($site['fileroot'].'/vendor/autoload.php');
+
 ////Mobile?
 require_once('IsMobile.class.php');
 $device = new IsMobile();
@@ -95,6 +100,7 @@ if (count($site["script"]) > 0 && $site["script"][0] == "") {
 $site['h'] = Html::singleton();
 $h = $site['h'];
 $site['utils'] = new Utils();
+$utils = $site['utils'];
 $site['logger'] = new Logger();
 $site['mailer'] = new Mailer();
 
@@ -142,4 +148,5 @@ $template = new Template($site['menu'], $site["template"]);
 ////TODO: Move head() and heading() to template.start() ?
 $template->head();
 $template->heading();
+$h->script('var webroot="'.$site['webroot'].'";');
 ?>

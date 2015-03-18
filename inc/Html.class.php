@@ -520,10 +520,10 @@ class Html extends Xml {
 	 *********************************************/
 	 
 	public function editor($name, $content='', $options=array()) {
-		if (count($options) > 0) {
-			$this->script("var conf = utils.editorManager.conf(".json_encode($options)."); ".
-				"alert(utils.printObj(conf)); tinyMCE.init(utils.editorManager.conf(".json_encode($options)."));");			
-		}
+		// if (count($options) > 0) {
+		// 	$this->script("var conf = utils.editorManager.conf(".json_encode($options)."); ".
+		// 		"alert(utils.printObj(conf)); tinyMCE.init(utils.editorManager.conf(".json_encode($options)."));");			
+		// }
 		//$this->script('alert(utils.printObj(utils.editorManager.conf()));');
 		$this->textarea($name, $content, 'class="editor"');
 	}	 

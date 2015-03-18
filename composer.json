@@ -1,0 +1,14 @@
+{
+    "name": "athill/pkcar",
+    "description": "Pizza King of Carmel website",
+    "authors": [
+        {
+            "name": "Andy Hill",
+            "email": "andy@andyhill.us"
+        }
+    ],
+    "require": {},
+	"classmap": [
+	    {"\\": "inc/" }
+	]    
+}
