@@ -9,6 +9,7 @@
     width: 30em;
     /* menu section title */
     /* menu item */
+    /* menu table */
     /* 3-col */
     /* 2-col-center */
     /* Dictionary */ }
@@ -18,8 +19,7 @@
       text-align: center;
       margin-bottom: 1em; }
     #menu-container .menu-section .menu-item {
-      padding: 1em;
-      /* menu table */ }
+      padding: 1em; }
       #menu-container .menu-section .menu-item .menu-item-name-price-row {
         clear: both;
         /*	width: 100%;*/ }
@@ -32,16 +32,16 @@
         text-align: right; }
       #menu-container .menu-section .menu-item .menu-item-descr {
         clear: both; }
-      #menu-container .menu-section .menu-item .menu-table {
-        width: 98%; }
-        #menu-container .menu-section .menu-item .menu-table td, #menu-container .menu-section .menu-item .menu-table th {
-          border-right: thin solid black;
-          border-bottom: thin solid black;
-          margin: 0;
-          padding: 0.5em;
-          border-collapse: collapse; }
-        #menu-container .menu-section .menu-item .menu-table, #menu-container .menu-section .menu-item .menu-table {
-          border-width: medium; }
+    #menu-container .menu-section .menu-table {
+      width: 98%; }
+      #menu-container .menu-section .menu-table td, #menu-container .menu-section .menu-table th {
+        border-right: thin solid black;
+        border-bottom: thin solid black;
+        margin: 0;
+        padding: 0.5em;
+        border-collapse: collapse; }
+      #menu-container .menu-section .menu-table, #menu-container .menu-section .menu-table {
+        border-width: medium; }
     #menu-container .menu-section .pk-menu-3-col {
       clear: both;
       width: 100%; }
@@ -75,6 +75,15 @@
       #menu-container .menu-section dl.pk-menu-dict dd p {
         margin: 0;
         padding: 0; }
+    #menu-container .menu-section h4 {
+      font-weight: bold;
+      font-size: 1.7em;
+      margin-bottom: 1em; }
+    #menu-container .menu-section .feast-item .feast-title {
+      font-weight: bold;
+      text-decoration: underline; }
+    #menu-container .menu-section .feast-item .feast-toppings::before {
+      content: "- "; }
 
 #menu-download {
   text-align: right; }

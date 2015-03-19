@@ -145,8 +145,29 @@
       },
       {
         "type": "text",
+        "content": "** Extra Pepperoni, sausage, mushrooms and cheese**"
+      },
+      {
+        "type": "text",
         "content": "<p><strong>Pan Pizza Available in 10\" and 14\" add $1.50 or $3.00</strong><br /><br /></p>\r\n<div style=\"text-align: center;\">Pepperoni, Sausage, Baked Ham, Bacon, Hamburger, Chicken, Anchovies, Mushrooms, Black Olives , Onions, Green Peppers, Tomatoes, Banana Peppers, Jalapeno Peppers, Pineapple</div>"
-      }
+      },
+      {
+        "type": "header",
+        "content": "Feast Pizzas"
+      },
+      {
+      	"type": "feast",
+      	"items": [
+			{ "title": "Royal Feast", "toppings": "Pepperoni, Sausage, Mushroom, Onion, Green Pepper" },
+			{ "title": "Hawaiian Feast", "toppings": "BBQ Sauce, Ham, and Pineapple" },
+			{ "title": "Meat Feast", "toppings": "Pepperoni, Sausage, Ham, Bacon, Hamburger" },
+			{ "title": "Veggie Feast", "toppings": "Mushroom, Onion, Green Pepper, Tomato, Blk Olives" },
+			{ "title": "Taco Feast", "toppings": "Topped with Taco Sauce, fresh lettuce, tomato" },
+			{ "title": "BLT Feast", "toppings": "Bacon pizza topped with mayo, fresh lettuce, tomato" },
+			{ "title": "Chicken Ranch Feast", "toppings": "Ranch sauce, chicken, bacon, onion, tomato" },
+			{ "title": "BBQ Chicken Feast", "toppings": "BBQ sauce, chicken, bacon, onion" }
+      	]
+	  }
     ]
   },
   {

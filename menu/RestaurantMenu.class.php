@@ -22,9 +22,9 @@ class RestaurantMenu {
 		global $h;
 		////Menu of menus
 		$items = array();
-		foreach ($this->data as $category) {
+		foreach ($this->data as $section) {
 			$h->startBuffer();
-			$h->a('#'.$category['id'], $category['title']);
+			$h->a('#'.$section['id'], $section['title']);
 			$items[] = trim($h->endBuffer());
 		}
 		$h->liArray("ul", $items);	
@@ -35,8 +35,8 @@ class RestaurantMenu {
 		if ($this->form) {
 			$h->oform('submit.php');
 		}
-		foreach ($this->data as $i => $category) {
-			$this->renderCategory($category, $i);
+		foreach ($this->data as $i => $section) {
+			$this->renderSection($section, $i);
 			$h->br(2);
 			$h->startBuffer();
 			$h->a('#top', "Return to Top", 'class="backtotop"');
@@ -69,8 +69,8 @@ class RestaurantMenu {
 		//$h->otd('valign="top"');
 		$h->odiv('class="menu-row"');
 		$h->odiv('class="menu-cell left"');
-		foreach ($this->data as $i => $category) {
-			$this->renderCategory($category, $i);
+		foreach ($this->data as $i => $section) {
+			$this->renderSection($section, $i);
 			$index = array_search($i, $newCells);
 			if ($index > -1 && $index % 2 == 0) {
 				$h->cdiv();
@@ -89,14 +89,14 @@ class RestaurantMenu {
 		$h->cdiv();
 	}
 
-	function renderCategory($category, $i) {
+	function renderSection($section, $i) {
 		global $h;
 		////Start menu div
-		$h->odiv('class="menu-section" id="'. $category['id'] .'"');
-		$h->div($category['title'], 'class="menu-section-title"');		
-		$h->tag("a", 'name="'.$category['id'].'"', ' ', false);
+		$h->odiv('class="menu-section" id="'. $section['id'] .'"');
+		$h->div($section['title'], 'class="menu-section-title"');		
+		$h->tag("a", 'name="'.$section['id'].'"', ' ', false);
 		////delegate menu display
-		foreach ($category['sections'] as $j => $section) {
+		foreach ($section['sections'] as $j => $section) {
 			$this->basename = $section['type'].'_'.$i.'_sections_'.$j;
 	//print_r($section);
 			////Delegate menu section type
@@ -115,7 +115,12 @@ class RestaurantMenu {
 					break;
 				case "3-col":
 					$this->display3Col($section['items']);
-					break;				
+					break;
+				case "header":
+					$this->displayHeader($section['content']);
+					break;
+				case "feast":
+					$this->displayFeast($section['items']);
 				case "text":
 				default:
 					if ($this->form) {
@@ -128,6 +133,32 @@ class RestaurantMenu {
 		}	
 		$h->cdiv('.menu-section');	//close menu-section
 	} 	
+
+	function displayHeader($content) {
+		global $h;
+		if ($this->form) {
+			$h->intext($this->basename.'_content', $content);
+		} else {
+			$h->h4($content);
+		}
+	}
+
+	function displayFeast($items) {
+		global $h;
+		foreach ($items as $k => $item) {
+			if ($this->form) {
+				$h->odiv('class="feast-item"');
+				$h->intext($this->basename.'_items_'.$k.'_title', $item['title'], 'class="feast-title"');
+				$h->intext($this->basename.'_items_'.$k.'_toppings', $item['toppings'], 'class="feast-title"');
+				$h->cdiv();
+			} else {
+				$h->odiv('class="feast-item"');
+				$h->span($item['title'], 'class="feast-title"');
+				$h->span($item['toppings'], 'class="feast-toppings"');
+				$h->cdiv();
+			}
+		}
+	}
 
 	function displayDictionary($items) {
 		global $h;
@@ -179,16 +210,16 @@ class RestaurantMenu {
 			} else {
 				$h->div($name, $atts);			
 			}
-			if (array_key_exists("toppings", $item)) {
-				$atts = 'class="menu-item-descr"';
-				if ($this->form) {
-					$h->odiv($atts);
-					$h->textarea($basename.'_toppings', $item['toppings']);
-					$h->cdiv();
-				} else {
-					$h->div($item['toppings'], $atts);
-				}
-			}			
+			// if (array_key_exists("toppings", $item)) {
+			// 	$atts = 'class="menu-item-descr"';
+			// 	if ($this->form) {
+			// 		$h->odiv($atts);
+			// 		$h->textarea($basename.'_toppings', $item['toppings']);
+			// 		$h->cdiv();
+			// 	} else {
+			// 		$h->div($item['toppings'], $atts);
+			// 	}
+			// }			
 			$h->ctd();
 			foreach ($item['prices'] as $l => $price) {
 				if ($this->form) {

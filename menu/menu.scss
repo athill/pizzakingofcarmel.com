@@ -34,21 +34,21 @@
 			.menu-item-descr {
 				clear: both;
 			}
-			/* menu table */
-			.menu-table {
-				width: 98%;
-				& td, & th {
-					border-right: thin solid black;
-					border-bottom: thin solid black;
-					margin: 0;
-					padding: 0.5em;
-					border-collapse: collapse;
-				}
-				&, & {
-					border-width: medium;
-				}								
-			}
 		}
+		/* menu table */
+		.menu-table {
+			width: 98%;
+			& td, & th {
+				border-right: thin solid black;
+				border-bottom: thin solid black;
+				margin: 0;
+				padding: 0.5em;
+				border-collapse: collapse;
+			}
+			&, & {
+				border-width: medium;
+			}								
+		}		
 		/* 3-col */
 		.pk-menu-3-col {
 			clear: both;
@@ -99,7 +99,23 @@
 			  	padding: 0;
 			  }
 			}
-		}		
+		}
+		h4 {
+			font-weight: bold;
+			font-size: 1.7em;
+			margin-bottom: 1em; 
+		}
+		.feast-item {
+			.feast-title {
+				font-weight: bold;
+				text-decoration: underline;
+			}
+			.feast-toppings {
+				&::before {
+					content: '- '
+				}
+			}
+		}
 	}
 }
 
