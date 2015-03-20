@@ -45,7 +45,7 @@
 				padding: 0.5em;
 				border-collapse: collapse;
 			}
-			&, & {
+			& th, & {
 				border-width: medium;
 			}								
 		}		
@@ -126,7 +126,9 @@
 
 
 
-
+th {
+	margin: 0;
+}
 
 
 

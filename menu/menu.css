@@ -40,7 +40,7 @@
         margin: 0;
         padding: 0.5em;
         border-collapse: collapse; }
-      #menu-container .menu-section .menu-table, #menu-container .menu-section .menu-table {
+      #menu-container .menu-section .menu-table th, #menu-container .menu-section .menu-table {
         border-width: medium; }
     #menu-container .menu-section .pk-menu-3-col {
       clear: both;
@@ -87,6 +87,9 @@
 
 #menu-download {
   text-align: right; }
+
+th {
+  margin: 0; }
 
 #print-container * {
   font-size: 10pt; }
