@@ -326,11 +326,11 @@ class RestaurantMenu {
 	} 
 
 
-	function update() {
+	function update($newdata=$_POST) {
 		global $h, $utils;
 		$data = $this->data;
 		$tmp = array();
-		foreach ($_POST as $key => $val) {
+		foreach ($newdata as $key => $val) {
 			if (strpos($key, '_') === false) {
 				continue;
 			}
