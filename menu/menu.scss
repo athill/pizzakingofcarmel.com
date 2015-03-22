@@ -38,14 +38,14 @@
 		/* menu table */
 		.menu-table {
 			width: 98%;
+			margin: 0;
+			border-collapse: collapse;
 			& td, & th {
 				border-right: thin solid black;
 				border-bottom: thin solid black;
-				margin: 0;
 				padding: 0.5em;
-				border-collapse: collapse;
 			}
-			& th, & {
+			& th {
 				border-width: medium;
 			}								
 		}		
@@ -100,17 +100,19 @@
 			  }
 			}
 		}
-		h4 {
+		h4, .subheader {
 			font-weight: bold;
 			font-size: 1.7em;
-			margin-bottom: 1em; 
+			margin: 1em 0; 
 		}
+		/* feast */
 		.feast-item {
 			.feast-title {
 				font-weight: bold;
 				text-decoration: underline;
 			}
 			.feast-toppings {
+				width: 30em;
 				&::before {
 					content: '- '
 				}

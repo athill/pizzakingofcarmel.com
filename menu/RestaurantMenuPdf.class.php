@@ -6,13 +6,14 @@ class RestaurantMenuPdf extends RestaurantMenu {
 
 	function render() {
 		global $h;
+		echo 'here';
 		$newCells = array(0, 3, 4, 5);
 		//'width="100%"'
 		//$h->otable();
 		//$h->otd('valign="top"');
 		$h->odiv('class="menu-row"');
 		$h->odiv('class="menu-cell left"');
-		foreach ($this->menus as $i => $menu) {
+		foreach ($this->menu as $i => $menu) {
 			$this->renderSection($menu);
 			$h->br(2);
 //			if ($this->returnToTop) $h->a('#top', "Return to Top", 'class="backtotop"');

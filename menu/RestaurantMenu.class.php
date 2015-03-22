@@ -121,6 +121,7 @@ class RestaurantMenu {
 					break;
 				case "feast":
 					$this->displayFeast($section['items']);
+					break;
 				case "text":
 				default:
 					if ($this->form) {
@@ -137,7 +138,7 @@ class RestaurantMenu {
 	function displayHeader($content) {
 		global $h;
 		if ($this->form) {
-			$h->intext($this->basename.'_content', $content);
+			$h->intext($this->basename.'_content', $content, 'class="subheader"');
 		} else {
 			$h->h4($content);
 		}
@@ -149,11 +150,12 @@ class RestaurantMenu {
 			if ($this->form) {
 				$h->odiv('class="feast-item"');
 				$h->intext($this->basename.'_items_'.$k.'_title', $item['title'], 'class="feast-title"');
-				$h->intext($this->basename.'_items_'.$k.'_toppings', $item['toppings'], 'class="feast-title"');
+				$h->intext($this->basename.'_items_'.$k.'_toppings', $item['toppings'], 'class="feast-toppings"');
 				$h->cdiv();
 			} else {
 				$h->odiv('class="feast-item"');
-				$h->span($item['title'], 'class="feast-title"');
+				$title = $this->image($item, 'title');
+				$h->span($title, 'class="feast-title"');
 				$h->span($item['toppings'], 'class="feast-toppings"');
 				$h->cdiv();
 			}
@@ -194,14 +196,10 @@ class RestaurantMenu {
 			$basename = $this->basename.'_items_'.$k;
 			$h->cotr();
 			$h->otd();
-			$name = $item['name'];
+			$name = $this->image($item);
+
 			
-			if (array_key_exists('img', $item) && !$this->form) {
-				$src = $webroot.'/img/pictures/'.$item['img'];
-				$thumb = $webroot.'/img/pictures/thumb/'.$item['img'];
-				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
-					'width="50" alt="'.$item['name'].'" /> ' . $name;
-			}
+
 			$atts = 'class="menu-item-name"';
 			if ($this->form) {
 				$h->odiv($atts);
@@ -232,6 +230,18 @@ class RestaurantMenu {
 			}
 		}
 		$h->ctable();
+	}
+
+	private function image($item, $namefield='name') {
+		global $webroot;
+		$name = $item[$namefield];
+		if (array_key_exists('img', $item) && !$this->form) {
+			$src = $webroot.'/img/pictures/'.$item['img'];
+			$thumb = $webroot.'/img/pictures/thumb/'.$item['img'];
+			$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
+				'width="50" alt="'.$name.'" /> ' . $name;
+		}
+		return $name;
 	}
 
 	function displayMenu($items) {
@@ -326,8 +336,9 @@ class RestaurantMenu {
 	} 
 
 
-	function update($newdata=$_POST) {
+	function update($newdata='') {
 		global $h, $utils;
+		if ($newdata == '') $newdata = $_POST;
 		$data = $this->data;
 		$tmp = array();
 		foreach ($newdata as $key => $val) {

@@ -158,14 +158,14 @@
       {
       	"type": "feast",
       	"items": [
-			{ "title": "Royal Feast", "toppings": "Pepperoni, Sausage, Mushroom, Onion, Green Pepper" },
-			{ "title": "Hawaiian Feast", "toppings": "BBQ Sauce, Ham, and Pineapple" },
-			{ "title": "Meat Feast", "toppings": "Pepperoni, Sausage, Ham, Bacon, Hamburger" },
-			{ "title": "Veggie Feast", "toppings": "Mushroom, Onion, Green Pepper, Tomato, Blk Olives" },
-			{ "title": "Taco Feast", "toppings": "Topped with Taco Sauce, fresh lettuce, tomato" },
-			{ "title": "BLT Feast", "toppings": "Bacon pizza topped with mayo, fresh lettuce, tomato" },
-			{ "title": "Chicken Ranch Feast", "toppings": "Ranch sauce, chicken, bacon, onion, tomato" },
-			{ "title": "BBQ Chicken Feast", "toppings": "BBQ sauce, chicken, bacon, onion" }
+    			{ "title": "Royal Feast", "toppings": "Pepperoni, Sausage, Mushroom, Onion, Green Pepper" },
+    			{ "title": "Hawaiian Feast", "toppings": "BBQ Sauce, Ham, and Pineapple" },
+    			{ "title": "Meat Feast", "toppings": "Pepperoni, Sausage, Ham, Bacon, Hamburger" },
+    			{ "title": "Veggie Feast", "toppings": "Mushroom, Onion, Green Pepper, Tomato, Blk Olives" },
+    			{ "title": "Taco Feast", "toppings": "Topped with Taco Sauce, fresh lettuce, tomato" },
+    			{ "title": "BLT Feast", "toppings": "Bacon pizza topped with mayo, fresh lettuce, tomato" },
+    			{ "title": "Chicken Ranch Feast", "toppings": "Ranch sauce, chicken, bacon, onion, tomato" },
+    			{ "title": "BBQ Chicken Feast", "toppings": "BBQ sauce, chicken, bacon, onion" }
       	]
 	  }
     ]

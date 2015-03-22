@@ -12,7 +12,8 @@
     /* menu table */
     /* 3-col */
     /* 2-col-center */
-    /* Dictionary */ }
+    /* Dictionary */
+    /* feast */ }
     #menu-container .menu-section .menu-section-title {
       font-weight: bold;
       font-size: 1.8em;
@@ -33,14 +34,14 @@
       #menu-container .menu-section .menu-item .menu-item-descr {
         clear: both; }
     #menu-container .menu-section .menu-table {
-      width: 98%; }
+      width: 98%;
+      margin: 0;
+      border-collapse: collapse; }
       #menu-container .menu-section .menu-table td, #menu-container .menu-section .menu-table th {
         border-right: thin solid black;
         border-bottom: thin solid black;
-        margin: 0;
-        padding: 0.5em;
-        border-collapse: collapse; }
-      #menu-container .menu-section .menu-table th, #menu-container .menu-section .menu-table {
+        padding: 0.5em; }
+      #menu-container .menu-section .menu-table th {
         border-width: medium; }
     #menu-container .menu-section .pk-menu-3-col {
       clear: both;
@@ -75,15 +76,17 @@
       #menu-container .menu-section dl.pk-menu-dict dd p {
         margin: 0;
         padding: 0; }
-    #menu-container .menu-section h4 {
+    #menu-container .menu-section h4, #menu-container .menu-section .subheader {
       font-weight: bold;
       font-size: 1.7em;
-      margin-bottom: 1em; }
+      margin: 1em 0; }
     #menu-container .menu-section .feast-item .feast-title {
       font-weight: bold;
       text-decoration: underline; }
-    #menu-container .menu-section .feast-item .feast-toppings::before {
-      content: "- "; }
+    #menu-container .menu-section .feast-item .feast-toppings {
+      width: 30em; }
+      #menu-container .menu-section .feast-item .feast-toppings::before {
+        content: "- "; }
 
 #menu-download {
   text-align: right; }

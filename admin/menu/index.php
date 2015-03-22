@@ -12,7 +12,7 @@ $menu = new RestaurantMenu($data, true);
 ////render
 $h->odiv('id="menu-container"');
 $h->odiv('id="menu-download"');
-$h->a("download.php", "Download");
+$h->a("download.php", "Print");
 $h->cdiv(); ////Close download
 $menu->renderLinks();
 $menu->render();
