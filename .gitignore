@@ -1,5 +1,4 @@
-inc/dompdf/*
-logs/*
-.sass-cache/*
-
-/vendor/
+inc/dompdf
+logs
+.sass-cache
+vendor
