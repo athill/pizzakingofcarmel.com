@@ -23,6 +23,27 @@
 #header {
 	background-color: yellow;
 	grid-area: header;
+	padding: 1em;
+	// display: flex;
+	// justify-content: space-between;
+}
+
+#we-deliver-block {
+	color: #800;
+	text-align: center;
+	font-family: arial;
+	padding: 0 0.75em;
+	font-weight: bold;
+	.we-deliver {
+		font-size: 1.5em;
+		
+	}
+	.food-types {
+		font-size: 0.75em;
+	}
+	.phone {
+		font-size: 1.5em;
+	}
 }
 
 #left-sidebar {
@@ -37,6 +58,8 @@
 #footer {
 	grid-area: footer;
 	text-align: center;
+	border-top: thin solid black;
+	margin-top: 0.5em;
 }
 
 @media (min-width: 500px) {

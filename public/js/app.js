@@ -60006,62 +60006,77 @@ module.exports = hoistNonReactStatics;
 
 
 var AppLayout = function AppLayout(_ref) {
-     var children = _ref.children;
-     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
-          null,
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               "header",
-               { id: "header" },
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    var children = _ref.children;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "header",
+            { id: "header", className: "d-flex justify-content-between" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "d-none d-sm-block" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/pizzakingme.png" })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "d-flex justify-content-center" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
                     { className: "" },
-                    "Pizza King me!"
-               ),
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/header_logo.png" })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
-                    { className: "" },
-                    "\xA0"
-               ),
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "" },
-                    "Pizza King of Carmel"
-               ),
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "" },
-                    "We deliver!"
-               ),
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "" },
-                    "\xA0"
-               ),
-               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "" },
-                    "Pizza King Me!"
-               )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               "aside",
-               { id: "left-sidebar" },
-               "sidebar"
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               "main",
-               { id: "main", className: "py-4" },
-               children
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               "footer",
-               { id: "footer" },
-               " \xA9 Pizza King of Carmel, ",
-               new Date().getFullYear(),
-               " | About Us | Contact Us"
-          )
-     );
+                    { id: "we-deliver-block" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "we-deliver" },
+                        "WE DELIVER!"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "food-types" },
+                        "PIZZA - SANDWICHES",
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                        "SALADS - MEXICAN FOOD"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "phone" },
+                        "317-848-7994"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "address" },
+                        "301 E. Carmel Drive"
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "d-none d-sm-block" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/pizzakingme.png" })
+            )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "aside",
+            { id: "left-sidebar" },
+            "sidebar"
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "main",
+            { id: "main", className: "py-4" },
+            children
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "footer",
+            { id: "footer" },
+            " \xA9 Pizza King of Carmel, ",
+            new Date().getFullYear(),
+            " | About Us | Contact Us"
+        )
+    );
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AppLayout);
