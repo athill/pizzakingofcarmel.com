@@ -57515,20 +57515,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-// import ReactDOM, { render } from 'react-dom';
-// import { Provider } from 'react-redux';
 
-// import createStore from '../store';
 
-// import reducers from '../modules/reducer';
-// import { fetchUserInfo } from '../modules/user';
-
-// const store = createStore(reducers(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-// if (!sessionStorage.getItem('token') && localStorage.getItem('token')) {
-//     sessionStorage.setItem('token', localStorage.getItem('token'));
-//     store.dispatch(fetchUserInfo());
-// }
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -57570,13 +57558,6 @@ var App = function (_Component) {
 
 
 
-// import Items from './pages/items';
-// import PasswordReset from './pages/password-reset';
-// import PasswordReset2 from './pages/reset-password-2';
-// import PrivateRoute from './PrivateRoute';
-// import PublicRoute from './PublicRoute';
-// import Register from './pages/register';
-// import Import from './pages/import';
 
 var Page = function Page(_ref) {
     var message = _ref.message;
@@ -60003,80 +59984,92 @@ module.exports = hoistNonReactStatics;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AppSidebar__ = __webpack_require__(122);
+
+
 
 
 var AppLayout = function AppLayout(_ref) {
-    var children = _ref.children;
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "header",
-            { id: "header", className: "d-flex justify-content-between" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "d-none d-sm-block" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/pizzakingme.png" })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "d-flex justify-content-center" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/header_logo.png" })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { id: "we-deliver-block" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "we-deliver" },
-                        "WE DELIVER!"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "food-types" },
-                        "PIZZA - SANDWICHES",
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-                        "SALADS - MEXICAN FOOD"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "phone" },
-                        "317-848-7994"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "address" },
-                        "301 E. Carmel Drive"
-                    )
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "d-none d-sm-block" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/pizzakingme.png" })
-            )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "aside",
-            { id: "left-sidebar" },
-            "sidebar"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "main",
-            { id: "main", className: "py-4" },
-            children
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "footer",
-            { id: "footer" },
-            " \xA9 Pizza King of Carmel, ",
-            new Date().getFullYear(),
-            " | About Us | Contact Us"
-        )
-    );
+	var children = _ref.children;
+	return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		__WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+		null,
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ id: 'header-wrapper' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'header',
+				{ id: 'header' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'd-none d-sm-block' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/pizzakingme.png' })
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'center-block' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: '' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/header_logo.png' })
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ id: 'we-deliver-block' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'we-deliver' },
+							'WE DELIVER!'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'food-types' },
+							'PIZZA - SANDWICHES',
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+							'SALADS - MEXICAN FOOD'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'phone' },
+							'317-848-7994'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'address' },
+							'301 E. Carmel Drive'
+						)
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'd-none d-sm-block' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/pizzakingme.png' })
+				)
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { id: 'menu-toggle', className: 'fa fa-bars' })
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'aside',
+			{ id: 'left-sidebar' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'nav',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AppSidebar__["a" /* default */], null)
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'main',
+			{ id: 'main', className: 'py-4' },
+			children
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'footer',
+			{ id: 'footer' },
+			' \xA9 Pizza King of Carmel, ',
+			new Date().getFullYear(),
+			' | About Us | Contact Us'
+		)
+	);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AppLayout);
@@ -60664,6 +60657,106 @@ var Home = function Home() {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var Sidebar = function Sidebar() {
+	return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		"ul",
+		{ id: "navigation" },
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			{ className: "active" },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/" },
+				"Home"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/menu/" },
+				"Menu"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/hours/" },
+				"Hours"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/directions/" },
+				"Directions"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/delivery.php" },
+				"Delivery"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/catering.php" },
+				"Catering"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/family.php" },
+				"Other Family Stores"
+			)
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"li",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{ href: "/pictures/" },
+				"Pictures"
+			)
+		)
+	);
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Sidebar);
 
 /***/ })
 /******/ ]);
