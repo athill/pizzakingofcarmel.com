@@ -59985,9 +59985,36 @@ module.exports = hoistNonReactStatics;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AppSidebar__ = __webpack_require__(122);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
+
+
+var MenuToggle = function (_Component) {
+	_inherits(MenuToggle, _Component);
+
+	function MenuToggle(props) {
+		_classCallCheck(this, MenuToggle);
+
+		return _possibleConstructorReturn(this, (MenuToggle.__proto__ || Object.getPrototypeOf(MenuToggle)).call(this, props));
+	}
+
+	_createClass(MenuToggle, [{
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { id: 'menu-toggle', className: 'fa fa-bars' });
+		}
+	}]);
+
+	return MenuToggle;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 var AppLayout = function AppLayout(_ref) {
 	var children = _ref.children;
@@ -60046,7 +60073,7 @@ var AppLayout = function AppLayout(_ref) {
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/pizzakingme.png' })
 				)
 			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { id: 'menu-toggle', className: 'fa fa-bars' })
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(MenuToggle, null)
 		),
 		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'aside',
@@ -60065,9 +60092,22 @@ var AppLayout = function AppLayout(_ref) {
 		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'footer',
 			{ id: 'footer' },
-			' \xA9 Pizza King of Carmel, ',
-			new Date().getFullYear(),
-			' | About Us | Contact Us'
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'd-block d-sm-inline' },
+				'\xA9 Pizza King of Carmel, ',
+				new Date().getFullYear()
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'd-none d-sm-inline' },
+				'\xA0|\xA0'
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'd-block d-sm-inline' },
+				'About Us\xA0|\xA0Contact Us'
+			)
 		)
 	);
 };

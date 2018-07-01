@@ -1,6 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Sidebar from './AppSidebar';
+
+class MenuToggle extends Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<i id="menu-toggle" className="fa fa-bars"></i>
+		);
+	}
+}
 
 const AppLayout = ({ children }) => (
 	<Fragment>
@@ -24,7 +35,7 @@ const AppLayout = ({ children }) => (
 	                <img src="/images/pizzakingme.png" />
 	           </div>
 	        </header>
-	        <i id="menu-toggle" className="fa fa-bars"></i>
+	        <MenuToggle />
         </div>
         <aside id="left-sidebar">
         	<nav>
@@ -34,7 +45,17 @@ const AppLayout = ({ children }) => (
         <main id="main" className="py-4">
             { children }
         </main>
-        <footer id="footer"> © Pizza King of Carmel, { new Date().getFullYear() } | About Us | Contact Us</footer>
+        <footer id="footer">
+        	<div className="d-block d-sm-inline">
+        		© Pizza King of Carmel, { new Date().getFullYear() }
+        	</div>
+        	<div className="d-none d-sm-inline">
+        	 &nbsp;|&nbsp; 
+        	</div>
+        	 <div className="d-block d-sm-inline">
+        		About Us&nbsp;|&nbsp;Contact Us
+        	</div>
+        </footer>
     </Fragment>
 );
 
