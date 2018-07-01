@@ -31,12 +31,10 @@ a {
 #app {
   min-height: 100%;
   display: grid;
-  // grid-template-rows: 1fr auto 1fr;
   grid-template-columns: auto;
-  // grid-gap: 20px;
   grid-template-areas: 
     "header"
-    "main"
+    "middle"
     "footer";
 }
 
@@ -64,6 +62,12 @@ a {
 	position: absolute;
 	bottom: 8px;
 	right: 8px;
+	cursor: pointer;
+}
+
+#middle {
+	grid-area: middle;
+	min-height: 100%;
 }
 
 #we-deliver-block {
@@ -74,7 +78,7 @@ a {
 	padding: 0 0.5em;
 	font-weight: bold;
 	.we-deliver {
-		font-size: 1.5em;
+		font-size: 1em;
 		
 	}
 	.food-types {
@@ -89,7 +93,6 @@ a {
 }
 
 #left-sidebar {
-	grid-area: left-sidebar;
 	display: none;
 }
 
@@ -120,13 +123,6 @@ a {
 }
 
 @media (min-width: 500px) {
-	#app {
-		grid-template-columns: 12em auto;
-		grid-template-areas: 
-		"header  header"
-		"left-sidebar main"
-		"footer footer";
-	}
 	#we-deliver-block {
 		letter-spacing: 0.3em;
 		.we-deliver {
@@ -148,10 +144,15 @@ a {
 		display: none;
 	}
 
+	#middle {
+		display: flex;
+	}
 
-  #left-sidebar {
-  	display: block;	
-  }
+
+	#left-sidebar {
+		grid-area: left-sidebar;
+		display: block;	
+	}
   
 }
 
