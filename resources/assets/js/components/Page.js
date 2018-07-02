@@ -12,6 +12,7 @@ import Delivery from './pages/delivery';
 import Directions from './pages/directions';
 import FamilyStores from './pages/familystores';
 import Hours from './pages/hours';
+import Menu from './pages/menu';
 import Pictures from './pages/pictures';
 
 const Page = ({ message }) => (
@@ -26,6 +27,7 @@ const Page = ({ message }) => (
                 <Route path="/directions" component={Directions}/>
                 <Route path="/familystores" component={FamilyStores}/>
                 <Route path="/hours" component={Hours}/>
+                <Route path="/menu" component={Menu}/>
                 <Route path="/pictures" component={Pictures}/>
             </AppLayout>
         </Fragment>

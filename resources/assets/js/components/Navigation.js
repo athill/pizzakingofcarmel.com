@@ -8,7 +8,7 @@ const MenuLink = props => (
 const Navigation = () => (
 	<ul id="navigation">
 		<li><MenuLink exact to="/">Home</MenuLink></li>
-		<li><a href="/menu/">Menu</a></li>
+		<li><MenuLink to="/menu">Menu</MenuLink></li>
 		<li><MenuLink to="/hours">Hours</MenuLink></li>
 		<li><MenuLink to="/directions">Directions</MenuLink></li>
 		<li><MenuLink to="/delivery">Delivery</MenuLink></li>
