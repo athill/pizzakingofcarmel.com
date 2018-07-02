@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+// TODO: redirect from old pages -- this isn't working
+Route::get('catering.php', function () {
+    return redirect('catering');
+});
+
+Route::get('/{foo?}/{bar?}', function () {
     return view('home');
 });
 

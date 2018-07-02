@@ -11,6 +11,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+$red: #b31000;
+$yellow: yellow;
+
 html {
 	height: 100%;
 }
@@ -25,7 +28,19 @@ body {
   padding: 0px; }
 
 a {
-	color: #b31000;
+	color: $red;
+
+	&:link, &:visited {
+	  color: $red;
+	  text-decoration: none; 
+	}
+	&:hover {
+	  text-decoration: underline; 
+	}
+}
+
+p {
+	margin: 1em 0;
 }
 
 #app {
@@ -40,7 +55,7 @@ a {
 
 #header-wrapper {
 	grid-area: header;
-	background-color: yellow;
+	background-color: $yellow;
 	padding: 0.5em;
 	width: 100%;
 	position: relative;
@@ -107,12 +122,25 @@ a {
 		line-height: 1;
 		font-size: 1.5em;
 		font-weight: bold;
+		a {
+			display: block;
+
+			&:hover {
+				text-decoration: none;
+				background-color: $yellow;
+			}
+
+			&.active {
+				background-color: #555;
+				color: white;
+			}
+		}
 	}
 }
 
 #main {
-	grid-area: main;
 	min-height: 100%;
+	padding: 1em;
 }
 
 #footer {
@@ -121,6 +149,74 @@ a {
 	border-top: thin solid black;
 	margin-top: 0.5em;
 }
+
+
+// Page styles
+#home {
+	text-align: center;
+	img {
+		max-width: 100%;
+	}
+}
+
+#catering {
+	.catering-section {
+  		padding: 0.5em 1em; 
+  	}
+
+	.catering-label {
+  		font-weight: bold; 
+  	}
+}
+
+#contactus {
+	font-size: 2em;
+	vertical-align: top;
+	.label {
+		font-weight: bold;
+	}
+}
+
+#delivery {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	padding: 1em;
+	img {
+		max-width: 100%;
+	}
+ }
+
+#directions {
+	margin: 0 auto;
+	max-width: 40em; 
+
+	img {
+		max-width: 100%;
+	}
+}
+
+ #familystores {
+	font-size: 2em;
+	vertical-align: top;
+	.label {
+		font-weight: bold;
+	}
+	.familystore {
+		margin-bottom: 1em;
+	}
+}
+
+#hours {
+	font-size: 2.5em;
+	vertical-align: top;
+	.label {
+		font-weight: bold;
+	}
+}
+
 
 @media (min-width: 500px) {
 	#we-deliver-block {
@@ -150,9 +246,33 @@ a {
 
 
 	#left-sidebar {
-		grid-area: left-sidebar;
+		flex: 0 0 12em;
 		display: block;	
 	}
+
+	#main {
+		flex: 1;
+	}
+
+	// pages 
+	#contactus {
+		.label {
+			text-align: right;
+		}
+	}
+
+	#familystores {
+		.label {
+			text-align: right;	
+		}
+		
+	}
+
+	#hours {
+		.label {
+			text-align: right;
+		}
+	}	
   
 }
 

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
-import Sidebar from './AppSidebar';
+import Navigation from './Navigation';
 
 const MenuToggle = ({ onClick }) => (
 	<i id="menu-toggle" className="fa fa-bars" onClick={onClick}></i>
@@ -47,7 +48,7 @@ class AppLayout extends Component {
 		        <div id="middle">
 			        <aside id="left-sidebar" ref={this.menuToggle}>
 			        	<nav>
-			        		<Sidebar />
+			        		<Navigation />
 			        	</nav>
 			        </aside>
 			        <main id="main" className="py-4">
@@ -62,7 +63,7 @@ class AppLayout extends Component {
 		        	 &nbsp;|&nbsp; 
 		        	</div>
 		        	 <div className="d-block d-sm-inline">
-		        		About Us&nbsp;|&nbsp;Contact Us
+		        		<Link to="/aboutus">About Us</Link>&nbsp;|&nbsp;<Link to="/contactus">Contact Us</Link>
 		        	</div>
 		        </footer>
 		    </Fragment>
