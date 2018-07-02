@@ -19,11 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/pictures', function (Request $request) {
-    $path = storage_path() . '/app/public/pictures.json';
+    $path = storage_path() . '/data/pictures.json';
 	return json_decode(file_get_contents($path), true); 
 });
 
 Route::get('/menu', function (Request $request) {
-    $path = storage_path() . '/app/public/menu.json';
+    $path = storage_path() . '/data/menu.json';
 	return json_decode(file_get_contents($path), true); 
 });		

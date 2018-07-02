@@ -1,0 +1,61 @@
+{
+  "items": {
+    "PizzaBox": {
+      "extension": "jpg",
+      "title": "Pizza Box"
+    },
+    "TheCowboyPizza": {
+      "extension": "jpg",
+      "title": "The Cowboy Pizza"
+    },
+    "BuffaloWings": {
+      "extension": "jpg",
+      "title": "Buffalo Wings"
+    },
+    "Stromboli": {
+      "extension": "jpg",
+      "title": "Stromboli"
+    },
+    "TacoSalad": {
+      "extension": "jpg",
+      "title": "Taco Salad"
+    },
+    "Tacos": {
+      "extension": "jpg",
+      "title": "Tacos"
+    },
+    "NachoDeluxe": {
+      "extension": "jpg",
+      "title": "Nacho Deluxe"
+    },
+    "TacoPizza": {
+      "extension": "jpg",
+      "title": "Taco Pizza"
+    },
+    "Halloween": {
+      "extension": "jpg",
+      "title": "Halloween"
+    },
+    "PizzaPrincess1": {
+      "extension": "jpg",
+      "title": "Pizza Princess 1"
+    },
+    "PizzaPrincess2": {
+      "extension": "jpg",
+      "title": "Pizza Princess 2"
+    }
+  },
+  "sequence": [
+    "PizzaBox",
+    "Halloween",
+    "PizzaPrincess1",
+    "PizzaPrincess2",
+    "TheCowboyPizza",
+    "NachoDeluxe",
+    "Stromboli",
+    "Tacos",
+    "TacoSalad",
+    "TacoPizza",
+    "BuffaloWings"
+  ]
+}
