@@ -28,72 +28,155 @@ const Dict = ({ items }) => (
 	</dl>
 );
 
-/*
-	function displayDictionary($items) {
-		global $h;
-		$h->otag('dl', 'class="pk-menu-dict"');
-		foreach ($items as $k => $item) {
-				$h->dt($item['left'].':');
-				$h->dd($item['right']);
-		}
-		$h->ctag('dl');
-	}
-*/
-
 const Feast = ({ items }) => (
 	<Fragment>
-		<h4>Feast Items</h4>
 		{
 			items.map((item, index) => (
-				<div className="feast-item">
+				<div key={`${item.title}-${index}`} className="feast-item">
 					<span className="feast-title">{ item.title }</span>
 					<span className="feast-toppings">{ item.toppings }</span>
 				</div>
 			))
 		}
 	</Fragment>
-
-				// 	$h->odiv('class="feast-item"');
-				// $title = $this->image($item, 'title');
-				// $h->span($title, 'class="feast-title"');
-				// $h->span($item['toppings'], 'class="feast-toppings"');
-				// $h->cdiv();
-);
-
-const Grid = ({ items }) => (
-	<p>Grid</p>
 );
 
 const imageDir = '/images/pictures';
 const thumbDir = imageDir + '/thumb';
 
-// const Price = price => {
-// 	price = price.replace('<br />', ';');
-// 	price = price.explode(';').map(part => <div>{ part }</div>);
+class HoverImage extends React.Component {
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		showFull: false
+  	};
+  	this.handleEnter = this.handleEnter.bind(this);
+  	this.handleExit = this.handleExit.bind(this);
+  }
 
-// 	return <span>price</span>;
+  handleEnter() {
+  	this.setState({
+  		showFull: true
+  	});
+  }
 
-// };
+  handleExit() {
+  	this.setState({
+  		showFull: false
+  	});
+  }
+
+  render() {
+  	const { item: { img, name } } = this.props;
+  	const { showFull } = this.state;
+    return (
+    	<Fragment>{
+    		img && (
+    			<span className="hover-image">
+    				<img alt={name}
+    					 className="hover-thumb" 
+						 onMouseEnter={this.handleEnter}	 
+    					 src={`${thumbDir}/${img}`}
+    				/> 
+    				{ showFull && (
+    					<img 
+	    					src={`${imageDir}/${img}`} 
+	    					className="hover-full" 
+	    					onMouseLeave={this.handleExit}
+	    					alt={name} 
+	    				/>)
+	    			}
+    				&nbsp;
+    			</span>
+    		)
+    	}
+    	</Fragment>
+    );
+  }
+}
+
+const Grid = ({ items }) => {
+	console.log(items);
+	return (
+		<table className="menu-table">
+			<thead>
+				<tr>
+					{
+						['', '8"', '10"', '14"', '16"'].map(header => <th key={header}>{header}</th>)
+					}
+				</tr>
+			</thead>
+			<tbody>
+				{
+					items.map((item, index) => (
+						<tr key={index}>
+							<td className="menu-item-name"><HoverImage item={item} />&nbsp;{item.name}</td>
+							{
+								item.prices.map((price, j) => (
+									<td key={`${index}-${j}`}>{ price }</td>
+								))
+							}
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	);
+};
+
+/*
+	function displayGridMenu($items) {
+		global $h;
+		global $webroot;
+		
+		$headers = array('', '8"', '10"', '14"', '16"');
+		$h->otable('class="menu-table"');
+		foreach ($headers as $header) {
+			$h->th($header);
+		}
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_items_'.$k;
+			$h->cotr();
+			$h->otd();
+			$name = $this->image($item);
+
+			
+
+			$atts = 'class="menu-item-name"';
+			$h->div($name, $atts);						
+			$h->ctd();
+			foreach ($item['prices'] as $l => $price) {
+				$h->td(number_format($price, 2));
+			}
+		}
+		$h->ctable();
+	}
+*/
+
+
+
+const Price = ({ price }) => (
+	<div>
+	{ 
+		price.split(';').map((p, i) => <div key={i}>{ p }</div>)
+	}
+	</div>
+);
+
 
 const MenuType = ({ items }) => (
 	<div>
-		<p>MenuType</p>
 		{
 			items.map((item, index) => {
-				// const name = item.name;
-
 				return (
 					<div key={`${item.name}-${index}`} className="menu-item">
 						<div className="menu-item-name-price-row">
-							<strong>
-								{
-									item.img && <span><img src={`${thumbDir}/${item.img}`} rel={`${imageDir}/${item.img}`} width="50" alt={item.name} /> &nbsp;</span>
-								}							
-								{ item.name }
-							</strong>
 							<div>
-								{item.price}
+								<HoverImage item={item} />
+								<strong>{ item.name }</strong>
 							</div>
+							
+							<Price price={item.price} />
 						</div>
 						<div className="menu-item-price-descr" dangerouslySetInnerHTML={createMarkup(item.descr)} />
 					</div>
@@ -103,61 +186,35 @@ const MenuType = ({ items }) => (
 	</div>
 );
 
-/*
-	function displayMenu($items) {
-		global $h;
-		global $webroot;
-		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_items_'.$k;
-			$h->odiv('class="menu-item"');
-			$h->odiv('class="menu-item-name-price-row"');
-			$name = $item['name'];
-			if (array_key_exists('img', $item) && !$this->form) {
-				$src = $webroot.'/img/pictures/'.$item['img'];
-				$thumb = $webroot.'/img/pictures/thumb/'.$item['img'];
-				$name = '<img src="'.$thumb.'" rel="'.$src.'" class="tooltip" ' .
-					'width="50" alt="'.$item['name'].'" /> ' . $name;
-			}
-			$atts = 'class="menu-item-name left"';
-			$h->div($name, $atts);	
-			$atts = 'class="menu-item-price right"';
-			$price = preg_replace("/;/", "<br />", $item['price']);
-			$price = preg_replace("/:/", "&nbsp;", $price);
-			$h->div($price, $atts);
-			$h->cdiv('.menu-item-name-price-row');
-			$atts = 'class="menu-item-descr"';
-			$h->div($item['descr'], $atts);
-			$h->cdiv('menu-item');
-		}
-	} 
-*/
-
 
 const Text = ({ content }) => (
 	<div dangerouslySetInnerHTML={createMarkup(content)} />
 );
 
-const section = ({ content, items, type }, i) => {
-	switch (type) {
-		case 'dict':
-			return <Dict items={items} key={i} />;
-		case 'feast':
-			return <Feast items={items} key={i} />;
-		case 'grid':
-			return <Grid items={items} key={i} />;
-		case 'menu':
-			return <MenuType items={items} key={i} />;
-		case 'text':
-			return <Text content={content} key={i} />;
-	}
+const Section = (props) => {
+	const typeMap = {
+		dict: Dict,
+		feast: Feast,
+		grid: Grid,
+		menu: MenuType,
+		text: Text
+	};
+	const TempComponent = typeMap[props.type] || Text;
+	return (
+		<div className="menu-subsection">
+			<TempComponent {...props} />
+		</div>
+	);
 }
 
 const MenuSection = ({ id, sections, title}) => (
 	<div className="menu-section" id={id}>
 		<div className="menu-section-title">{ title }</div>
 		{
-			sections.map((s, i) => section(s, i))
+			sections.map((s, i) => <Section key={i} {...s} /> )
 		}
+		<br /><br />
+		<a href="#top" className="backtotop">Return to Top</a>		
 	</div>
 );
 

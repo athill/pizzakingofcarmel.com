@@ -45,6 +45,21 @@ p {
 	margin: 1em 0;
 }
 
+.hover-image {
+	position: relative;
+
+	.hover-thumb {
+		width: 50px;
+	}
+
+	.hover-full {
+		position: absolute;
+		top: 0;
+		left: 0;
+		max-width: 200px;
+	}
+}
+
 #app {
   min-height: 100%;
   display: grid;

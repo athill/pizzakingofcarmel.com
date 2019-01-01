@@ -148,13 +148,13 @@
           {
             "name": "Nacho Chips Deluxe",
             "descr": "<p>Corn tortilla chips covered with taco meat, nacho cheese, sour cream, and tomatoes, and stuff</p>",
-            "price": "Large:7.50;Small:6.50",
+            "price": "Large 7.50;Small 6.50",
             "img": "NachoDeluxe.jpg"
           },
           {
             "name": "Chicken Wings",
             "descr": "<p>BBQ or Hot chicken wings baked and served with ranch dressing and celery, and stuff</p>",
-            "price": "6 for:5.75;12 for:11.25",
+            "price": "6 for 5.75;12 for 11.25",
             "img": "BuffaloWings.jpg"
           },
           {
@@ -195,7 +195,7 @@
           {
             "name": "Tacos (Hard or Soft Shell)",
             "descr": "<p>Flour or com tortilla filled with beef, cheese, lettuce, and sauce</p>",
-            "price": "2.00<br />3 for $5.75",
+            "price": "2.00;3 for $5.75",
             "img": "Tacos.jpg"
           },
           {
@@ -211,7 +211,7 @@
           {
             "name": "Taco Salad",
             "descr": "<p>Bed of ,lettuce surrounded with crispy tortilla chips and topped with beef, cheese, tomatoes, and sauce</p>",
-            "price": "Small 6.25<br />Large 7.25",
+            "price": "Small 6.25; Large 7.25",
             "img": "TacoSalad.jpg"
           }
         ]
