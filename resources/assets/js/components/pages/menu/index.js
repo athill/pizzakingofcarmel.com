@@ -11,8 +11,8 @@ export const Links = ({ sections }) => (
 	</ul>
 );
 
-const DownloadLink = () => (
-	<div id="menu-download"><a href="down"><i className="fa-download"></i></a></div>
+const PrintLink = () => (
+	<div id="menu-download"><a href="/print"><i className="fa fa-print"></i></a></div>
 );
 
 const Dict = ({ items }) => (
@@ -96,64 +96,34 @@ class HoverImage extends React.Component {
 }
 
 const Grid = ({ items }) => {
-	console.log(items);
 	return (
-		<table className="menu-table">
-			<thead>
-				<tr>
+		<div className="text-center">
+			<table className="menu-table table-responsive">
+				<thead>
+					<tr>
+						{
+							['', '8"', '10"', '14"', '16"'].map(header => <th key={header}>{header}</th>)
+						}
+					</tr>
+				</thead>
+				<tbody>
 					{
-						['', '8"', '10"', '14"', '16"'].map(header => <th key={header}>{header}</th>)
+						items.map((item, index) => (
+							<tr key={index}>
+								<td className="menu-item-name"><HoverImage item={item} />&nbsp;{item.name}</td>
+								{
+									item.prices.map((price, j) => (
+										<td key={`${index}-${j}`}>{ price }</td>
+									))
+								}
+							</tr>
+						))
 					}
-				</tr>
-			</thead>
-			<tbody>
-				{
-					items.map((item, index) => (
-						<tr key={index}>
-							<td className="menu-item-name"><HoverImage item={item} />&nbsp;{item.name}</td>
-							{
-								item.prices.map((price, j) => (
-									<td key={`${index}-${j}`}>{ price }</td>
-								))
-							}
-						</tr>
-					))
-				}
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	);
 };
-
-/*
-	function displayGridMenu($items) {
-		global $h;
-		global $webroot;
-		
-		$headers = array('', '8"', '10"', '14"', '16"');
-		$h->otable('class="menu-table"');
-		foreach ($headers as $header) {
-			$h->th($header);
-		}
-		foreach ($items as $k => $item) {
-			$basename = $this->basename.'_items_'.$k;
-			$h->cotr();
-			$h->otd();
-			$name = $this->image($item);
-
-			
-
-			$atts = 'class="menu-item-name"';
-			$h->div($name, $atts);						
-			$h->ctd();
-			foreach ($item['prices'] as $l => $price) {
-				$h->td(number_format($price, 2));
-			}
-		}
-		$h->ctable();
-	}
-*/
-
-
 
 const Price = ({ price }) => (
 	<div>
@@ -207,17 +177,54 @@ const Section = (props) => {
 	);
 }
 
-const MenuSection = ({ id, sections, title}) => (
+const MenuSection = ({ id, print, sections, title}) => (
 	<div className="menu-section" id={id}>
 		<div className="menu-section-title">{ title }</div>
 		{
 			sections.map((s, i) => <Section key={i} {...s} /> )
 		}
-		<br /><br />
-		<a href="#top" className="backtotop">Return to Top</a>		
+		{ !print && 
+			<Fragment>
+				<br /><br />
+				<a href="#top" className="backtotop">Return to Top</a>
+			</Fragment>
+		}
+
 	</div>
 );
 
+
+const ScreenMenu = ({ data }) => (
+	<div className="menu-container menu-screen">
+		<PrintLink />
+		<Links sections={data} />
+		{
+			data.map(props => <MenuSection {...props} key={props.id} />)
+		}
+	</div>
+);
+
+
+
+const PrintMenu = ({ data }) => {
+	const pivot = 3;
+	const columns = [data.slice(0, pivot), data.slice(pivot)];
+	return (
+		<div className="menu-print">
+
+			{
+				columns.map(column => (
+					<div className="menu-container" key={column[0].id}>
+						{
+							column.map(props => <MenuSection key={props.id} print={true} {...props} />)
+						}
+					</div>
+				))
+
+			}
+		</div>
+	);
+}
 
 class Menu extends React.Component {
 	constructor(props) {
@@ -237,20 +244,12 @@ class Menu extends React.Component {
 	}
 
 	render() {
+		const { print } = this.props;
 		const { data } = this.state;
 		if (!data) {
 			return <p>loading</p>
 		} else {
-			console.log(data);
-			return (
-				<div id="menu-container">
-					<Links sections={data} />
-					<DownloadLink />
-					{
-						data.map(props => <MenuSection {...props} key={props.id} />)
-					}
-				</div>
-			);			
+			return print && <PrintMenu data={data} /> || <PrintMenu data={data} />;			
 		}
 	}
 }

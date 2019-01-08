@@ -1,8 +1,17 @@
 /****************************
  *********menu page***********
  *****************************/
-#menu-container {
-  margin: 0 auto; 
+
+.menu-print {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.menu-screen {
+  margin: 0 auto;   
+}
+
+.menu-container {
   max-width: 40em;
 
   h4 {
@@ -14,8 +23,8 @@
   }
   /* menu section */
   .menu-section {
-    max-width: 30em;
-    /* menu section title */
+    // max-width: 30em;
+    // /* menu section title */
     .menu-section-title {
       font-weight: bold;
       font-size: 1.8em;
@@ -26,29 +35,14 @@
     .menu-item {
       padding: 1em;
       .menu-item-name-price-row {
-        // clear: both;
         display: flex;
         justify-content: space-between;
         vertical-align: bottom;
-      /*  width: 100%;*/
       }
-      // .menu-item-name {
-      //   width: 15em;
-      //   float: left;
-      //   font-weight: bold;
-      // }
-      // .menu-item-price {
-      //   float: right;
-      //   text-align: right;
-      // }
-
-      // .menu-item-descr {
-      //   clear: both;
-      // }
     }
     /* menu table */
     .menu-table {
-      width: 98%;
+      // width: 98%;
       margin: 0;
       border-collapse: collapse;
       & td, & th {
@@ -145,13 +139,6 @@
 th {
   margin: 0;
 }
-
-
-
-
-
-
-
 
 
 

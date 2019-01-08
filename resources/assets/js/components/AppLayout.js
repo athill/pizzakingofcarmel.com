@@ -20,7 +20,10 @@ class AppLayout extends Component {
 	}
 
 	render() {
-		const { children } = this.props;
+		const { show, children } = this.props;
+		if (!show) {
+			return null;
+		}
 		return (
 			<Fragment>
 				<div id="header-wrapper">
