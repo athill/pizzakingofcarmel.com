@@ -124,10 +124,6 @@ p {
 	}
 }
 
-#left-sidebar {
-	display: none;
-}
-
 #navigation {
 	list-style: none;
 	padding-left: 0;
@@ -216,7 +212,7 @@ p {
 }
 
  #familystores {
-	font-size: 2em;
+	font-size: 1.5em;
 	vertical-align: top;
 	.label {
 		font-weight: bold;
@@ -227,15 +223,33 @@ p {
 }
 
 #hours {
-	font-size: 2.5em;
+	font-size: 1.5em;
 	vertical-align: top;
 	.label {
 		font-weight: bold;
 	}
 }
 
+.pics-thumbs {
+  padding: 1em;
+  margin: 1em;
+  width: 240px;
+  display: inline-block;
+  /* background: blue; */
+  border: thin dashed black;
+  /*height: 13em;*/
+  min-height: 13em;
+  text-align: center;
+  vertical-align: top; }
+
+.pics-thumbs .pics-comment {
+  font-weight: bold; }
+
 
 @media (min-width: 500px) {
+	body {
+		font-size: 1em;
+	}
 	#we-deliver-block {
 		letter-spacing: 0.3em;
 		.we-deliver {
@@ -279,6 +293,7 @@ p {
 	}
 
 	#familystores {
+		font-size: 2em;
 		.label {
 			text-align: right;	
 		}
@@ -286,6 +301,7 @@ p {
 	}
 
 	#hours {
+		font-size: 2.5em;
 		.label {
 			text-align: right;
 		}

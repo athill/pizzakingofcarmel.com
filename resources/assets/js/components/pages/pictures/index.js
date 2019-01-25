@@ -1,51 +1,92 @@
 import React from 'react';
 import axios from 'axios';
+import Lightbox from 'react-image-lightbox';
+
+import 'react-image-lightbox/style.css';
+
+const picPath = '/images/pictures';
+const thumbPath = picPath + '/thumb';
 
 class Pictures extends React.Component {
 	constructor(props) {
 		super(props);
+		this.images = [];
+		this.data = null;
 		this.state = {
-			data: null,
-			images: {}
+
+			loaded: false,
+			isOpen: false,
+			photoIndex: 0,
+
+
 		}
 	}
 
 	componentDidMount() {
 		axios.get('/api/pictures')
 			.then(response => {
-				this.setState({
-					data: response.data
-				});
+				this.data = response.data;
+				console.log(this.data);
 				response.data.sequence.forEach(key => {
 					const filename = `${key}.${response.data.items[key].extension}`; // [key].extension ${response.data.items[key]}
-					console.log(filename);
+					this.images.push(`${picPath}/${filename}`);
+					console.log(filename, key);
 					// axios.get(`/images/pictures/thumb/${filename}`)
 					// 	.then(response => {
 
 					// 	});
 				});
+				this.setState({
+					loaded: true
+				});
 			});
 	}
 
+	open(index) {
+		this.setState({
+			isOpen: true,
+			photoIndex: index
+		});
+	}
+
 	render() {
-		const { data } = this.state;
-		if (!data) {
+		if (!this.state.loaded) {
 			return <p>loading</p>
 		} else {
+			const { images, data } = this;
+			const { isOpen, photoIndex } = this.state;
 			return (
-				<div id="pictures">
+				<div id="pics">
 					{
-						data.sequence.map(key => {
+						data.sequence.map((key, index) => {
 							const { extension, title} = data.items[key];
 							const filename = `${key}.${extension}`;
 							return (
-								<div key={key}>
-									<img src={`/images/pictures/thumb/${filename}`} />
-									<div>{title}</div>
+								<div className="pics-thumbs" key={key} onClick={() => this.open(index)}>
+									<img src={`/images/pictures/thumb/${filename}`} alt={title} />
+									<div className="pics-title">{title}</div>
 								</div>
 							);
 						})
 					}
+			        { isOpen && (
+			          <Lightbox
+			            mainSrc={images[photoIndex]}
+			            nextSrc={images[(photoIndex + 1) % images.length]}
+			            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+			            onCloseRequest={() => this.setState({ isOpen: false })}
+			            onMovePrevRequest={() =>
+			              this.setState({
+			                photoIndex: (photoIndex + images.length - 1) % images.length,
+			              })
+			            }
+			            onMoveNextRequest={() =>
+			              this.setState({
+			                photoIndex: (photoIndex + 1) % images.length,
+			              })
+			            }
+			          />
+			        )}					
 				</div>
 			);			
 		}

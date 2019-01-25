@@ -97,8 +97,8 @@ class HoverImage extends React.Component {
 
 const Grid = ({ items }) => {
 	return (
-		<div className="text-center">
-			<table className="menu-table table-responsive">
+		<div className="menu-table-wrapper">
+			<table className="menu-table">
 				<thead>
 					<tr>
 						{
@@ -249,7 +249,7 @@ class Menu extends React.Component {
 		if (!data) {
 			return <p>loading</p>
 		} else {
-			return print && <PrintMenu data={data} /> || <PrintMenu data={data} />;			
+			return print && <PrintMenu data={data} /> || <ScreenMenu data={data} />;			
 		}
 	}
 }

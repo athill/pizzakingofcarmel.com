@@ -5,8 +5,8 @@ const MenuLink = props => (
 	<NavLink {...props} activeClassName="active" />
 );
 
-const Navigation = () => (
-	<ul id="navigation">
+const Navigation = ({ onClick }) => (
+	<ul id="navigation" onClick={onClick}>
 		<li><MenuLink exact to="/">Home</MenuLink></li>
 		<li><MenuLink to="/menu">Menu</MenuLink></li>
 		<li><MenuLink to="/hours">Hours</MenuLink></li>

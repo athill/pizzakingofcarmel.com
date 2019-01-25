@@ -7,23 +7,62 @@ const MenuToggle = ({ onClick }) => (
 	<i id="menu-toggle" className="fa fa-bars" onClick={onClick}></i>
 );
 
+const MAX_MOBILE_WIDTH = 400;
 
 class AppLayout extends Component {
 	constructor(props) {
 		super(props);
-		this.menuToggle = React.createRef();
 		this._onMenuToggleClick = this._onMenuToggleClick.bind(this);
+		this._updateWindowDimensions = this._updateWindowDimensions.bind(this);
+		this._mobile = this._mobile.bind(this);
+		this._closeMenu = this._closeMenu.bind(this);
+		this.state = {
+			showMobile: false,
+			width: window.innerWidth,
+			height: window.innerHeight
+		};
+	}
+
+	// https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+	componentDidMount() {
+	  this._updateWindowDimensions();
+	  window.addEventListener('resize', this._updateWindowDimensions);
+	}
+
+	componentWillUnmount() {
+	  window.removeEventListener('resize', this._updateWindowDimensions);
+	}
+
+	_updateWindowDimensions() {
+	  this.setState({ 
+	  	width: window.innerWidth, 
+	  	height: window.innerHeight,
+	  });
+	}	
+
+	// mobile basically means a landscape phone for this app
+	_mobile(width) {
+		width = width || this.state.width; // default is state
+		return width <= MAX_MOBILE_WIDTH;
 	}
 
 	_onMenuToggleClick(e) {
-		 this.menuToggle.current.style.display = this.menuToggle.current.style.display === 'block' ? 'none' : 'block';
+		this.setState({
+			showMobile: !this.state.showMobile
+		});		 
+	}
+
+	_closeMenu() {
+		this.setState({
+			showMobile: false
+		});		 
 	}
 
 	render() {
-		const { show, children } = this.props;
-		if (!show) {
-			return null;
-		}
+		const { children } = this.props;
+		const { showMobile, width } = this.state;
+
+		const showMenu = !this._mobile() || showMobile;
 		return (
 			<Fragment>
 				<div id="header-wrapper">
@@ -49,11 +88,15 @@ class AppLayout extends Component {
 			        <MenuToggle onClick={this._onMenuToggleClick} />
 		        </div>
 		        <div id="middle">
-			        <aside id="left-sidebar" ref={this.menuToggle}>
-			        	<nav>
-			        		<Navigation />
-			        	</nav>
+		        	{ showMenu && (
+			        <aside id="left-sidebar">
+			        	
+				        	<nav>
+				        		<Navigation onClick={this._closeMenu} />
+				        	</nav>
+			        	
 			        </aside>
+			        )}
 			        <main id="main" className="py-4">
 			            { children }
 			        </main>
