@@ -7,7 +7,7 @@ const MenuToggle = ({ onClick }) => (
 	<i id="menu-toggle" className="fa fa-bars" onClick={onClick}></i>
 );
 
-const MAX_MOBILE_WIDTH = 400;
+const MAX_MOBILE_WIDTH = 500;
 
 class AppLayout extends Component {
 	constructor(props) {
