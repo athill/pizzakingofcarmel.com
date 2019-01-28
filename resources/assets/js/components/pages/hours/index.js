@@ -1,24 +1,22 @@
 import React from 'react';
 
+const hours = [
+	{ label: 'Monday-Thursday', times: <span>11:00am&nbsp;to&nbsp;10:00pm</span> },
+	{ label: 'Friday', times: <span>11:00am&nbsp;to&nbsp;11:00pm</span> },
+	{ label: 'Saturday', times: <span>4:00pm&nbsp;to&nbsp;11:00pm</span> },
+	{ label: 'Sunday', times: <span>4:00pm&nbsp;to&nbsp;10:00pm</span> }
+];
+
 const Hours = () => (
 	<div id="hours" className="container">
-		<div className="row">
-			<div className="col-sm label">Monday-Thursday:</div>
-			<div className="col-sm">11:00am to 10:00pm</div>
-		</div>
-		<div className="row">
-			<div className="col-sm label">Friday:</div>
-			<div className="col-sm">11:00am to 11:00pm</div>
-		</div>
-		<div className="row">
-			<div className="col-sm label">Saturday:</div>
-			<div className="col-sm">4:00pm to 11:00pm</div>
-		</div>
-		<div className="row">
-			<div className="col-sm label">Sunday:</div>
-			<div className="col-sm">4:00pm to 10:00pm</div>
-		</div>		
+	{
+		hours.map(hour => (
+			<div className="row">
+				<div className="col-12 col-md-6 label">{ hour.label }:</div>
+				<div className="col-12 col-md-6">{ hour.times }</div>
+			</div>
+		))
+	}
 	</div>
 );
-
 export default Hours;

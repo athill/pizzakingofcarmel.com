@@ -15,6 +15,34 @@
 
 $red: #b31000;
 $yellow: yellow;
+$min_width: 400px;
+$max_width: 1500px;
+$min_font: 28px;
+$max_font: 32px;
+
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
 
 html {
 	height: 100%;
@@ -182,13 +210,14 @@ p {
   	}
 }
 
-#contactus {
-	font-size: 2em;
-	vertical-align: top;
-	.label {
-		font-weight: bold;
-	}
-}
+// #contactus {
+// 	// font-size: 2em;
+// 	vertical-align: top;
+// 	.label {
+// 		font-weight: bold;
+// 	}
+// 	@include fluid-type($min_width, $max_width, $min_font, $max_font);
+// }
 
 #delivery {
 	font-size: 1.2em;
@@ -223,7 +252,8 @@ p {
 }
 
 #hours {
-	font-size: 1.5em;
+	// font-size: 1.5em;
+	@include fluid-type($min_width, $max_width, $min_font, $max_font);
 	vertical-align: top;
 	.label {
 		font-weight: bold;
@@ -286,11 +316,11 @@ p {
 	}
 
 	// pages 
-	#contactus {
-		.label {
-			text-align: right;
-		}
-	}
+	// #contactus {
+	// 	.label {
+	// 		text-align: right;
+	// 	}
+	// }
 
 	#familystores {
 		font-size: 2em;
@@ -300,12 +330,12 @@ p {
 		
 	}
 
-	#hours {
-		font-size: 2.5em;
-		.label {
-			text-align: right;
-		}
-	}	
+	// #hours {
+	// 	font-size: 2.5em;
+	// 	.label {
+	// 		text-align: right;
+	// 	}
+	// }	
   
 }
 
