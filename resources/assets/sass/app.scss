@@ -111,7 +111,7 @@ p {
 #header {
 	
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 
 	.center-block {
 		display: flex;
@@ -281,6 +281,9 @@ p {
 @media (min-width: 768px) {
 	body {
 		font-size: 1em;
+	}
+	#header {
+		justify-content: space-between;
 	}
 	#we-deliver-block {
 		letter-spacing: 0.3em;

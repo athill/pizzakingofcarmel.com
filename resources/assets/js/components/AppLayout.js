@@ -67,7 +67,7 @@ class AppLayout extends Component {
 			<Fragment>
 				<div id="header-wrapper">
 			        <header id="header">
-			           <div className="d-none d-sm-block"> 
+			           <div className="d-none d-md-block"> 
 			                <img src="/images/pizzakingme.png" />
 			           </div>
 			           <div className="center-block">
