@@ -7,7 +7,7 @@ const MenuToggle = ({ onClick }) => (
 	<i id="menu-toggle" className="fa fa-bars" onClick={onClick}></i>
 );
 
-const MAX_MOBILE_WIDTH = 500;
+const MAX_MOBILE_WIDTH = 768;
 
 class AppLayout extends Component {
 	constructor(props) {
@@ -43,7 +43,7 @@ class AppLayout extends Component {
 	// mobile basically means a landscape phone for this app
 	_mobile(width) {
 		width = width || this.state.width; // default is state
-		return width <= MAX_MOBILE_WIDTH;
+		return width < MAX_MOBILE_WIDTH;
 	}
 
 	_onMenuToggleClick(e) {
@@ -81,7 +81,7 @@ class AppLayout extends Component {
 				                <div className="address">301 E. Carmel Drive</div>
 				           </div>
 			           </div>
-			           <div className="d-none d-sm-block"> 
+			           <div className="d-none d-md-block"> 
 			                <img src="/images/pizzakingme.png" />
 			           </div>
 			        </header>
