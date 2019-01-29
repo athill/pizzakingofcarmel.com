@@ -11,7 +11,7 @@ const Hours = () => (
 	<div id="hours" className="container">
 	{
 		hours.map(hour => (
-			<div className="row">
+			<div className="row" key={hour.label}>
 				<div className="col-12 col-md-6 label">{ hour.label }:</div>
 				<div className="col-12 col-md-6">{ hour.times }</div>
 			</div>
