@@ -12,7 +12,7 @@ export const Links = ({ sections }) => (
 );
 
 const PrintLink = () => (
-	<div id="menu-download"><a href="/print"><i className="fa fa-print"></i></a></div>
+	<div id="menu-download"><a href="/print" title="print"><i className="fa fa-print"></i></a></div>
 );
 
 const Dict = ({ items }) => (
