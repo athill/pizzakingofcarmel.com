@@ -9,7 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link href="/images/touch/pk48.png" rel="shortcut icon" type="image/png"/>
+    <link rel="manifest" href="/manifest.json">
     <!-- Fonts -->
 
     <!-- Styles -->
