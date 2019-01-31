@@ -26,15 +26,9 @@ class Pictures extends React.Component {
 		axios.get('/api/pictures')
 			.then(response => {
 				this.data = response.data;
-				console.log(this.data);
 				response.data.sequence.forEach(key => {
 					const filename = `${key}.${response.data.items[key].extension}`; // [key].extension ${response.data.items[key]}
 					this.images.push(`${picPath}/${filename}`);
-					console.log(filename, key);
-					// axios.get(`/images/pictures/thumb/${filename}`)
-					// 	.then(response => {
-
-					// 	});
 				});
 				this.setState({
 					loaded: true

@@ -16,15 +16,6 @@ import Hours from './pages/hours';
 import Menu, { PrintMenu } from './pages/menu';
 import Pictures from './pages/pictures';
 
-const Blank = () => {
-    console.log('blank');
-    return <p>blank</p>
-};
-
-
-
-console.log('Page', location.pathname);
-
 const Page = ({ children, message }) => (
     <Router history={history}>  
         <Fragment>
@@ -48,7 +39,5 @@ const Page = ({ children, message }) => (
     </Router>
 );
 
-/*
 
-*/
 export default Page;
