@@ -213,14 +213,14 @@ p {
   	}
 }
 
-// #contactus {
-// 	// font-size: 2em;
-// 	vertical-align: top;
-// 	.label {
-// 		font-weight: bold;
-// 	}
-// 	@include fluid-type($min_width, $max_width, $min_font, $max_font);
-// }
+#contactus {
+	// font-size: 2em;
+	vertical-align: top;
+	.label {
+		font-weight: bold;
+	}
+	@include fluid-type($min_width, $max_width, $min_font, $max_font);
+}
 
 #delivery {
 	font-size: 1.2em;
@@ -263,17 +263,24 @@ p {
 	}
 }
 
+#pics {
+	margin: 0 auto;
+}
+
 .pics-thumbs {
   padding: 1em;
   margin: 1em;
   width: 240px;
-  display: inline-block;
-  /* background: blue; */
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
   border: thin dashed black;
   /*height: 13em;*/
   min-height: 13em;
   text-align: center;
-  vertical-align: top; }
+  vertical-align: top; 
+  cursor: pointer;
+}
 
 .pics-thumbs .pics-comment {
   font-weight: bold; }
@@ -322,11 +329,11 @@ p {
 	}
 
 	// pages 
-	// #contactus {
-	// 	.label {
-	// 		text-align: right;
-	// 	}
-	// }
+	#contactus {
+		.label {
+			text-align: right;
+		}
+	}
 
 	#familystores {
 		font-size: 2em;
@@ -336,12 +343,12 @@ p {
 		
 	}
 
-	// #hours {
-	// 	font-size: 2.5em;
-	// 	.label {
-	// 		text-align: right;
-	// 	}
-	// }	
+	#hours {
+		font-size: 2.5em;
+		.label {
+			text-align: right;
+		}
+	}	
   
 }
 

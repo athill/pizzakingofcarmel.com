@@ -7,10 +7,15 @@ import 'react-image-lightbox/style.css';
 const picPath = '/images/pictures';
 const thumbPath = picPath + '/thumb';
 
+const Loading = () => (
+	<span className="loader"><i className="fas fa-cog"></i> Loading ...</span>
+);
+
 class Pictures extends React.Component {
 	constructor(props) {
 		super(props);
 		this.images = [];
+		this.captions = [];
 		this.data = null;
 		this.state = {
 
@@ -29,6 +34,7 @@ class Pictures extends React.Component {
 				response.data.sequence.forEach(key => {
 					const filename = `${key}.${response.data.items[key].extension}`; // [key].extension ${response.data.items[key]}
 					this.images.push(`${picPath}/${filename}`);
+					this.captions.push(response.data.items[key].title);
 				});
 				this.setState({
 					loaded: true
@@ -45,9 +51,9 @@ class Pictures extends React.Component {
 
 	render() {
 		if (!this.state.loaded) {
-			return <p>loading</p>
+			return <Loading />;
 		} else {
-			const { images, data } = this;
+			const { captions, images, data } = this;
 			const { isOpen, photoIndex } = this.state;
 			return (
 				<div id="pics">
@@ -79,6 +85,7 @@ class Pictures extends React.Component {
 			                photoIndex: (photoIndex + 1) % images.length,
 			              })
 			            }
+			            imageCaption={captions[photoIndex]}
 			          />
 			        )}					
 				</div>
