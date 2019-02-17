@@ -45,7 +45,7 @@ const ContactUs = () => (
 			stores.map(({ name, addr, addr2, phone, email }) => (
 				<div className="row familystore" key={name}>
 					<div className="col-12 col-md-6 label">{name}:</div>
-					<div className="col-12 col-md-6">{ addr }<br />{ addr2 }<br />Phone: { phone } { email && <div>Email: <a href={`mailto:${email}`}>{ email }</a></div>  }</div>
+					<div className="col-12 col-md-6">{ addr }<br />{ addr2 }<br />Phone: { phone } { email && <div>Email: <a className="wrap-long" href={`mailto:${email}`}>{ email }</a></div>  }</div>
 				</div>				
 			))
 		}

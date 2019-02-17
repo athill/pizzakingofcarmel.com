@@ -98,11 +98,14 @@ class AppLayout extends Component {
 	}
 
 	render() {
-		const { children } = this.props;
+		const { children, show } = this.props;
 		const { showMobile, width } = this.state;
 
 		const showMenu = !this._mobile() || showMobile;
-		return (
+		if (!show) {
+			return null;
+		}
+		return ( 
 			<Fragment>
 				<Header onMenuToggleClick={this._onMenuToggleClick} />
 		        <div id="middle">

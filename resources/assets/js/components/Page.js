@@ -16,11 +16,13 @@ import Hours from './pages/hours';
 import Menu, { PrintMenu } from './pages/menu';
 import Pictures from './pages/pictures';
 
+const isPrint = location.pathname.includes('/print');
+
 const Page = ({ children, message }) => (
     <Router history={history}>  
         <Fragment>
         
-        <AppLayout show={!location.pathname.includes('/print')}>
+        <AppLayout show={ !isPrint }>
             <Route path="/" exact component={Home}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/catering" component={Catering}/>       
