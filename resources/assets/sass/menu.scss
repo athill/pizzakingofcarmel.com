@@ -59,13 +59,15 @@
     }   
     /* 3-col */
     .pk-menu-3-col {
-      clear: both;
-      width: 100%; 
+      // clear: both;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-flow: row wrap;
       .column {
-        float: left;
-        width: 30%;
+        width: 200px;
         text-align: center;
-        /* padding: 1em; */ 
+        margin-bottom: 1em;
       }
 
       .title {
@@ -76,17 +78,10 @@
     div.pk-menu-2-col-center {
       width: 100%;
       padding-bottom: 2em; 
-      .row {
-        clear: both;
-        padding-bottom: 2em;
-        /* width: 100px; */
-
-      }
-      .column {
-        float: left;
-        width: 50%;
-        text-align: center;
-        font-weight: bold; 
+      .pk-menu-row {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: bold;
       }
 
     }
@@ -129,6 +124,7 @@
   }
   .menu-subsection {
     margin-bottom: 1em;
+    clear: both;
   }
 }
 
