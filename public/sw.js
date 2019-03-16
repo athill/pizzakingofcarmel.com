@@ -1,7 +1,7 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js');
 
-const JS_CACHE = 'js-cache-v03';
-const CSS_CACHE = 'css-cache-v02';
+const JS_CACHE = 'js-cache-v04';
+const CSS_CACHE = 'css-cache-v03';
 const IMAGE_CACHE = 'image-cache-v01';
 
 

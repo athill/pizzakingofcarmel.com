@@ -161,8 +161,61 @@ const Text = ({ content }) => (
 	<div dangerouslySetInnerHTML={createMarkup(content)} />
 );
 
+const TwoColCenter = ({ items }) => (
+	<div className="pk-menu-2-col-center">
+	{
+		items.map((item, i) => (
+			<div className="pk-menu-row" key={i}>
+				<div>{ item.left }</div>
+				<div>{ item.right }</div>
+			</div>
+		))
+	}
+	</div>
+);
+
+const ThreeCol = ({ items }) => (
+	<div className="pk-menu-3-col">
+	{
+		items.map((item, i) => (
+			<div className="column" key={i}>
+				<div className="title">{ item.title }</div>
+				<Text content={ item.descr } />
+			</div>
+		))
+	}
+	</div>
+);
+
+/*
+		          
+	function display3Col($items) {
+		global $h;
+		$h->odiv('class="pk-menu-3-col"');
+		foreach ($items as $k => $item) {
+			$basename = $this->basename.'_items_'.$k;
+			if (!$this->form) $h->odiv('class="column"');
+			if ($this->form) {
+				$h->odiv('class="title"');
+				$h->intext($basename.'_title', $item['title']);
+				$h->cdiv('.title');
+				$h->odiv('class="descr"');
+				$h->editor($basename.'_descr', $item['descr'], 'style="width: 99%;"');
+				$h->cdiv('.descr');
+			} else {
+				$h->div($item['title'], 'class="title"');
+				$h->div($item['descr'], 'class="descr"');
+			}
+			if (!$this->form) $h->cdiv('.column');			
+		}
+		$h->cdiv();                          
+	} 
+*/
+
 const Section = (props) => {
 	const typeMap = {
+		'2-col-center': TwoColCenter,
+		'3-col': ThreeCol,
 		dict: Dict,
 		feast: Feast,
 		grid: Grid,
