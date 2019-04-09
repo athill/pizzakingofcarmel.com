@@ -142,29 +142,29 @@
         "items": [
           {
             "name": "Nacho Chips",
-            "descr": "<p>Corn tortilla chips served with nacho cheese, and stuff</p>",
+            "descr": "<p>Corn tortilla chips served with nacho cheese</p>",
             "price": "4.25"
           },
           {
             "name": "Nacho Chips Deluxe",
-            "descr": "<p>Corn tortilla chips covered with taco meat, nacho cheese, sour cream, and tomatoes, and stuff</p>",
+            "descr": "<p>Corn tortilla chips covered with taco meat, nacho cheese, sour cream, and tomatoes</p>",
             "price": "Large 7.50;Small 6.50",
             "img": "NachoDeluxe.jpg"
           },
           {
             "name": "Chicken Wings",
-            "descr": "<p>BBQ or Hot chicken wings baked and served with ranch dressing and celery, and stuff</p>",
+            "descr": "<p>BBQ or Hot chicken wings baked and served with ranch dressing and celery</p>",
             "price": "6 for 5.75;12 for 11.25",
             "img": "BuffaloWings.jpg"
           },
           {
             "name": "Breadsticks",
-            "descr": "<p>Five garlic buttered breadsticks served with nacho cheese, and stuff</p>",
+            "descr": "<p>Five garlic buttered breadsticks served with nacho cheese</p>",
             "price": "5.00"
           },
           {
             "name": "Cheese Bread",
-            "descr": "<p>Three slices of our Texas Toast style garlic bread baked with pizza cheese and served with Italian sauce, and stuff</p>",
+            "descr": "<p>Three slices of our Texas Toast style garlic bread baked with pizza cheese and served with Italian sauce</p>",
             "price": "5.50"
           },
           {
