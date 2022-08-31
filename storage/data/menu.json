@@ -9,28 +9,28 @@
           {
             "name": "Cheese",
             "prices": [
-              "5.65",
+              "5.99",
               "9.35",
-              "15.59",
-              "19.49"
+              "17.49",
+              "21.89"
             ]
           },
           {
             "name": "One Topping",
             "prices": [
-              "6.50",
-              "10.70",
-              "17.59",
-              "21.79"
+              "7.18",
+              "11.14",
+              "20.08",
+              "24.88"
             ]
           },
           {
             "name": "Two Topping",
             "prices": [
-              "7.35",
-              "12.05",
-              "19.59",
-              "24.09"
+              "8.37",
+              "12.93",
+              "22.67",
+              "27.87"
             ]
           },
           {
@@ -143,34 +143,34 @@
           {
             "name": "Nacho Chips",
             "descr": "<p>Corn tortilla chips served with nacho cheese</p>",
-            "price": "4.25"
+            "price": "5.00"
           },
           {
             "name": "Nacho Chips Deluxe",
             "descr": "<p>Corn tortilla chips covered with taco meat, nacho cheese, sour cream, and tomatoes</p>",
-            "price": "Large 7.50;Small 6.50",
+            "price": "Large 8.75;Small 7.75",
             "img": "NachoDeluxe.jpg"
           },
           {
             "name": "Chicken Wings",
             "descr": "<p>BBQ or Hot chicken wings baked and served with ranch dressing and celery</p>",
-            "price": "6 for 5.75;12 for 11.25",
+            "price": "6 for 7.00;12 for 13:00",
             "img": "BuffaloWings.jpg"
           },
           {
             "name": "Breadsticks",
             "descr": "<p>Five garlic buttered breadsticks served with nacho cheese</p>",
-            "price": "5.00"
+            "price": "6.00"
           },
           {
             "name": "Cheese Bread",
             "descr": "<p>Three slices of our Texas Toast style garlic bread baked with pizza cheese and served with Italian sauce</p>",
-            "price": "5.50"
+            "price": "6.50"
           },
           {
             "name": "Pizza Bread",
             "descr": "<p>Three slices of our Texas Toast style garlic bread baked with pizza cheese and your choice of one pizza topping</p>",
-            "price": "6.25"
+            "price": "7.25"
           },
           {
             "name": "Potato Chips",
@@ -195,23 +195,23 @@
           {
             "name": "Tacos (Hard or Soft Shell)",
             "descr": "<p>Flour or com tortilla filled with beef, cheese, lettuce, and sauce</p>",
-            "price": "2.00;3 for $5.75",
+            "price": "2.50;3 for $7.25",
             "img": "Tacos.jpg"
           },
           {
             "name": "Burritos (Beef and Bean Only)",
             "descr": "<p>Soft flour tortilla made to your specifications with shredded cheddar cheese, lettuce, and sauce</p>",
-            "price": "5.00"
+            "price": "5.75"
           },
           {
             "name": "Mexican Plate",
             "descr": "<p>Beef burrito, hard shell taco, lettuce, tomatoes, sour cream, and beans all on the side</p>",
-            "price": "8.50"
+            "price": "11.00"
           },
           {
             "name": "Taco Salad",
             "descr": "<p>Bed of ,lettuce surrounded with crispy tortilla chips and topped with beef, cheese, tomatoes, and sauce</p>",
-            "price": "Small 6.25; Large 7.25",
+            "price": "Small 7.25; Large 8.25",
             "img": "TacoSalad.jpg"
           }
         ]
@@ -232,22 +232,22 @@
           {
             "name": "Large Baked Spaghetti",
             "descr": "<p>A large order of spaghetti with meat sauce topped with pizza cheese then baked to perfection. Indudes a garden salad with two slices of garlic bread</p>",
-            "price": "9.00"
+            "price": "10.59"
           },
           {
             "name": "Small Baked Spaghetti",
             "descr": "<p>A half of order of spaghetti with meat sauce topped with pizza cheese then baked to perfection. Also includes one slice of garlic bread</p>",
-            "price": "5.95"
+            "price": "7.50"
           },
           {
             "name": "Large Spaghetti",
             "descr": "<p>A large order of spaghetti with meat sauce. Also includes a garden salad and two slices of garlic bread</p>",
-            "price": "8.00"
+            "price": "9.50"
           },
           {
             "name": "Small Spaghetti",
             "descr": "<p>A half of order of spaghetti with meat sauce served with one slice of garlic bread</p>",
-            "price": "5.35"
+            "price": "6.50"
           }
         ]
       }
@@ -263,22 +263,22 @@
           {
             "name": "Garden Salad",
             "descr": "<p>Tossed salad that's perfect with pizza or with a sandwich</p>",
-            "price": "2.85"
+            "price": "3.50"
           },
           {
             "name": "Junior Chef Salad",
             "descr": "<p>A smaller version of the large chef salad without egg</p>",
-            "price": "6.25"
+            "price": "7.50"
           },
           {
             "name": "Large Chef Salad",
             "descr": "<p>Our tossed salad greens topped with pizza cheese, egg, and your choice of ham or chicken</p>",
-            "price": "7.25"
+            "price": "8.50"
           },
           {
             "name": "King Chef Salad",
             "descr": "<p>Our large chef plus every veggie in the house. Mushrooms, onions, green peppers, tomatoes, banana peppers, black olives</p>",
-            "price": "8.50"
+            "price": "10.00"
           }
         ]
       },
@@ -364,8 +364,8 @@
         "type": "2-col-center",
         "items": [
           {
-            "left": "Whole Sandwich 9.50",
-            "right": "Half Sandwich 5.00"
+            "left": "Whole Sandwich 11.50",
+            "right": "Half Sandwich 6.00"
           }
         ]
       },
@@ -375,12 +375,12 @@
           {
             "name": "Baked Ham",
             "descr": "<p>Shaved ham piled on a 6\" toasted bun</p>",
-            "price": "6.00"
+            "price": "7.25"
           },
           {
             "name": "Roast Beef",
             "descr": "<p>Shaved lean roast beef served on a 6\" toasted bun</p>",
-            "price": "6.00"
+            "price": "7.25"
           }
         ]
       },
