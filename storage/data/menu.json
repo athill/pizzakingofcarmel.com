@@ -36,38 +36,38 @@
           {
             "name": "Any \"Feast\"",
             "prices": [
-              "8.20",
-              "13.40",
-              "21.59",
-              "26.39"
+              "9.56",
+              "14.72",
+              "25.26",
+              "30.86"
             ]
           },
           {
             "name": "Cowboy **",
             "prices": [
-              "9.05",
-              "14.75",
-              "23.59",
-              "28.69"
+              "12.85",
+              "17.95",
+              "29.40",
+              "35.95"
             ],
             "img": "TheCowboyPizza.jpg"
           },
           {
             "name": "Additional Item",
             "prices": [
-              "0.85",
-              "1.35",
-              "2.00",
-              "2.35"
+              "1.19",
+              "1.79",
+              "2.59",
+              "2.99"
             ]
           },
           {
             "name": "Extra Cheese",
             "prices": [
-              "1.15",
-              "1.75",
-              "2.50",
-              "2.85"
+              "1.65",
+              "2.25",
+              "3.00",
+              "3.45"
             ]
           },
           {
@@ -154,7 +154,7 @@
           {
             "name": "Chicken Wings",
             "descr": "<p>BBQ or Hot chicken wings baked and served with ranch dressing and celery</p>",
-            "price": "6 for 7.00;12 for 13:00",
+            "price": "6 for 7.00;12 for 13.50",
             "img": "BuffaloWings.jpg"
           },
           {
