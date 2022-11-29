@@ -1,3 +1,4 @@
+# https://github.com/aschmelyun/docker-compose-laravel
 version: '3'
 
 networks:
@@ -71,7 +72,7 @@ services:
       - laravel
 
   npm:
-    image: node:8.9
+    image: node:18.6.0
     container_name: npm
     volumes:
       - .:/var/www/html

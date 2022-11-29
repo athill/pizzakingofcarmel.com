@@ -1,4 +1,4 @@
-FROM composer:1.10.9
+FROM composer:2.4.2
 
 ARG UID
 ARG GID

@@ -1,31 +1,55 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch --watch-poll",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "axios": "^0.18",
-        "babel-preset-react": "^6.23.0",
-        "bootstrap": "4.2.1",
-        "cross-env": "^5.1",
-        "font-awesome": "^4.7.0",
-        "history": "^4.7.2",
-        "jquery": "^3.2",
-        "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
-        "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
-        "react-router": "^4.2.0",
-        "react-router-dom": "^4.2.2"
-    },
-    "dependencies": {
-        "react-image-lightbox": "^5.1.0"
-    }
+  "name": "ah",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.36",
+    "@fortawesome/free-solid-svg-icons": "5.15.4",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "axios": "^1.2.0",
+    "bootstrap": "5.1.3",
+    "closest": "0.0.1",
+    "dotenv": "16.0.0",
+    "lodash": "4.17.21",
+    "node-cache": "5.1.2",
+    "react": "17.0.2",
+    "react-bootstrap": "2.2.0",
+    "react-dom": "17.0.2",
+    "react-helmet": "6.1.0",
+    "react-image-lightbox": "^5.1.4",
+    "react-router-dom": "6.2.2",
+    "react-scripts": "5.0.0",
+    "sass": "^1.56.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/react": "12.1.3",
+    "@testing-library/user-event": "13.5.0"
+  },
+  "scripts": {
+    "server": "node ./server",
+    "web": "react-scripts start",
+    "start": "npm run server & npm run web",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
