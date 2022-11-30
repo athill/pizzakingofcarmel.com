@@ -21,6 +21,9 @@ class Router {
             echo $contents;
             exit(0);
         });
+        SimpleRouter::get('/api/health', function() {
+            return SimpleRouter::response()->json(['web' => 'up'], 0);
+        });
         // SimpleRouter::get('/export/recipes/{id}', function($id) {
         //     $recipeService = new RecipeService;
         //     $response = $recipeService->export($id);
