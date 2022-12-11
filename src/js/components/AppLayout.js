@@ -1,10 +1,12 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import Navigation from './Navigation';
 
 const MenuToggle = ({ onClick }) => (
-	<i id="menu-toggle" className="fa fa-bars" onClick={onClick}></i>
+	<FontAwesomeIcon id="menu-toggle" icon={faBars} onClick={onClick} />
 );
 
 const Header = ({ onMenuToggleClick }) => (
